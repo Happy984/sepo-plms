@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — the quiz player.
  *
- * Override: copy to your-theme/sepo-lms/parts/quiz.php
  *
  * Correct answers are never sent to the browser here; the server scores
  * the submission.
