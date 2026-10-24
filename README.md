@@ -102,28 +102,5 @@ Their enrolment waits for payment. They can press "Complete payment" on the cour
 
 Only when "Let learners review their answers" is on and they have no attempts left.
 
-== Changelog ==
-
-= 1.2.3 =
-* My courses → Quiz results is grouped by course. Each course opens and closes, shows its final grade and how many quizzes are taken and passed; inside, every quiz in the course is listed with its mark, best score, attempts and date, or "Not taken yet" with a link. Search matches course or quiz titles, filter by passed / not passed / not taken, open or close all, ten courses per page.
-
-= 1.2.2 =
-* My courses: Courses and Quiz results are now tabs, each with its own search, filters (status and progress; course and result) and pages of 10. The open tab is kept in the address (#quizzes), so it survives a reload or a shared link.
-
-= 1.2.1 =
-* Fixed: a blank answer row in a multiple-choice or checkbox question moved the "correct" tick onto the wrong answer, so the right answer was marked wrong.
-* Typed answers are matched sensibly: case, spacing and end punctuation are ignored; numbers accept 1,5 / 1.5 / 1,000; dates accept any common format; web addresses ignore http(s):// and www; phone numbers compare as full international numbers.
-* Characters such as < > & % in questions and answers are kept as typed.
-* Receipts and payment emails wrap properly on phones.
-
-= 1.2.0 =
-* pawaPay moved to the Merchant API v2: hosted checkouts and direct deposits.
-* A payment start that times out is kept and checked, not forgotten; only a definite refusal is discarded.
-* Retrying a payment closes the previous pawaPay or Stripe checkout first; a retry is refused while a phone prompt is still waiting.
-* pawaPay underpayments and currency mismatches are held for review.
-
-= 1.1.0 =
-* WooCommerce checkout as a payment method.
-
 = 1.0.0 =
 * First release.
