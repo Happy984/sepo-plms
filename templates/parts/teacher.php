@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — a teacher.
  *
- * Override: copy to your-theme/sepo-lms/parts/teacher.php
  *
  * @var WP_Post                   $post
  * @var array<string,mixed>       $teacher
