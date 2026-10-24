@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — the signed-in learner's courses ([sepo_lms_my_courses]).
  *
- * Override: copy to your-theme/sepo-lms/parts/my-courses.php
  *
  * @var list<array<string,mixed>> $rows
  * @var array<string,float|int>   $stats
