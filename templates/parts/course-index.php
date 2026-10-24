@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — course index (archive, category and [sepo_lms_courses]).
  *
- * Override: copy to your-theme/sepo-lms/parts/course-index.php
  *
  * @var string                    $title
  * @var string                    $intro
