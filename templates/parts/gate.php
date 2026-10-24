@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — a quiz the viewer cannot take (sign-in, enrolment, no questions).
  *
- * Override: copy to your-theme/sepo-lms/parts/gate.php
  *
  * @var string                                             $title
  * @var string                                             $message
