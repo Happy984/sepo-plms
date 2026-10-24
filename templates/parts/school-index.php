@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — school index (archive and [sepo_lms_schools]).
  *
- * Override: copy to your-theme/sepo-lms/parts/school-index.php
  *
  * @var string                    $title
  * @var string                    $intro
