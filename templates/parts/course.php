@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — single course.
  *
- * Override: copy to your-theme/sepo-lms/parts/course.php
  *
  * @var WP_Post                        $post
  * @var array<string,mixed>            $course
