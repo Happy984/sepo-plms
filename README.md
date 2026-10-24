@@ -85,11 +85,11 @@ Enrolment records hold names, email addresses and, if you ask for them, ID numbe
 
 No. Lessons and quizzes check enrolment and payment on the page, in the REST API and in the quiz submission. Lesson content is not shown in search results, feeds or embeds.
 
-[ ] What happens if a learner closes the checkout? =
+[ ] What happens if a learner closes the checkout? 
 
 Their enrolment waits for payment. They can press "Complete payment" on the course page to try again.
 
-[ ] Can learners see the correct answers? =
+[ ] Can learners see the correct answers? 
 
 Only when "Let learners review their answers" is on and they have no attempts left.
 
