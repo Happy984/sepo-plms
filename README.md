@@ -34,10 +34,6 @@ Prices are always worked out on the server from the course's own settings: disco
 
 Courses live at /courses/, lessons at /lessons/, quizzes at /quizzes/, schools at /schools/ and teachers at /teachers/. Each can be changed in LMS → Settings.
 
-## Theme templates 
-
-Copy any file from the plugin's `templates/` folder into `your-theme/sepo-lms/` (keep the `parts/` folder) to change it.
-
 ### Hooks 
 
 * `sepo_lms_enrolled` (array $enrollment) — a learner enrolled.
