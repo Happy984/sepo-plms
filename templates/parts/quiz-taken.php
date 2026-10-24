@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — a quiz the learner has already taken (no retakes left).
  *
- * Override: copy to your-theme/sepo-lms/parts/quiz-taken.php
  *
  * @var WP_Post                   $post
  * @var array<string,mixed>       $settings
