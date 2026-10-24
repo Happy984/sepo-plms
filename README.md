@@ -97,4 +97,4 @@ Their enrolment waits for payment. They can press "Complete payment" on the cour
 
 Only when "Let learners review their answers" is on and they have no attempts left.
 
-* First release 1.0.0 
+* First release 1.2.3 
