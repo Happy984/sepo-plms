@@ -1,0 +1,87 @@
+/* Sepo LMS — admin. Flat, no shadows. */
+
+.slms-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0 20px; }
+.slms-f { margin: 0 0 12px; }
+.slms-f > label:first-child { display: block; font-weight: 600; margin-bottom: 4px; }
+.slms-f .description { display: block; margin-top: 3px; }
+.slms-f--check label { font-weight: 400; }
+.slms-block { display: block; margin: 4px 0; }
+.slms-scroll { max-height: 220px; overflow: auto; border: 1px solid #dcdcde; padding: 6px 8px; border-radius: 4px; }
+.slms-price-preview { margin: 4px 0 0; padding: 8px 10px; background: #f6f7f7; border-radius: 4px; font-weight: 600; }
+.slms-price-preview:empty { display: none; }
+.slms-empty-box { padding: 14px; border: 1px dashed #c3c4c7; border-radius: 4px; text-align: center; color: #646970; }
+
+.slms-outline-admin { list-style: none; margin: 8px 0; padding: 0; counter-reset: slms; }
+.slms-outline-admin li { display: flex; align-items: center; gap: 8px; padding: 8px 10px; margin: 0 0 4px; background: #fff; border: 1px solid #dcdcde; border-radius: 4px; counter-increment: slms; }
+.slms-outline-admin li::before { content: counter(slms); min-width: 18px; color: #646970; font-weight: 600; }
+.slms-handle, .slms-qb-handle, .slms-qb-ohandle, .slms-col-handle .dashicons { cursor: move; color: #8c8f94; }
+.slms-type { font-size: 11px; font-weight: 600; text-transform: uppercase; padding: 1px 6px; border-radius: 3px; background: #f0f0f1; }
+.slms-type--quiz { background: #fcf0e3; color: #8a4b00; }
+.slms-sort-ph { border: 1px dashed #2271b1; background: #f0f6fc; border-radius: 4px; margin-bottom: 4px; visibility: visible !important; }
+
+.slms-image-prev img { max-width: 240px; max-height: 120px; display: block; margin: 6px 0; border-radius: 4px; object-fit: cover; }
+
+/* tiles */
+.slms-tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin: 16px 0 20px; }
+.slms-tile { display: flex; flex-direction: column; padding: 14px 16px; background: #fff; border: 1px solid #dcdcde; border-radius: 6px; text-decoration: none; color: inherit; }
+a.slms-tile:hover { border-color: #2271b1; }
+.slms-tile strong { font-size: 24px; line-height: 1.2; color: #1d2327; }
+.slms-tile span { color: #646970; }
+.slms-tile.is-wait { border-color: #dba617; background: #fcf9e8; }
+.slms-steps li { margin-bottom: 6px; }
+
+/* status pills */
+.slms-st { display: inline-block; font-size: 12px; font-weight: 600; padding: 1px 8px; border-radius: 999px; background: #f0f0f1; }
+.slms-st--paid { background: #edfaef; color: #00701a; }
+.slms-st--active { background: #f0f6fc; color: #135e96; }
+.slms-st--pending { background: #fcf9e8; color: #8a6100; }
+.slms-st--fail { background: #fcf0f1; color: #b32d2e; }
+.slms-ref { font-size: 11px; }
+.slms-nowrap { white-space: nowrap; }
+.slms-filterbar { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; align-items: center; }
+.slms-answers { max-width: 860px; }
+.slms-answer { background: #fff; border: 1px solid #dcdcde; border-left: 4px solid #dcdcde; border-radius: 4px; padding: 10px 12px; margin-bottom: 8px; }
+.slms-answer.is-correct { border-left-color: #00a32a; }
+.slms-answer.is-wrong { border-left-color: #d63638; }
+
+/* payment methods */
+.slms-methods { margin-top: 8px; }
+.slms-methods td, .slms-methods th { vertical-align: top; }
+.slms-methods input[type=text], .slms-methods select { width: 100%; }
+.slms-methods .slms-w-id { width: 110px; }
+.slms-methods .slms-col-handle { width: 20px; }
+.slms-methods textarea { margin-bottom: 4px; }
+
+/* quiz builder */
+.slms-qb-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.slms-qb-empty { padding: 20px; text-align: center; border: 1px dashed #c3c4c7; border-radius: 6px; color: #646970; }
+.slms-qb-card { background: #fff; border: 1px solid #dcdcde; border-radius: 6px; margin-bottom: 10px; }
+.slms-qb-card:focus-within { border-color: #2271b1; }
+.slms-qb-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-bottom: 1px solid #f0f0f1; background: #f6f7f7; border-radius: 6px 6px 0 0; }
+.slms-qb-card.is-collapsed .slms-qb-head { border-bottom: 0; border-radius: 6px; }
+.slms-qb-card.is-collapsed .slms-qb-body { display: none; }
+.slms-qb-num { white-space: nowrap; }
+.slms-qb-title { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #646970; }
+.slms-qb-warn { font-size: 11px; font-weight: 600; color: #8a6100; background: #fcf9e8; border-radius: 3px; padding: 1px 6px; white-space: nowrap; }
+.slms-qb-tools { display: flex; gap: 2px; }
+.slms-qb-tools .button-link { color: #50575e; padding: 2px; text-decoration: none; }
+.slms-qb-tools .button-link:disabled { opacity: .35; }
+.slms-qb-del:hover { color: #d63638 !important; }
+.slms-qb-body { padding: 12px 14px 14px; }
+.slms-qb-row { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end; margin-bottom: 10px; }
+.slms-qb-type select { display: block; min-width: 260px; margin-top: 3px; }
+.slms-qb-pts input { display: block; width: 80px; margin-top: 3px; }
+.slms-qb-req { padding-bottom: 6px; }
+.slms-qb-q { width: 100%; font-size: 14px; }
+.slms-qb-label { display: block; font-weight: 600; margin: 12px 0 6px; }
+.slms-qb-label input { margin-top: 4px; font-weight: 400; }
+.slms-qb-opts { margin: 0 0 8px; padding: 0; list-style: none; }
+.slms-qb-opt { display: flex; align-items: center; gap: 8px; padding: 4px 6px; margin: 0 0 4px; border: 1px solid #dcdcde; border-radius: 4px; }
+.slms-qb-opt.is-correct { border-color: #00a32a; background: #edfaef; }
+.slms-qb-opt input[type=text] { flex: 1; }
+.slms-qb-correct input { margin: 0; }
+.slms-qb-extra { display: grid; grid-template-columns: 200px 1fr; gap: 14px; margin-top: 12px; align-items: start; }
+.slms-qb-img img { display: block; max-width: 180px; max-height: 110px; border-radius: 4px; margin-bottom: 4px; object-fit: cover; }
+.slms-qb-exp textarea { display: block; width: 100%; margin-top: 3px; }
+.slms-qb-add { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid #f0f0f1; }
+@media (max-width: 782px) { .slms-qb-extra { grid-template-columns: 1fr; } .slms-qb-type select { min-width: 0; } }
