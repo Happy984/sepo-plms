@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — a lesson the viewer cannot open yet.
  *
- * Override: copy to your-theme/sepo-lms/parts/locked.php
  *
  * @var WP_Post                  $post
  * @var array<string,mixed>|null $course
