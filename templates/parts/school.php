@@ -2,7 +2,6 @@
 /**
  * Sepo LMS — a school.
  *
- * Override: copy to your-theme/sepo-lms/parts/school.php
  *
  * @var WP_Post                   $post
  * @var array<string,mixed>       $school
