@@ -2,6 +2,7 @@
 /**
  * Sepo LMS — school index (archive and [sepo_lms_schools]).
  *
+ * Customise: place a copy at your-theme/sepo-lms/parts/school-index.php
  *
  * @var string                    $title
  * @var string                    $intro

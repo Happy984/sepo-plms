@@ -2,6 +2,7 @@
 /**
  * Sepo LMS — inline sign-in prompt (used by [sepo_lms_my_courses]).
  *
+ * Customise: place a copy at your-theme/sepo-lms/parts/gate-inline.php
  *
  * @var string $message
  * @var string $href

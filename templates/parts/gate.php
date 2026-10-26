@@ -2,6 +2,7 @@
 /**
  * Sepo LMS — a quiz the viewer cannot take (sign-in, enrolment, no questions).
  *
+ * Customise: place a copy at your-theme/sepo-lms/parts/gate.php
  *
  * @var string                                             $title
  * @var string                                             $message

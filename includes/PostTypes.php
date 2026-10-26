@@ -8,10 +8,11 @@ use WP_Post;
 use WP_REST_Response;
 
 /**
- * Post types: courses, lessons, quizzes, schools and teachers, plus the
- * course category taxonomy.
+ * Post types: courses, lessons, quizzes, assignments, schools and teachers,
+ * plus the course category taxonomy.
  *
- * Lessons and quizzes belong to a course through the _slms_course meta key.
+ * Lessons, quizzes and assignments belong to a course through the
+ * _slms_course meta key.
  * Their place in the course outline is their menu_order.
  */
 final class PostTypes
@@ -19,6 +20,7 @@ final class PostTypes
     public const COURSE   = 'sepo_course';
     public const LESSON   = 'sepo_lesson';
     public const QUIZ     = 'sepo_quiz';
+    public const ASSIGNMENT = 'sepo_assignment';
     public const SCHOOL   = 'sepo_school';
     public const TEACHER  = 'sepo_teacher';
     public const CATEGORY = 'sepo_course_category';
@@ -28,6 +30,7 @@ final class PostTypes
         add_action('init', [self::class, 'register'], 5);
         add_filter('rest_prepare_' . self::LESSON, [self::class, 'guardRest'], 10, 3);
         add_filter('rest_prepare_' . self::QUIZ, [self::class, 'guardRest'], 10, 3);
+        add_filter('rest_prepare_' . self::ASSIGNMENT, [self::class, 'guardRest'], 10, 3);
         add_action('before_delete_post', [self::class, 'onDelete']);
     }
 
@@ -65,6 +68,17 @@ final class PostTypes
             'show_in_rest'        => true,
             'has_archive'         => false,
             'rewrite'             => ['slug' => Settings::base('quizzes'), 'with_front' => false, 'feeds' => false],
+            'supports'            => ['title', 'editor', 'excerpt', 'page-attributes', 'revisions', 'author'],
+        ]);
+
+        register_post_type(self::ASSIGNMENT, [
+            'labels' => self::labels(__('Assignment', 'sepo-lms'), __('Assignments', 'sepo-lms')),
+            'public'              => true,
+            'exclude_from_search' => true,
+            'show_in_menu'        => $menu,
+            'show_in_rest'        => true,
+            'has_archive'         => false,
+            'rewrite'             => ['slug' => Settings::base('assignments'), 'with_front' => false, 'feeds' => false],
             'supports'            => ['title', 'editor', 'excerpt', 'page-attributes', 'revisions', 'author'],
         ]);
 
@@ -146,7 +160,7 @@ final class PostTypes
     }
 
     /**
-     * The block editor reads lessons and quizzes over REST, so the post types
+     * The block editor reads lessons, quizzes and assignments over REST, so the post types
      * have to be there — but a paid lesson must not be readable through
      * /wp/v2/sepo_lesson by someone who has not paid for it. Anyone who
      * cannot edit the post gets the title and link only.
@@ -169,7 +183,11 @@ final class PostTypes
         return $response;
     }
 
-    /** Course deleted: its enrolments, progress, reviews and quiz results go with it. */
+    /**
+     * Course deleted: its enrolments, progress, reviews, certificates, forum
+     * posts, attendance and chat go with it. A quiz or assignment takes its
+     * results, submissions and proctoring sessions with it.
+     */
     public static function onDelete(int $postId): void
     {
         $type = get_post_type($postId);
@@ -182,6 +200,18 @@ final class PostTypes
             Progress::deleteForItem($postId);
         } elseif ($type === self::LESSON) {
             Progress::deleteForItem($postId);
+        } elseif ($type === self::ASSIGNMENT) {
+            Submissions::deleteForAssignment($postId);
+            Progress::deleteForItem($postId);
+        }
+        if (in_array($type, [self::QUIZ, self::ASSIGNMENT], true)) {
+            Proctor::deleteForItem($postId);
+        }
+        if ($type === self::COURSE) {
+            Certificates::deleteForCourse($postId);
+            Forums::deleteForCourse($postId);
+            Attendance::deleteForCourse($postId);
+            Chat::deleteForCourse($postId);
         }
     }
 

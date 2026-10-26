@@ -8,6 +8,7 @@ use SepoLms\Activator;
 use SepoLms\Payments;
 use SepoLms\Rest;
 use SepoLms\Settings;
+use SepoLms\Storage;
 
 /**
  * LMS → Settings.
@@ -52,7 +53,7 @@ final class SettingsPage
     {
         $before = Settings::all();
         $out = Settings::sanitize(is_array($in) ? $in : []);
-        foreach (['courses', 'lessons', 'quizzes', 'schools', 'teachers'] as $b) {
+        foreach (['courses', 'lessons', 'quizzes', 'assignments', 'schools', 'teachers'] as $b) {
             if (($before[$b . '_base'] ?? '') !== ($out[$b . '_base'] ?? '')) {
                 update_option(Activator::FLUSH_OPTION, 1, false);
                 break;
@@ -95,6 +96,17 @@ final class SettingsPage
                     $text('currency', __('Currency', 'sepo-lms'), __('Three-letter code (ZMW, USD, EUR…). Courses can set their own.', 'sepo-lms'), 'text', 'small-text');
                     $text('per_page', __('Items per page', 'sepo-lms'), __('Courses, schools and teachers per page on the index pages.', 'sepo-lms'), 'number', 'small-text');
                     $text('accent', __('Accent colour', 'sepo-lms'), '', 'color', '');
+                    $text('accent_dark', __('Accent colour in dark mode', 'sepo-lms'), __('Leave empty to use the theme’s button colour, or a lighter version of the accent.', 'sepo-lms'), 'text', 'small-text');
+                    ?>
+                    <tr><th scope="row"><label for="slms-s-mode"><?php esc_html_e('Light or dark', 'sepo-lms'); ?></label></th><td>
+                        <select id="slms-s-mode" name="<?php echo $name('color_mode'); // phpcs:ignore WordPress.Security.EscapeOutput ?>">
+                            <?php foreach (['auto' => __('Follow the theme', 'sepo-lms'), 'light' => __('Always light', 'sepo-lms'), 'dark' => __('Always dark', 'sepo-lms')] as $k => $l): ?>
+                                <option value="<?php echo esc_attr($k); ?>" <?php selected((string)Settings::get('color_mode'), $k); ?>><?php echo esc_html($l); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <p class="description"><?php esc_html_e('“Follow the theme” reads the page’s background, so course pages switch to dark with any theme that has a dark mode, including one that follows the device setting.', 'sepo-lms'); ?></p>
+                    </td></tr>
+                    <?php
                     ?>
                     <tr><th scope="row"><label for="slms-s-mine"><?php esc_html_e('My courses page', 'sepo-lms'); ?></label></th><td>
                         <?php
@@ -117,6 +129,7 @@ final class SettingsPage
                     $text('courses_base', __('Courses', 'sepo-lms'), esc_html($site) . '<strong>' . esc_html($s['courses_base']) . '</strong>/…', 'text', 'regular-text code');
                     $text('lessons_base', __('Lessons', 'sepo-lms'), '', 'text', 'regular-text code');
                     $text('quizzes_base', __('Quizzes', 'sepo-lms'), '', 'text', 'regular-text code');
+                    $text('assignments_base', __('Assignments', 'sepo-lms'), '', 'text', 'regular-text code');
                     $text('schools_base', __('Schools', 'sepo-lms'), '', 'text', 'regular-text code');
                     $text('teachers_base', __('Teachers', 'sepo-lms'), '', 'text', 'regular-text code');
                     ?>
@@ -230,9 +243,57 @@ final class SettingsPage
                     ?>
                 </p>
 
+                <h2 id="classroom"><?php esc_html_e('Classroom', 'sepo-lms'); ?></h2>
+                <p class="description"><?php esc_html_e('Switch classroom features on or off for every course. Each course can also turn forums and its certificate on or off.', 'sepo-lms'); ?></p>
+                <table class="form-table" role="presentation">
+                    <?php
+                    $flag('feature_assignments', __('Assignments', 'sepo-lms'), __('File-upload and quiz assignments with due dates, grading and feedback.', 'sepo-lms'));
+                    $flag('feature_proctoring', __('Proctoring', 'sepo-lms'), __('Lets an assignment or quiz require screen recording and stay in full screen. Learners must agree before it starts.', 'sepo-lms'));
+                    $flag('feature_certificates', __('Certificates', 'sepo-lms'), __('Issue a PDF certificate when a learner completes a course.', 'sepo-lms'));
+                    $flag('feature_forums', __('Forums', 'sepo-lms'));
+                    $flag('feature_study', __('Checklist and notes', 'sepo-lms'), __('The study panel on course and lesson pages, and the Notes tab in My courses.', 'sepo-lms'));
+                    $flag('feature_attendance', __('Attendance', 'sepo-lms'));
+                    $flag('feature_chat', __('Chat', 'sepo-lms'));
+                    $text('upload_max_mb', __('Largest upload', 'sepo-lms'), sprintf(
+                        /* translators: %s: server limit */
+                        __('Megabytes per file for assignment uploads. This server accepts up to %s.', 'sepo-lms'),
+                        size_format(wp_max_upload_size())
+                    ), 'number', 'small-text');
+                    $text('recording_retention', __('Keep recordings for', 'sepo-lms'), __('Days. Proctoring recordings older than this are deleted automatically. 0 keeps them.', 'sepo-lms'), 'number', 'small-text');
+                    $flag('chat_learner_dm', __('Learner-to-learner messages', 'sepo-lms'), __('Off: learners can message course staff only. The course room is always open to everyone in the course.', 'sepo-lms'));
+                    $text('chat_poll', __('Chat refresh', 'sepo-lms'), __('Seconds between checks for new messages while a chat is open.', 'sepo-lms'), 'number', 'small-text');
+                    $text('chat_retention', __('Keep chat for', 'sepo-lms'), __('Days. 0 keeps messages until the course is deleted.', 'sepo-lms'), 'number', 'small-text');
+                    ?>
+                    <tr><th scope="row"><?php esc_html_e('Private files folder', 'sepo-lms'); ?></th><td>
+                        <code><?php echo esc_html(str_replace(ABSPATH, '', Storage::base())); ?></code>
+                        <p class="description"><?php esc_html_e('Uploads and recordings are kept here, closed to direct access on Apache, LiteSpeed and IIS. On nginx, add this rule to the server block:', 'sepo-lms'); ?></p>
+                        <p><code><?php echo esc_html(Storage::nginxRule()); ?></code></p>
+                    </td></tr>
+                </table>
+
+                <h2><?php esc_html_e('Certificates', 'sepo-lms'); ?></h2>
+                <p class="description"><?php esc_html_e('The signatory and logo below fill the matching fields in every certificate design.', 'sepo-lms'); ?>
+                    <a href="<?php echo esc_url(CertificateDesignsPage::url()); ?>"><?php esc_html_e('Design certificates', 'sepo-lms'); ?> →</a></p>
+                <table class="form-table" role="presentation">
+                    <?php
+                    $text('certificate_signatory', __('Signed by', 'sepo-lms'), __('Name printed under the signature line. A course can use its own.', 'sepo-lms'));
+                    $text('certificate_signatory_title', __('Signatory title', 'sepo-lms'), '', 'text', 'regular-text');
+                    ?>
+                    <tr><th scope="row"><?php esc_html_e('Logo', 'sepo-lms'); ?></th><td>
+                        <?php $logo = (int)$s['certificate_logo']; $logoUrl = $logo > 0 ? (string)wp_get_attachment_image_url($logo, 'medium') : ''; ?>
+                        <div class="slms-image" data-slms-image>
+                            <input type="hidden" name="<?php echo $name('certificate_logo'); // phpcs:ignore WordPress.Security.EscapeOutput ?>" value="<?php echo (int)$logo; ?>" data-slms-image-id>
+                            <div class="slms-image-prev" data-slms-image-prev><?php echo $logoUrl !== '' ? '<img src="' . esc_url($logoUrl) . '" alt="">' : ''; ?></div>
+                            <button type="button" class="button" data-slms-image-pick><?php esc_html_e('Choose image', 'sepo-lms'); ?></button>
+                            <button type="button" class="button-link-delete" data-slms-image-clear<?php echo $logoUrl === '' ? ' hidden' : ''; ?>><?php esc_html_e('Remove', 'sepo-lms'); ?></button>
+                        </div>
+                        <p class="description"><?php esc_html_e('JPEG or PNG, shown at the top of every certificate. Defaults to the site icon.', 'sepo-lms'); ?></p>
+                    </td></tr>
+                </table>
+
                 <h2><?php esc_html_e('Data', 'sepo-lms'); ?></h2>
                 <table class="form-table" role="presentation">
-                    <?php $flag('delete_on_uninstall', __('Delete data on uninstall', 'sepo-lms'), __('When the plugin is deleted, also remove enrolments, progress, quiz results, reviews and settings. Courses, lessons and other posts are never deleted.', 'sepo-lms')); ?>
+                    <?php $flag('delete_on_uninstall', __('Delete data on uninstall', 'sepo-lms'), __('When the plugin is deleted, also remove enrolments, progress, quiz results, reviews, submissions and their files, recordings, certificates, forum posts, notes, checklists, attendance, chat and settings. Courses, lessons and other posts are never deleted.', 'sepo-lms')); ?>
                 </table>
 
                 <?php submit_button(); ?>

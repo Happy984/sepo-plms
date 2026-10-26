@@ -50,12 +50,16 @@ final class Menu
     {
         $screen = get_current_screen();
         $ours = str_contains($hook, 'sepo-lms')
-            || ($screen && in_array($screen->post_type, [PostTypes::COURSE, PostTypes::LESSON, PostTypes::QUIZ, PostTypes::SCHOOL, PostTypes::TEACHER], true));
+            || ($screen && in_array($screen->post_type, [PostTypes::COURSE, PostTypes::LESSON, PostTypes::QUIZ, PostTypes::ASSIGNMENT, PostTypes::SCHOOL, PostTypes::TEACHER], true));
         if (!$ours) {
             return;
         }
-        wp_enqueue_style('sepo-lms-admin', SLMS_URL . 'assets/css/admin.css', [], SLMS_VERSION);
-        wp_enqueue_script('sepo-lms-admin', SLMS_URL . 'assets/js/admin.js', ['jquery', 'jquery-ui-sortable'], SLMS_VERSION, true);
+        wp_enqueue_style('sepo-lms-admin', SLMS_URL . 'assets/css/admin.css', [], \SepoLms\Plugin::assetVersion('assets/css/admin.css'));
+        wp_enqueue_script('sepo-lms-admin', SLMS_URL . 'assets/js/admin.js', ['jquery', 'jquery-ui-sortable'], \SepoLms\Plugin::assetVersion('assets/js/admin.js'), true);
+        if (str_contains($hook, 'sepo-lms-submissions')) {
+            \SepoLms\Frontend::registerViewer();
+            wp_enqueue_script('sepo-lms-viewer');
+        }
         wp_localize_script('sepo-lms-admin', 'SepoLmsAdmin', [
             'api'   => esc_url_raw(rest_url('sepo-lms/v1')),
             'nonce' => wp_create_nonce('wp_rest'),
@@ -66,9 +70,13 @@ final class Menu
                 'failed'        => __('That didn’t work. Try again.', 'sepo-lms'),
                 'choose'        => __('Choose image', 'sepo-lms'),
                 'use'           => __('Use this image', 'sepo-lms'),
+                'saving'        => __('Saving…', 'sepo-lms'),
+                /* translators: %s: score */
+                'graded'        => __('Graded %s%%. The learner has been notified.', 'sepo-lms'),
+                'returned'      => __('Returned for rework. The learner has been notified.', 'sepo-lms'),
             ],
         ]);
-        if ($screen && in_array($screen->base, ['post'], true)) {
+        if ($screen && (in_array($screen->base, ['post'], true) || str_contains($hook, 'sepo-lms-settings'))) {
             wp_enqueue_media();
         }
     }
@@ -80,6 +88,7 @@ final class Menu
             PostTypes::COURSE  => __('Courses', 'sepo-lms'),
             PostTypes::LESSON  => __('Lessons', 'sepo-lms'),
             PostTypes::QUIZ    => __('Quizzes', 'sepo-lms'),
+            PostTypes::ASSIGNMENT => __('Assignments', 'sepo-lms'),
             PostTypes::SCHOOL  => __('Schools', 'sepo-lms'),
             PostTypes::TEACHER => __('Teachers', 'sepo-lms'),
         ];

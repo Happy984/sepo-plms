@@ -2,6 +2,7 @@
 /**
  * Sepo LMS — the quiz player.
  *
+ * Customise: place a copy at your-theme/sepo-lms/parts/quiz.php
  *
  * Correct answers are never sent to the browser here; the server scores
  * the submission.
@@ -15,6 +16,9 @@
  * @var string                         $courseUrl
  * @var bool                           $askEmail
  * @var string                         $intro
+ * @var bool                           $embedded   inside a quiz-type assignment
+ * @var int                            $assignment the assignment's ID when embedded
+ * @var array<string,mixed>|null       $proctor    proctoring rules when proctored
  */
 
 use SepoLms\Helpers;
@@ -26,21 +30,30 @@ if (!defined('ABSPATH')) {
 }
 
 $s = $settings;
+$embedded = !empty($embedded);
+$assignment = (int)($assignment ?? 0);
+$proctor = $proctor ?? null;
 $totalPages = max(1, count($pages));
 $n = 0;
 $inputTypes = ['text' => 'text', 'numeric' => 'number', 'date' => 'date', 'email' => 'email', 'phone' => 'tel', 'url' => 'url'];
 ?>
-<div class="slms-wrap slms-quiz" data-slms-quiz="<?php echo (int)$post->ID; ?>"
+<div class="<?php echo $embedded ? 'slms-quiz slms-quiz--embedded' : 'slms-wrap slms-quiz'; ?>" data-slms-quiz="<?php echo (int)$post->ID; ?>"
      data-pages="<?php echo (int)$totalPages; ?>"
      data-remaining="<?php echo (int)$remaining; ?>"
-     data-course-url="<?php echo esc_url($courseUrl); ?>">
+     data-course-url="<?php echo esc_url($courseUrl); ?>"
+     <?php if ($assignment > 0): ?>data-assignment="<?php echo (int)$assignment; ?>"<?php endif; ?>
+     <?php if ($proctor !== null): ?>data-proctor="<?php echo esc_attr((string)wp_json_encode($proctor)); ?>"<?php endif; ?>>
 
-    <?php if ($courseUrl !== '' && $s['course_id'] > 0): ?>
+    <?php if (!$embedded && $courseUrl !== '' && $s['course_id'] > 0): ?>
         <a class="slms-crumb" href="<?php echo esc_url($courseUrl); ?>"><?php echo Icons::get('book', 16); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php echo esc_html(get_the_title($s['course_id'])); ?></a>
     <?php endif; ?>
 
     <header class="slms-quiz-head">
-        <h1 class="slms-h1"><?php echo esc_html($s['title']); ?></h1>
+        <?php if ($embedded): ?>
+            <h2 class="slms-h2"><?php echo esc_html($s['title']); ?></h2>
+        <?php else: ?>
+            <h1 class="slms-h1"><?php echo esc_html($s['title']); ?></h1>
+        <?php endif; ?>
         <?php if (trim(wp_strip_all_tags($intro)) !== ''): ?>
             <div class="slms-content"><?php echo $intro; // phpcs:ignore WordPress.Security.EscapeOutput -- the_content ?></div>
         <?php endif; ?>

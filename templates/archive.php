@@ -2,7 +2,7 @@
 /**
  * Sepo LMS — course, school and teacher indexes, and course categories.
  *
- * Override: copy to your-theme/sepo-lms/archive.php
+ * Customise: place a copy at your-theme/sepo-lms/archive.php
  */
 
 use SepoLms\Frontend;

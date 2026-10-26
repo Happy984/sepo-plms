@@ -1,15 +1,15 @@
 <?php
+
 /**
  * Plugin Name:       Sepo LMS
- * Plugin URI:        https://sepodesk.com/
  * Description:       Courses, lessons, quizzes, schools and teachers. Enrolment with free, manual, link, Stripe, PayPal, pawaPay mobile-money and WooCommerce payments, lesson progress, graded quizzes, reviews, receipts and an enrolments admin.
- * Version:           1.2.3
+ * Version:           1.4.1
  * Requires at least: 6.0
  * Requires PHP:      8.1
  * Author:            Euneolink Solutions
  * Author URI:        https://sepodesk.com
+ * Plugin URI:        https://edu.sepodesk.com
  * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       sepo-lms
  * Domain Path:       /languages
  */
@@ -29,7 +29,7 @@ if (version_compare(PHP_VERSION, '8.1', '<')) {
     return;
 }
 
-define('SLMS_VERSION', '1.2.3');
+define('SLMS_VERSION', '1.4.1');
 define('SLMS_FILE', __FILE__);
 define('SLMS_DIR', plugin_dir_path(__FILE__));
 define('SLMS_URL', plugin_dir_url(__FILE__));

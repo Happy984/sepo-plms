@@ -2,11 +2,15 @@
 /**
  * Sepo LMS — the signed-in learner's courses ([sepo_lms_my_courses]).
  *
+ * Customise: place a copy at your-theme/sepo-lms/parts/my-courses.php
  *
  * @var list<array<string,mixed>> $rows
  * @var array<string,float|int>   $stats
- * @var list<array<string,mixed>> $groups  quizzes grouped by course, each with the course's final grade
- * @var int                       $taken   quiz results the learner has
+ * @var list<array<string,mixed>> $groups  quizzes and assignments grouped by course, each with the course's final grade
+ * @var int                       $taken   quizzes taken and assignments handed in
+ * @var list<array<string,mixed>>|null $certificates per course: certificate status (null when certificates are off)
+ * @var bool                      $notes   show the notes workspace
+ * @var list<array{id:int,title:string}> $noteCourses courses the learner can file notes under
  */
 
 use SepoLms\Helpers;
@@ -40,8 +44,18 @@ $statusCounts = array_count_values(array_map(static fn($r) => (string)$r['e']['s
             <?php esc_html_e('Courses', 'sepo-lms'); ?> <span class="slms-count"><?php echo (int)$courseCount; ?></span>
         </button>
         <button type="button" class="slms-tab" role="tab" id="slms-mine-tab-quizzes" aria-controls="slms-mine-quizzes" aria-selected="false" tabindex="-1" data-slms-mine-tab="quizzes">
-            <?php esc_html_e('Quiz results', 'sepo-lms'); ?> <span class="slms-count"><?php echo (int)$taken; ?></span>
+            <?php esc_html_e('Grades', 'sepo-lms'); ?> <span class="slms-count"><?php echo (int)$taken; ?></span>
         </button>
+        <?php if ($certificates !== null && $certificates !== []): ?>
+            <button type="button" class="slms-tab" role="tab" id="slms-mine-tab-certificates" aria-controls="slms-mine-certificates" aria-selected="false" tabindex="-1" data-slms-mine-tab="certificates">
+                <?php esc_html_e('Certificates', 'sepo-lms'); ?> <span class="slms-count"><?php echo (int)count(array_filter($certificates, static fn($c) => $c['certificate'] !== null && !$c['certificate']['revoked'])); ?></span>
+            </button>
+        <?php endif; ?>
+        <?php if (!empty($notes)): ?>
+            <button type="button" class="slms-tab" role="tab" id="slms-mine-tab-notes" aria-controls="slms-mine-notes" aria-selected="false" tabindex="-1" data-slms-mine-tab="notes">
+                <?php esc_html_e('Notes', 'sepo-lms'); ?>
+            </button>
+        <?php endif; ?>
     </div>
 
     <section class="slms-panel is-on" id="slms-mine-courses" role="tabpanel" aria-labelledby="slms-mine-tab-courses" data-slms-mine-panel="courses">
@@ -120,10 +134,11 @@ $statusCounts = array_count_values(array_map(static fn($r) => (string)$r['e']['s
                                             <div class="slms-small slms-muted">
                                                 <?php
                                                 echo esc_html(sprintf(
-                                                    /* translators: %d: number of quizzes */
-                                                    _n('%d quiz', '%d quizzes', $r['quizzes'], 'sepo-lms'),
+                                                        /* translators: %d: number of graded quizzes and assignments */
+                                                    _n('%d graded item', '%d graded items', $r['quizzes'], 'sepo-lms'),
                                                     $r['quizzes']
-                                                ) . ($r['weighted'] ? ' · ' . __('weighted', 'sepo-lms') : ''));
+                                                ) . ($r['weighted'] ? ' · ' . __('weighted', 'sepo-lms') : '')
+                                                  . (!empty($r['pending']) ? ' · ' . sprintf(/* translators: %d: assignments waiting */ _n('%d awaiting grade', '%d awaiting grade', $r['pending'], 'sepo-lms'), $r['pending']) : ''));
                                                 ?>
                                             </div>
                                         <?php else: ?>
@@ -153,28 +168,28 @@ $statusCounts = array_count_values(array_map(static fn($r) => (string)$r['e']['s
 
     <section class="slms-panel" id="slms-mine-quizzes" role="tabpanel" aria-labelledby="slms-mine-tab-quizzes" data-slms-mine-panel="quizzes" hidden>
         <?php if ($groups === []): ?>
-            <p class="slms-note"><?php esc_html_e('You have not taken any quizzes yet.', 'sepo-lms'); ?></p>
+            <p class="slms-note"><?php esc_html_e('Nothing graded yet. Your quiz and assignment results will appear here.', 'sepo-lms'); ?></p>
         <?php else: ?>
             <div data-slms-groups data-per-page="10">
                 <div class="slms-toolbar">
                     <label class="slms-search">
                         <?php echo Icons::get('search', 16); // phpcs:ignore WordPress.Security.EscapeOutput ?>
-                        <span class="screen-reader-text"><?php esc_html_e('Search courses and quizzes', 'sepo-lms'); ?></span>
-                        <input type="search" data-slms-gq placeholder="<?php esc_attr_e('Search courses or quizzes…', 'sepo-lms'); ?>">
+                        <span class="screen-reader-text"><?php esc_html_e('Search courses, quizzes and assignments', 'sepo-lms'); ?></span>
+                        <input type="search" data-slms-gq placeholder="<?php esc_attr_e('Search courses, quizzes or assignments…', 'sepo-lms'); ?>">
                     </label>
                     <label class="slms-select">
                         <span class="screen-reader-text"><?php esc_html_e('Result', 'sepo-lms'); ?></span>
                         <select data-slms-gresult>
-                            <option value=""><?php esc_html_e('All quizzes', 'sepo-lms'); ?></option>
+                            <option value=""><?php esc_html_e('Everything', 'sepo-lms'); ?></option>
                             <option value="pass"><?php esc_html_e('Passed', 'sepo-lms'); ?></option>
                             <option value="fail"><?php esc_html_e('Not passed', 'sepo-lms'); ?></option>
-                            <option value="none"><?php esc_html_e('Not taken yet', 'sepo-lms'); ?></option>
+                            <option value="waiting"><?php esc_html_e('Awaiting grade', 'sepo-lms'); ?></option>
+                            <option value="none"><?php esc_html_e('Not done yet', 'sepo-lms'); ?></option>
                         </select>
                     </label>
                     <div class="slms-group-tools">
-                        <button type="button" class="slms-link-btn" data-slms-gall="open"><?php esc_html_e('Open all', 'sepo-lms'); ?></button>
-                        <span aria-hidden="true">·</span>
-                        <button type="button" class="slms-link-btn" data-slms-gall="close"><?php esc_html_e('Close all', 'sepo-lms'); ?></button>
+                        <button type="button" class="slms-btn slms-btn--primary slms-btn--sm" data-slms-gall="open"><?php esc_html_e('Open all', 'sepo-lms'); ?></button>
+                        <button type="button" class="slms-btn slms-btn--outline slms-btn--sm" data-slms-gall="close"><?php esc_html_e('Close all', 'sepo-lms'); ?></button>
                     </div>
                 </div>
 
@@ -183,8 +198,16 @@ $statusCounts = array_count_values(array_map(static fn($r) => (string)$r['e']['s
                         <?php
                         $gr = $g['grade'];
                         $total = count($g['items']);
-                        $takenHere = count(array_filter($g['items'], static fn($i) => $i['result'] !== null));
-                        $passedHere = count(array_filter($g['items'], static fn($i) => $i['result'] !== null && $i['result']['passed']));
+                        $done = static fn($i): bool => $i['result'] !== null || ($i['submission'] ?? null) !== null;
+                        $passedItem = static function ($i): bool {
+                            if ($i['result'] !== null) {
+                                return (bool)$i['result']['passed'];
+                            }
+                            $sub = $i['submission'] ?? null;
+                            return $sub !== null && $sub['status'] === 'graded' && $sub['score'] !== null && $sub['score'] >= (float)($i['pass_mark'] ?? 50);
+                        };
+                        $takenHere = count(array_filter($g['items'], $done));
+                        $passedHere = count(array_filter($g['items'], $passedItem));
                         $bodyId = 'slms-g-' . (int)$gi;
                         ?>
                         <section class="slms-group" data-slms-group data-search="<?php echo esc_attr(strtolower($g['title'])); ?>">
@@ -196,13 +219,13 @@ $statusCounts = array_count_values(array_map(static fn($r) => (string)$r['e']['s
                                         <span class="slms-small slms-muted">
                                             <?php
                                             $bits = [sprintf(
-                                                /* translators: 1: quizzes taken, 2: quizzes in the course */
-                                                __('%1$d of %2$d taken', 'sepo-lms'),
+                                                /* translators: 1: items done, 2: quizzes and assignments in the course */
+                                                __('%1$d of %2$d done', 'sepo-lms'),
                                                 $takenHere,
                                                 $total
                                             )];
                                             if ($takenHere > 0) {
-                                                /* translators: %d: quizzes passed */
+                                                /* translators: %d: items passed */
                                                 $bits[] = sprintf(_n('%d passed', '%d passed', $passedHere, 'sepo-lms'), $passedHere);
                                             }
                                             if ($gr['weighted']) {
@@ -226,7 +249,7 @@ $statusCounts = array_count_values(array_map(static fn($r) => (string)$r['e']['s
                                 <table class="slms-table slms-table--inner">
                                     <thead>
                                         <tr>
-                                            <th scope="col"><?php esc_html_e('Quiz', 'sepo-lms'); ?></th>
+                                            <th scope="col"><?php esc_html_e('Item', 'sepo-lms'); ?></th>
                                             <th scope="col"><?php esc_html_e('Mark', 'sepo-lms'); ?></th>
                                             <th scope="col"><?php esc_html_e('Best', 'sepo-lms'); ?></th>
                                             <th scope="col"><?php esc_html_e('Attempts', 'sepo-lms'); ?></th>
@@ -235,8 +258,43 @@ $statusCounts = array_count_values(array_map(static fn($r) => (string)$r['e']['s
                                     </thead>
                                     <tbody>
                                         <?php foreach ($g['items'] as $q): $res = $q['result']; ?>
+                                            <?php if (($q['kind'] ?? 'quiz') === 'assignment'): ?>
+                                                <?php
+                                                $sub = $q['submission'];
+                                                $state = $sub === null ? 'none' : ($sub['status'] === 'graded' ? ($passedItem($q) ? 'pass' : 'fail') : 'waiting');
+                                                ?>
+                                                <tr data-slms-gitem data-search="<?php echo esc_attr(strtolower($q['title'])); ?>" data-result="<?php echo esc_attr($state); ?>">
+                                                    <td data-label="<?php esc_attr_e('Item', 'sepo-lms'); ?>">
+                                                        <?php if ($q['accessible']): ?><a href="<?php echo esc_url($q['url']); ?>"><?php echo esc_html($q['title']); ?></a><?php else: ?><span class="slms-muted"><?php echo esc_html($q['title']); ?></span><?php endif; ?>
+                                                        <span class="slms-badge slms-badge--task"><?php esc_html_e('Assignment', 'sepo-lms'); ?></span>
+                                                        <?php if ($q['due'] !== ''): ?><div class="slms-small slms-muted<?php echo $q['overdue'] ? ' slms-bad' : ''; ?>"><?php echo esc_html(sprintf(/* translators: %s: date */ __('Due %s', 'sepo-lms'), $q['due'])); ?></div><?php endif; ?>
+                                                    </td>
+                                                    <?php if ($sub !== null): ?>
+                                                        <td data-label="<?php esc_attr_e('Mark', 'sepo-lms'); ?>">
+                                                            <?php if ($sub['status'] === 'graded' && $sub['score'] !== null): ?>
+                                                                <span class="slms-score <?php echo $state === 'pass' ? 'is-pass' : 'is-fail'; ?>"><?php echo esc_html(Helpers::percent((float)$sub['score'])); ?>%</span>
+                                                            <?php else: ?>
+                                                                <span class="slms-muted"><?php echo esc_html(\SepoLms\Submissions::statusLabel((string)$sub['status'])); ?></span>
+                                                            <?php endif; ?>
+                                                        </td>
+                                                        <td data-label="<?php esc_attr_e('Best', 'sepo-lms'); ?>"><?php echo $sub['late'] ? '<span class="slms-bad slms-small">' . esc_html__('Late', 'sepo-lms') . '</span>' : '—'; ?></td>
+                                                        <td data-label="<?php esc_attr_e('Attempts', 'sepo-lms'); ?>"><?php echo (int)$sub['attempt']; ?></td>
+                                                        <td data-label="<?php esc_attr_e('Submitted', 'sepo-lms'); ?>"><?php echo esc_html(Helpers::datetime((string)$sub['submitted_at'])); ?></td>
+                                                    <?php else: ?>
+                                                        <td data-label="<?php esc_attr_e('Mark', 'sepo-lms'); ?>" colspan="4">
+                                                            <?php if ($q['accessible']): ?>
+                                                                <span class="slms-muted"><?php esc_html_e('Not handed in', 'sepo-lms'); ?></span>
+                                                                <a class="slms-btn slms-btn--sm" href="<?php echo esc_url($q['url']); ?>"><?php esc_html_e('Open', 'sepo-lms'); ?></a>
+                                                            <?php else: ?>
+                                                                <span class="slms-muted"><?php echo Icons::get('lock', 14); // phpcs:ignore WordPress.Security.EscapeOutput ?> <?php echo esc_html($q['reason'] !== '' ? $q['reason'] : __('Locked', 'sepo-lms')); ?></span>
+                                                            <?php endif; ?>
+                                                        </td>
+                                                    <?php endif; ?>
+                                                </tr>
+                                                <?php continue; ?>
+                                            <?php endif; ?>
                                             <tr data-slms-gitem data-search="<?php echo esc_attr(strtolower($q['title'])); ?>" data-result="<?php echo $res === null ? 'none' : ($res['passed'] ? 'pass' : 'fail'); ?>">
-                                                <td data-label="<?php esc_attr_e('Quiz', 'sepo-lms'); ?>">
+                                                <td data-label="<?php esc_attr_e('Item', 'sepo-lms'); ?>">
                                                     <?php if ($res !== null || $q['accessible']): ?>
                                                         <a href="<?php echo esc_url($q['url']); ?>"><?php echo esc_html($q['title']); ?></a>
                                                     <?php else: ?>
@@ -285,4 +343,39 @@ $statusCounts = array_count_values(array_map(static fn($r) => (string)$r['e']['s
             </div>
         <?php endif; ?>
     </section>
+
+    <?php if ($certificates !== null && $certificates !== []): ?>
+        <section class="slms-panel" id="slms-mine-certificates" role="tabpanel" aria-labelledby="slms-mine-tab-certificates" data-slms-mine-panel="certificates" hidden>
+            <div class="slms-cert-grid">
+                <?php foreach ($certificates as $cs): ?>
+                    <?php $has = $cs['certificate'] !== null && !$cs['certificate']['revoked']; ?>
+                    <article class="slms-cert-card<?php echo $has ? ' is-earned' : ''; ?>" data-slms-cert data-course="<?php echo (int)$cs['course']; ?>">
+                        <h3 class="slms-h3"><?php echo esc_html($cs['title']); ?></h3>
+                        <?php if ($has): ?>
+                            <p class="slms-small slms-muted"><?php echo esc_html(sprintf(/* translators: 1: date, 2: code */ __('Issued %1$s · %2$s', 'sepo-lms'), Helpers::datetime((string)$cs['certificate']['raw_issued']), $cs['certificate']['code'])); ?></p>
+                            <div class="slms-row slms-row--start">
+                                <a class="slms-btn slms-btn--primary slms-btn--sm" href="<?php echo esc_url(\SepoLms\Certificates::pdfUrl($cs['certificate']['code'])); ?>" target="_blank" rel="noopener"><?php esc_html_e('Download PDF', 'sepo-lms'); ?></a>
+                                <a class="slms-btn slms-btn--sm" href="<?php echo esc_url(\SepoLms\Certificates::verifyUrl($cs['certificate']['code'])); ?>" target="_blank" rel="noopener"><?php esc_html_e('Verification link', 'sepo-lms'); ?></a>
+                            </div>
+                        <?php elseif ($cs['eligible']): ?>
+                            <p class="slms-small"><?php esc_html_e('You have met the requirements.', 'sepo-lms'); ?></p>
+                            <button type="button" class="slms-btn slms-btn--primary slms-btn--sm" data-slms-cert-claim><?php esc_html_e('Get my certificate', 'sepo-lms'); ?></button>
+                        <?php else: ?>
+                            <div class="slms-bar slms-bar--sm"><span style="width:<?php echo $cs['total'] > 0 ? (int)round($cs['done'] / $cs['total'] * 100) : 0; ?>%"></span></div>
+                            <ul class="slms-cert-todo slms-small">
+                                <?php foreach ($cs['reasons'] as $reason): ?><li><?php echo esc_html($reason); ?></li><?php endforeach; ?>
+                            </ul>
+                            <a class="slms-small" href="<?php echo esc_url($cs['url']); ?>"><?php esc_html_e('Go to the course', 'sepo-lms'); ?> →</a>
+                        <?php endif; ?>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        </section>
+    <?php endif; ?>
+
+    <?php if (!empty($notes)): ?>
+        <section class="slms-panel" id="slms-mine-notes" role="tabpanel" aria-labelledby="slms-mine-tab-notes" data-slms-mine-panel="notes" hidden>
+            <div class="slms-notes-app" data-slms-notes-app data-courses="<?php echo esc_attr((string)wp_json_encode($noteCourses)); ?>"></div>
+        </section>
+    <?php endif; ?>
 </div>

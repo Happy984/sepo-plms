@@ -2,6 +2,7 @@
 /**
  * Sepo LMS — a lesson.
  *
+ * Customise: place a copy at your-theme/sepo-lms/parts/lesson.php
  *
  * @var WP_Post                  $post
  * @var array<string,mixed>|null $course
@@ -10,6 +11,7 @@
  * @var array<string,mixed>|null $next
  * @var bool                     $done
  * @var bool                     $canTrack
+ * @var array{course:int,item:int}|null $study
  */
 
 use SepoLms\Icons;
@@ -52,4 +54,8 @@ $navLink = static function (?array $item, string $dir): string {
         <?php echo $navLink($prev, 'prev'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
         <?php echo $navLink($next, 'next'); // phpcs:ignore WordPress.Security.EscapeOutput ?>
     </nav>
+
+    <?php if (!empty($study)): ?>
+        <?php echo \SepoLms\Frontend::part('study-drawer', $study); // phpcs:ignore WordPress.Security.EscapeOutput ?>
+    <?php endif; ?>
 </article>

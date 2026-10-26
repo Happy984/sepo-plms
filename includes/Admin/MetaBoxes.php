@@ -36,7 +36,7 @@ final class MetaBoxes
         add_meta_box('slms-related', __('Related courses', 'sepo-lms'), [self::class, 'relatedBox'], PostTypes::COURSE, 'side', 'low');
         add_meta_box('slms-enrolments', __('Enrolments', 'sepo-lms'), [self::class, 'enrolmentsBox'], PostTypes::COURSE, 'side', 'high');
 
-        add_meta_box('slms-course', __('Course', 'sepo-lms'), [self::class, 'courseBox'], [PostTypes::LESSON, PostTypes::QUIZ], 'side', 'high');
+        add_meta_box('slms-course', __('Course', 'sepo-lms'), [self::class, 'courseBox'], [PostTypes::LESSON, PostTypes::QUIZ, PostTypes::ASSIGNMENT], 'side', 'high');
         add_meta_box('slms-school', __('School details', 'sepo-lms'), [self::class, 'schoolBox'], PostTypes::SCHOOL, 'normal', 'high');
         add_meta_box('slms-teacher', __('Teacher details', 'sepo-lms'), [self::class, 'teacherBox'], PostTypes::TEACHER, 'normal', 'high');
     }
@@ -222,7 +222,7 @@ final class MetaBoxes
         $items = Course::items($post->ID, true);
         $new = static fn(string $type): string => admin_url('post-new.php?post_type=' . $type . '&slms_course=' . $post->ID);
         ?>
-        <p class="description"><?php esc_html_e('Lessons and quizzes that belong to this course. Drag to reorder; the order is saved with the course.', 'sepo-lms'); ?></p>
+        <p class="description"><?php esc_html_e('Lessons, quizzes and assignments that belong to this course. Drag to reorder; the order is saved with the course.', 'sepo-lms'); ?></p>
         <?php if ($items === []): ?>
             <p class="slms-empty-box"><?php esc_html_e('Nothing in this course yet.', 'sepo-lms'); ?></p>
         <?php else: ?>
@@ -231,7 +231,11 @@ final class MetaBoxes
                     <li>
                         <span class="dashicons dashicons-menu slms-handle" aria-hidden="true"></span>
                         <input type="hidden" name="slms_outline[]" value="<?php echo (int)$it->ID; ?>">
-                        <span class="slms-type slms-type--<?php echo $it->post_type === PostTypes::QUIZ ? 'quiz' : 'lesson'; ?>"><?php echo $it->post_type === PostTypes::QUIZ ? esc_html__('Quiz', 'sepo-lms') : esc_html__('Lesson', 'sepo-lms'); ?></span>
+                        <?php
+                        $typeKey = $it->post_type === PostTypes::QUIZ ? 'quiz' : ($it->post_type === PostTypes::ASSIGNMENT ? 'assignment' : 'lesson');
+                        $typeLabel = ['quiz' => __('Quiz', 'sepo-lms'), 'assignment' => __('Assignment', 'sepo-lms'), 'lesson' => __('Lesson', 'sepo-lms')][$typeKey];
+                        ?>
+                        <span class="slms-type slms-type--<?php echo esc_attr($typeKey); ?>"><?php echo esc_html($typeLabel); ?></span>
                         <a href="<?php echo esc_url((string)get_edit_post_link($it->ID)); ?>"><?php echo esc_html(get_the_title($it) ?: __('(no title)', 'sepo-lms')); ?></a>
                         <?php if ($it->post_status !== 'publish'): ?><em class="description">— <?php echo esc_html(get_post_status_object($it->post_status)->label ?? $it->post_status); ?></em><?php endif; ?>
                         <?php $from = (string)get_post_meta($it->ID, '_slms_available_from', true); ?>
@@ -242,10 +246,13 @@ final class MetaBoxes
         <?php endif; ?>
         <p>
             <?php if ($post->post_status === 'auto-draft'): ?>
-                <span class="description"><?php esc_html_e('Save the course once, then add lessons and quizzes.', 'sepo-lms'); ?></span>
+                <span class="description"><?php esc_html_e('Save the course once, then add lessons, quizzes and assignments.', 'sepo-lms'); ?></span>
             <?php else: ?>
                 <a class="button" href="<?php echo esc_url($new(PostTypes::LESSON)); ?>"><?php esc_html_e('Add lesson', 'sepo-lms'); ?></a>
                 <a class="button" href="<?php echo esc_url($new(PostTypes::QUIZ)); ?>"><?php esc_html_e('Add quiz', 'sepo-lms'); ?></a>
+                <?php if (\SepoLms\Settings::feature('assignments')): ?>
+                    <a class="button" href="<?php echo esc_url($new(PostTypes::ASSIGNMENT)); ?>"><?php esc_html_e('Add assignment', 'sepo-lms'); ?></a>
+                <?php endif; ?>
             <?php endif; ?>
         </p>
         <?php
@@ -319,6 +326,18 @@ final class MetaBoxes
         echo '</div><div>';
         self::text($post, 'phone', __('Phone', 'sepo-lms'), 'tel');
         self::text($post, 'website', __('Website', 'sepo-lms'), 'url');
+        $linked = (int)self::m($post, 'user');
+        echo '<p class="slms-f"><label for="slms_user">' . esc_html__('WordPress account', 'sepo-lms') . '</label>';
+        wp_dropdown_users([
+            'name'              => 'slms[user]',
+            'id'                => 'slms_user',
+            'selected'          => $linked,
+            'show_option_none'  => __('— None —', 'sepo-lms'),
+            'option_none_value' => '0',
+            'class'             => 'widefat',
+            'capability'        => ['edit_posts'],
+        ]);
+        echo '<span class="description">' . esc_html__('This person can grade assignments, take attendance, moderate forums and chat, and post announcements in this teacher’s courses. Needs a role that can edit posts (Author or above).', 'sepo-lms') . '</span></p>';
         echo '</div></div>';
         self::area($post, 'subjects', __('Subjects', 'sepo-lms'), __('One per line.', 'sepo-lms'), 3);
         self::area($post, 'socials', __('Social links', 'sepo-lms'), __('One per line: Label | https://…', 'sepo-lms'), 3);
@@ -345,18 +364,22 @@ final class MetaBoxes
             ],
             PostTypes::LESSON  => ['course' => 'post', 'available_from' => 'date'],
             PostTypes::QUIZ    => ['course' => 'post', 'available_from' => 'date'],
+            PostTypes::ASSIGNMENT => ['course' => 'post', 'available_from' => 'date'],
             PostTypes::SCHOOL  => [
                 'location' => 'text', 'phone' => 'text', 'email' => 'email', 'website' => 'url', 'registration_number' => 'text',
                 'tax_label' => 'text', 'tax_number' => 'text', 'tax_country' => 'text', 'accreditations' => 'textarea', 'cover' => 'image',
             ],
             PostTypes::TEACHER => [
                 'role' => 'text', 'school' => 'post', 'email' => 'email', 'phone' => 'text', 'website' => 'url',
-                'subjects' => 'textarea', 'socials' => 'textarea', 'cover' => 'image',
+                'subjects' => 'textarea', 'socials' => 'textarea', 'cover' => 'image', 'user' => 'user',
             ],
             default => [],
         };
 
         $postTypeFor = ['teacher' => PostTypes::TEACHER, 'school' => PostTypes::SCHOOL, 'course' => PostTypes::COURSE];
+        if (!current_user_can('edit_users')) {
+            unset($fields['user']);   // only user managers may grant course staff rights
+        }
 
         foreach ($fields as $key => $kind) {
             if (!array_key_exists($key, $in)) {
@@ -373,6 +396,7 @@ final class MetaBoxes
                 'email'    => sanitize_email($raw),
                 'url'      => esc_url_raw($raw, ['http', 'https']),
                 'image'    => (string)(absint($raw) > 0 && wp_attachment_is_image(absint($raw)) ? absint($raw) : ''),
+                'user'     => (string)(absint($raw) > 0 && get_userdata(absint($raw)) !== false ? absint($raw) : ''),
                 'post'     => (string)(absint($raw) > 0 && get_post_type(absint($raw)) === ($postTypeFor[$key] ?? '') ? absint($raw) : ''),
                 default    => sanitize_text_field($raw),
             };

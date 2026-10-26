@@ -2,6 +2,7 @@
 /**
  * Sepo LMS — single course.
  *
+ * Customise: place a copy at your-theme/sepo-lms/parts/course.php
  *
  * @var WP_Post                        $post
  * @var array<string,mixed>            $course
@@ -23,6 +24,8 @@
  * @var array<string,bool>             $fields
  * @var array<string,string>           $prefill
  * @var string                         $payment
+ * @var array<string,mixed>            $classroom forums, chat, attendance and certificate state for this viewer
+ * @var array{course:int,item:int}|null $study
  */
 
 use SepoLms\Helpers;
@@ -123,6 +126,18 @@ $banners = [
                 <?php if ($teacher instanceof WP_Post || $teacherBio !== ''): ?>
                     <button type="button" class="slms-tab" role="tab" aria-selected="false" data-slms-tab="teacher"><?php esc_html_e('Teacher', 'sepo-lms'); ?></button>
                 <?php endif; ?>
+                <?php if ($classroom['forums'] !== []): ?>
+                    <button type="button" class="slms-tab" role="tab" aria-selected="false" data-slms-tab="forums"><?php esc_html_e('Forums', 'sepo-lms'); ?></button>
+                <?php endif; ?>
+                <?php if ($classroom['chat']): ?>
+                    <button type="button" class="slms-tab" role="tab" aria-selected="false" data-slms-tab="chat">
+                        <?php esc_html_e('Chat', 'sepo-lms'); ?>
+                        <span class="slms-count slms-count--alert" data-slms-chat-badge<?php echo $classroom['unread'] > 0 ? '' : ' hidden'; ?>><?php echo (int)$classroom['unread']; ?></span>
+                    </button>
+                <?php endif; ?>
+                <?php if ($classroom['attendance']): ?>
+                    <button type="button" class="slms-tab" role="tab" aria-selected="false" data-slms-tab="attendance"><?php esc_html_e('Attendance', 'sepo-lms'); ?></button>
+                <?php endif; ?>
                 <button type="button" class="slms-tab" role="tab" aria-selected="false" data-slms-tab="reviews">
                     <?php
                     /* translators: %d: number of reviews */
@@ -143,12 +158,17 @@ $banners = [
                     <h2 class="slms-h2"><?php esc_html_e('Course outline', 'sepo-lms'); ?></h2>
                     <ol class="slms-outline">
                         <?php foreach ($outline as $i => $row): ?>
-                            <?php $isQuiz = $row['type'] === 'quiz'; $res = $row['result']; ?>
+                            <?php
+                            $isQuiz = $row['type'] === 'quiz';
+                            $isAssignment = $row['type'] === 'assignment';
+                            $res = $isAssignment ? null : $row['result'];
+                            $badge = $isQuiz ? __('Quiz', 'sepo-lms') : ($isAssignment ? __('Assignment', 'sepo-lms') : '');
+                            ?>
                             <li class="slms-ol-item<?php echo $row['done'] ? ' is-done' : ''; ?><?php echo $row['accessible'] ? '' : ' is-locked'; ?>">
                                 <span class="slms-ol-n"><?php echo (int)$i + 1; ?></span>
                                 <div class="slms-ol-main">
                                     <div class="slms-ol-row">
-                                        <?php if (!$isQuiz && $uid > 0 && $access): ?>
+                                        <?php if ($row['type'] === 'lesson' && $uid > 0 && $access): ?>
                                             <input type="checkbox" class="slms-ck" data-slms-check="<?php echo (int)$row['id']; ?>"
                                                    aria-label="<?php echo esc_attr(sprintf(/* translators: %s: lesson title */ __('Mark “%s” complete', 'sepo-lms'), $row['title'])); ?>"
                                                    <?php checked($row['done']); ?> <?php disabled(!$row['accessible']); ?>>
@@ -164,18 +184,32 @@ $banners = [
                                         <?php elseif ($row['accessible']): ?>
                                             <a class="slms-ol-link" href="<?php echo esc_url($row['url']); ?>">
                                                 <strong><?php echo esc_html($row['title']); ?></strong>
-                                                <?php if ($isQuiz): ?><span class="slms-badge"><?php esc_html_e('Quiz', 'sepo-lms'); ?></span><?php endif; ?>
+                                                <?php if ($badge !== ''): ?><span class="slms-badge<?php echo $isAssignment ? ' slms-badge--task' : ''; ?>"><?php echo esc_html($badge); ?></span><?php endif; ?>
+                                                <?php if ($isAssignment && $row['submission'] !== null): ?>
+                                                    <?php $st = (string)$row['submission']['status']; ?>
+                                                    <?php if ($st === 'graded' && $row['submission']['score'] !== null): ?>
+                                                        <span class="slms-score is-pass"><?php echo esc_html(Helpers::percent((float)$row['submission']['score'])); ?>%</span>
+                                                    <?php else: ?>
+                                                        <span class="slms-muted slms-small"><?php echo esc_html(\SepoLms\Submissions::statusLabel($st)); ?></span>
+                                                    <?php endif; ?>
+                                                <?php endif; ?>
                                             </a>
                                         <?php else: ?>
                                             <span class="slms-ol-link" title="<?php echo esc_attr($row['reason']); ?>">
                                                 <strong><?php echo esc_html($row['title']); ?></strong>
-                                                <?php if ($isQuiz): ?><span class="slms-badge"><?php esc_html_e('Quiz', 'sepo-lms'); ?></span><?php endif; ?>
+                                                <?php if ($badge !== ''): ?><span class="slms-badge<?php echo $isAssignment ? ' slms-badge--task' : ''; ?>"><?php echo esc_html($badge); ?></span><?php endif; ?>
                                                 <span class="slms-lock"><?php echo Icons::get('lock', 14); // phpcs:ignore WordPress.Security.EscapeOutput ?><span class="screen-reader-text"><?php echo esc_html($row['reason']); ?></span></span>
                                             </span>
                                         <?php endif; ?>
                                     </div>
                                     <?php if ($row['note'] !== ''): ?>
                                         <div class="slms-ol-note"><?php echo esc_html($row['note']); ?></div>
+                                    <?php endif; ?>
+                                    <?php if ($isAssignment && $row['due'] !== '' && $row['submission'] === null): ?>
+                                        <?php $as = \SepoLms\Assignments::settings((int)$row['id']); ?>
+                                        <div class="slms-ol-note<?php echo \SepoLms\Assignments::isPastDue($as) ? ' slms-bad' : ''; ?>">
+                                            <?php echo esc_html(sprintf(/* translators: %s: date */ __('Due %s', 'sepo-lms'), \SepoLms\Assignments::dueLabel($as))); ?>
+                                        </div>
                                     <?php endif; ?>
                                     <?php if ($row['from'] !== '' && $row['from'] > current_time('Y-m-d')): ?>
                                         <div class="slms-ol-note">
@@ -222,6 +256,19 @@ $banners = [
                         </div>
                     </div>
                 </section>
+            <?php endif; ?>
+
+            <?php if ($classroom['forums'] !== []): ?>
+                <section class="slms-panel" data-slms-panel="forums" hidden
+                         data-slms-forums="<?php echo esc_attr((string)wp_json_encode(array_map(static fn($f) => ['key' => $f['key'], 'title' => $f['title'], 'type' => $f['type'], 'description' => $f['description']], $classroom['forums']))); ?>"
+                         data-course="<?php echo (int)$c['id']; ?>" data-staff="<?php echo $classroom['staff'] ? '1' : '0'; ?>"></section>
+            <?php endif; ?>
+            <?php if ($classroom['chat']): ?>
+                <section class="slms-panel" data-slms-panel="chat" hidden data-slms-chat data-course="<?php echo (int)$c['id']; ?>" data-poll="<?php echo (int)$classroom['poll']; ?>"></section>
+            <?php endif; ?>
+            <?php if ($classroom['attendance']): ?>
+                <section class="slms-panel" data-slms-panel="attendance" hidden data-slms-attendance data-course="<?php echo (int)$c['id']; ?>"
+                         data-admin="<?php echo $classroom['staff'] ? esc_url(admin_url('admin.php?page=sepo-lms-attendance&course=' . (int)$c['id'])) : ''; ?>"></section>
             <?php endif; ?>
 
             <section class="slms-panel" data-slms-panel="reviews" hidden>
@@ -357,6 +404,25 @@ $banners = [
                 <?php endif; ?>
                 </div>
 
+                <?php $cert = $classroom['certificate']; ?>
+                <?php if ($cert !== null && $cert['enabled'] && ($status === 'paid' || $access)): ?>
+                    <div class="slms-cert" data-slms-cert data-course="<?php echo (int)$c['id']; ?>">
+                        <div class="slms-cert-head"><?php echo Icons::get('receipt', 16); // phpcs:ignore WordPress.Security.EscapeOutput ?><strong><?php esc_html_e('Certificate', 'sepo-lms'); ?></strong></div>
+                        <?php if ($cert['certificate'] !== null && !$cert['certificate']['revoked']): ?>
+                            <p class="slms-small"><?php esc_html_e('You earned the certificate for this course.', 'sepo-lms'); ?></p>
+                            <a class="slms-btn slms-btn--primary slms-btn--block" href="<?php echo esc_url(\SepoLms\Certificates::pdfUrl($cert['certificate']['code'])); ?>" target="_blank" rel="noopener"><?php esc_html_e('Download certificate', 'sepo-lms'); ?></a>
+                            <p class="slms-small slms-muted"><?php echo esc_html(sprintf(/* translators: %s: code */ __('Code %s', 'sepo-lms'), $cert['certificate']['code'])); ?></p>
+                        <?php elseif ($cert['eligible']): ?>
+                            <p class="slms-small"><?php esc_html_e('You have met the requirements.', 'sepo-lms'); ?></p>
+                            <button type="button" class="slms-btn slms-btn--primary slms-btn--block" data-slms-cert-claim><?php esc_html_e('Get my certificate', 'sepo-lms'); ?></button>
+                        <?php else: ?>
+                            <ul class="slms-cert-todo">
+                                <?php foreach ($cert['reasons'] as $reason): ?><li><?php echo esc_html($reason); ?></li><?php endforeach; ?>
+                            </ul>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
                 <?php if ($canEdit && $status === null): ?>
                     <p class="slms-small slms-muted"><?php esc_html_e('You can open every lesson because you can edit this course.', 'sepo-lms'); ?></p>
                 <?php endif; ?>
@@ -379,5 +445,9 @@ $banners = [
                 <?php endforeach; ?>
             </div>
         </section>
+    <?php endif; ?>
+
+    <?php if ($study !== null): ?>
+        <?php echo \SepoLms\Frontend::part('study-drawer', $study); // phpcs:ignore WordPress.Security.EscapeOutput ?>
     <?php endif; ?>
 </div>

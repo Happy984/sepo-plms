@@ -2,6 +2,7 @@
 /**
  * Sepo LMS — teacher index (archive and [sepo_lms_teachers]).
  *
+ * Customise: place a copy at your-theme/sepo-lms/parts/teacher-index.php
  *
  * @var string                    $title
  * @var string                    $intro

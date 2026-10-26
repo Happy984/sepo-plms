@@ -122,6 +122,7 @@ final class Rest
         }
         $done = rest_sanitize_boolean($req->get_param('done'));
         Progress::set($courseId, $uid, $item->ID, $done);
+        do_action('sepo_lms_progress_changed', $courseId, $uid);
 
         $outline = Access::outline($courseId, $uid);
         $doneCount = count(array_filter($outline, static fn($r) => $r['done']));
@@ -191,6 +192,40 @@ final class Rest
             }
         }
 
+        // A quiz used by an assignment is taken from the assignment page,
+        // where the assignment's due date and proctoring apply.
+        $assignment = null;
+        $linkedTo = Assignments::forQuiz($quiz->ID);
+        if ($linkedTo > 0) {
+            if (absint($req->get_param('assignment')) !== $linkedTo) {
+                return self::error(__('Take this quiz from its assignment page.', 'sepo-lms'), 403);
+            }
+            $assignmentPost = get_post($linkedTo);
+            if ($uid <= 0 || !$assignmentPost instanceof WP_Post) {
+                return self::error(__('You must be signed in to submit this quiz.', 'sepo-lms'), 401);
+            }
+            $aAccess = Access::item($assignmentPost, $uid);
+            if (!$aAccess['allowed']) {
+                return self::error($aAccess['reason'], 403);
+            }
+            $assignment = Assignments::settings($assignmentPost);
+            // Retakes follow the quiz's own attempt rules; only a closed due date blocks here.
+            if ($assignment['late'] === 'deny' && Assignments::isPastDue($assignment)) {
+                return self::error(__('The due date has passed and late work is not accepted.', 'sepo-lms'), 409);
+            }
+        }
+        $proctorItem = $assignment !== null ? $assignment['id'] : $quiz->ID;
+        $proctorRules = $assignment !== null ? $assignment['proctor'] : Proctor::settingsFor($quiz->ID);
+        $auto = rest_sanitize_boolean($req->get_param('auto'));
+        try {
+            $proctorId = $uid > 0 ? Proctor::verifyForSubmit($uid, $proctorItem, (string)$req->get_param('proctor'), $proctorRules) : 0;
+        } catch (\DomainException $e) {
+            return self::error($e->getMessage(), (int)$e->getCode() ?: 403);
+        }
+        if ($uid <= 0 && Proctor::required($proctorRules)) {
+            return self::error(__('You must be signed in to submit this quiz.', 'sepo-lms'), 401);
+        }
+
         $email = '';
         $guest = '';
         if ($uid <= 0) {
@@ -242,6 +277,34 @@ final class Rest
             delete_user_meta($uid, '_slms_qstart_' . $quiz->ID);
             if ($result['passed'] && $s['course_id'] > 0) {
                 Progress::set($s['course_id'], $uid, $quiz->ID, true);
+            }
+        }
+        if ($assignment !== null) {
+            $now = time();
+            $late = Assignments::isPastDue($assignment, $now);
+            $days = Assignments::daysLate($assignment, $now);
+            Submissions::recordQuiz(
+                $assignment['id'],
+                $assignment['course_id'],
+                $uid,
+                (float)$result['score'],
+                Assignments::applyPenalty((float)$result['score'], $assignment, $days),
+                $late,
+                $days,
+                $proctorId,
+                $assignment['points']
+            );
+            if ($assignment['course_id'] > 0) {
+                Progress::set($assignment['course_id'], $uid, $assignment['id'], true);
+            }
+        }
+        if ($proctorId > 0) {
+            Proctor::attach($proctorId, $auto);
+        }
+        if ($uid > 0) {
+            $progressCourse = $assignment !== null ? $assignment['course_id'] : $s['course_id'];
+            if ($progressCourse > 0) {
+                do_action('sepo_lms_progress_changed', $progressCourse, $uid);
             }
         }
 

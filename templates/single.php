@@ -2,7 +2,7 @@
 /**
  * Sepo LMS — single course, lesson, quiz, school or teacher.
  *
- * Override: copy to your-theme/sepo-lms/single.php
+ * Customise: place a copy at your-theme/sepo-lms/single.php
  */
 
 use SepoLms\Frontend;

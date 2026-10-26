@@ -24,11 +24,14 @@ final class Settings
             'courses_base'        => 'courses',
             'lessons_base'        => 'lessons',
             'quizzes_base'        => 'quizzes',
+            'assignments_base'    => 'assignments',
             'schools_base'        => 'schools',
             'teachers_base'       => 'teachers',
             'currency'            => 'ZMW',
             'per_page'            => 12,
             'accent'              => '#1d475a',
+            'accent_dark'         => '',
+            'color_mode'          => 'auto',
             'business_name'       => get_bloginfo('name'),
             'business_tax_number' => '',
             'receipt_footer'      => __('Thank you for enrolling.', 'sepo-lms'),
@@ -61,6 +64,21 @@ final class Settings
             'phone_country_code'  => '260',
             'pawapay_base_live'   => 'https://api.pawapay.io',
             'pawapay_base_sandbox'=> 'https://api.sandbox.pawapay.io',
+            'feature_assignments' => 1,
+            'feature_proctoring'  => 1,
+            'feature_certificates'=> 1,
+            'feature_forums'      => 1,
+            'feature_study'       => 1,
+            'feature_attendance'  => 1,
+            'feature_chat'        => 1,
+            'upload_max_mb'       => 20,
+            'recording_retention' => 90,
+            'chat_retention'      => 0,
+            'chat_learner_dm'     => 0,
+            'chat_poll'           => 5,
+            'certificate_signatory' => '',
+            'certificate_signatory_title' => '',
+            'certificate_logo'    => 0,
             'delete_on_uninstall' => 0,
         ];
     }
@@ -83,6 +101,12 @@ final class Settings
     public static function flush(): void
     {
         self::$cache = null;
+    }
+
+    /** Is a classroom feature switched on site-wide? (assignments, proctoring, certificates, forums, study, attendance, chat) */
+    public static function feature(string $name): bool
+    {
+        return !empty(self::get('feature_' . $name));
     }
 
     public static function base(string $which): string
@@ -118,7 +142,7 @@ final class Settings
         $old = self::all();
         $out = $old;
 
-        foreach (['courses', 'lessons', 'quizzes', 'schools', 'teachers'] as $b) {
+        foreach (['courses', 'lessons', 'quizzes', 'assignments', 'schools', 'teachers'] as $b) {
             $k = $b . '_base';
             if (isset($in[$k])) {
                 $out[$k] = sanitize_title((string)$in[$k]) ?: $d[$k];
@@ -155,14 +179,43 @@ final class Settings
         if (isset($in['accent'])) {
             $out['accent'] = sanitize_hex_color((string)$in['accent']) ?: $d['accent'];
         }
+        if (isset($in['accent_dark'])) {
+            $out['accent_dark'] = (string)(sanitize_hex_color((string)$in['accent_dark']) ?? '');
+        }
+        if (isset($in['color_mode'])) {
+            $out['color_mode'] = in_array($in['color_mode'], ['auto', 'light', 'dark'], true) ? (string)$in['color_mode'] : 'auto';
+        }
         if (isset($in['per_page'])) {
             $out['per_page'] = max(1, min(100, (int)$in['per_page']));
         }
         if (isset($in['my_courses_page'])) {
             $out['my_courses_page'] = absint($in['my_courses_page']);
         }
+        if (isset($in['upload_max_mb'])) {
+            $out['upload_max_mb'] = max(1, min(2048, (int)$in['upload_max_mb']));
+        }
+        if (isset($in['recording_retention'])) {
+            $out['recording_retention'] = max(0, min(3650, (int)$in['recording_retention']));
+        }
+        if (isset($in['chat_retention'])) {
+            $out['chat_retention'] = max(0, min(3650, (int)$in['chat_retention']));
+        }
+        if (isset($in['chat_poll'])) {
+            $out['chat_poll'] = max(2, min(60, (int)$in['chat_poll']));
+        }
+        foreach (['certificate_signatory', 'certificate_signatory_title'] as $k) {
+            if (isset($in[$k])) {
+                $out[$k] = sanitize_text_field((string)$in[$k]);
+            }
+        }
+        if (isset($in['certificate_logo'])) {
+            $logo = absint($in['certificate_logo']);
+            $out['certificate_logo'] = $logo > 0 && wp_attachment_is_image($logo) ? $logo : 0;
+        }
         foreach (['email_receipts', 'email_admin', 'collect_national_id', 'collect_gender', 'collect_location',
-                     'collect_dob', 'paypal_sandbox', 'pawapay_sandbox', 'delete_on_uninstall'] as $k) {
+                     'collect_dob', 'paypal_sandbox', 'pawapay_sandbox', 'delete_on_uninstall',
+                     'feature_assignments', 'feature_proctoring', 'feature_certificates', 'feature_forums',
+                     'feature_study', 'feature_attendance', 'feature_chat', 'chat_learner_dm'] as $k) {
             if (array_key_exists($k, $in)) {
                 $out[$k] = empty($in[$k]) ? 0 : 1;
             }
@@ -200,5 +253,88 @@ final class Settings
         }
 
         return $out;
+    }
+
+    /**
+     * Text colour that reads on a background colour: white or near-black,
+     * whichever has the higher WCAG contrast against it.
+     */
+    public static function textOn(string $hex): string
+    {
+        $hex = ltrim($hex, '#');
+        if (strlen($hex) === 3) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+        if (!preg_match('/^[0-9a-f]{6}$/i', $hex)) {
+            return '#ffffff';
+        }
+        $lin = static function (int $c): float {
+            $v = $c / 255;
+            return $v <= 0.03928 ? $v / 12.92 : (($v + 0.055) / 1.055) ** 2.4;
+        };
+        $l = 0.2126 * $lin((int)hexdec(substr($hex, 0, 2)))
+            + 0.7152 * $lin((int)hexdec(substr($hex, 2, 2)))
+            + 0.0722 * $lin((int)hexdec(substr($hex, 4, 2)));
+        // #0b1215 has a relative luminance of about 0.006.
+        return (1.05 / ($l + 0.05)) >= (($l + 0.05) / 0.056) ? '#ffffff' : '#0b1215';
+    }
+
+    /**
+     * The accent for dark pages when none is set: the same hue, raised to a
+     * lightness that reads on a dark background.
+     */
+    public static function lighten(string $hex, float $minLightness = 0.64): string
+    {
+        $hex = ltrim($hex, '#');
+        if (strlen($hex) === 3) {
+            $hex = $hex[0] . $hex[0] . $hex[1] . $hex[1] . $hex[2] . $hex[2];
+        }
+        if (!preg_match('/^[0-9a-f]{6}$/i', $hex)) {
+            return '#8fc1d6';
+        }
+        [$r, $g, $b] = array_map(static fn(string $c): float => hexdec($c) / 255, str_split($hex, 2));
+        $max = max($r, $g, $b);
+        $min = min($r, $g, $b);
+        $l = ($max + $min) / 2;
+        $h = 0.0;
+        $sat = 0.0;
+        if ($max !== $min) {
+            $d = $max - $min;
+            $sat = $l > 0.5 ? $d / (2 - $max - $min) : $d / ($max + $min);
+            $h = match ($max) {
+                $r => fmod(($g - $b) / $d + ($g < $b ? 6 : 0), 6),
+                $g => ($b - $r) / $d + 2,
+                default => ($r - $g) / $d + 4,
+            } / 6;
+        }
+        $l = max($l, $minLightness);
+        $sat = min(0.75, max($sat, $sat > 0 ? 0.45 : 0));
+        $hue = static function (float $p, float $q, float $t): float {
+            $t = $t < 0 ? $t + 1 : ($t > 1 ? $t - 1 : $t);
+            return match (true) {
+                $t < 1 / 6 => $p + ($q - $p) * 6 * $t,
+                $t < 1 / 2 => $q,
+                $t < 2 / 3 => $p + ($q - $p) * (2 / 3 - $t) * 6,
+                default => $p,
+            };
+        };
+        $q = $l < 0.5 ? $l * (1 + $sat) : $l + $sat - $l * $sat;
+        $p = 2 * $l - $q;
+        $rgb = [$hue($p, $q, $h + 1 / 3), $hue($p, $q, $h), $hue($p, $q, $h - 1 / 3)];
+        return '#' . implode('', array_map(static fn(float $c): string => str_pad(dechex((int)round($c * 255)), 2, '0', STR_PAD_LEFT), $rgb));
+    }
+
+    /** The CSS custom properties printed with the stylesheet. */
+    public static function cssVars(): string
+    {
+        $accent = (string)self::get('accent');
+        $dark = (string)self::get('accent_dark');
+        $auto = self::lighten($accent);
+        $vars = '--slms-accent:' . $accent . ';--slms-on-accent-light:' . self::textOn($accent) . ';'
+            . '--slms-accent-auto-dark:' . $auto . ';--slms-on-accent-auto-dark:' . self::textOn($auto) . ';';
+        if ($dark !== '') {
+            $vars .= '--slms-accent-dark:' . $dark . ';--slms-on-accent-dark:' . self::textOn($dark) . ';';
+        }
+        return ':root{' . $vars . '}';
     }
 }
