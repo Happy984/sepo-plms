@@ -57,12 +57,24 @@
     return { card: card, close: close };
   }
 
-  function confirmModal(title, message, okLabel) {
+  /** An in-page error notice (window.alert() would block the page). */
+  function toastError(message) {
+    modal('<h3 class="slms-modal-title">' + esc(t('failed')) + '</h3><p>' + esc(message) + '</p>'
+      + '<div class="slms-modal-actions"><button type="button" class="slms-btn slms-btn--primary" data-close>' + esc(t('close')) + '</button></div>');
+  }
+
+  /**
+   * An in-page yes/no dialog. Native confirm() is never used: it takes the
+   * page out of full screen and away from focus, which proctoring records.
+   * opts: { primary: true } for a non-destructive action, cancel: label.
+   */
+  function confirmModal(title, message, okLabel, opts) {
+    opts = opts || {};
     return new Promise(function (resolve) {
       var done = false;
-      var m = modal('<h3 class="slms-modal-title">' + esc(title) + '</h3><p>' + esc(message) + '</p>'
-        + '<div class="slms-modal-actions"><button type="button" class="slms-btn" data-close>' + esc(t('cancel')) + '</button>'
-        + '<button type="button" class="slms-btn slms-btn--danger" data-ok>' + esc(okLabel) + '</button></div>',
+      var m = modal('<h3 class="slms-modal-title">' + esc(title) + '</h3>' + (message ? '<p>' + esc(message) + '</p>' : '')
+        + '<div class="slms-modal-actions"><button type="button" class="slms-btn" data-close>' + esc(opts.cancel || t('cancel')) + '</button>'
+        + '<button type="button" class="slms-btn ' + (opts.primary ? 'slms-btn--primary' : 'slms-btn--danger') + '" data-ok>' + esc(okLabel) + '</button></div>',
         { onClose: function () { if (!done) resolve(false); } });
       m.card.querySelector('[data-ok]').addEventListener('click', function () { done = true; m.close(); resolve(true); });
     });
@@ -152,19 +164,29 @@
     var prefill = JSON.parse(root.getAttribute('data-prefill') || '{}');
     var total = root.getAttribute('data-total') || '';
 
-    // tabs
+    // tabs; a panel announces itself when opened so classroom tools can load on demand
     var tabs = $$('[data-slms-tab]', root);
-    tabs.forEach(function (tab) {
-      tab.addEventListener('click', function () {
-        var name = tab.getAttribute('data-slms-tab');
-        tabs.forEach(function (x) { var on = x === tab; x.classList.toggle('is-on', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
-        $$('[data-slms-panel]', root).forEach(function (p) {
-          var on = p.getAttribute('data-slms-panel') === name;
-          p.hidden = !on;
-          p.classList.toggle('is-on', on);
-        });
+    function openTab(tab, push) {
+      var name = tab.getAttribute('data-slms-tab');
+      tabs.forEach(function (x) { var on = x === tab; x.classList.toggle('is-on', on); x.setAttribute('aria-selected', on ? 'true' : 'false'); });
+      $$('[data-slms-panel]', root).forEach(function (p) {
+        var on = p.getAttribute('data-slms-panel') === name;
+        p.hidden = !on;
+        p.classList.toggle('is-on', on);
+        if (on) p.dispatchEvent(new CustomEvent('slms:open', { bubbles: true }));
       });
+      if (push && window.history && history.replaceState) {
+        history.replaceState(null, '', name === 'outline' ? window.location.pathname + window.location.search : '#' + name);
+      }
+    }
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () { openTab(tab, true); });
     });
+    var hashTab = (window.location.hash || '').replace('#', '');
+    if (hashTab) {
+      var start = tabs.filter(function (x) { return x.getAttribute('data-slms-tab') === hashTab; })[0];
+      if (start) openTab(start, false);
+    }
 
     // enrol
     $$('[data-slms-enroll]', root).forEach(function (btn) {
@@ -257,7 +279,7 @@
         cb.disabled = true;
         api('/progress', 'POST', { item: parseInt(cb.getAttribute('data-slms-check'), 10), done: cb.checked })
           .then(function () { window.location.reload(); })
-          .catch(function (e) { cb.checked = !cb.checked; cb.disabled = false; window.alert(e.message); });
+          .catch(function (e) { cb.checked = !cb.checked; cb.disabled = false; toastError(e.message); });
       });
     });
 
@@ -283,7 +305,7 @@
           btn.disabled = true;
           api('/reviews/delete', 'POST', { id: parseInt(btn.getAttribute('data-slms-review-delete'), 10) })
             .then(function () { window.location.reload(); })
-            .catch(function (e) { btn.disabled = false; window.alert(e.message); });
+            .catch(function (e) { btn.disabled = false; toastError(e.message); });
         });
       });
     });
@@ -340,7 +362,7 @@
       btn.disabled = true;
       api('/progress', 'POST', { item: parseInt(btn.getAttribute('data-slms-complete'), 10), done: !done })
         .then(function () { window.location.reload(); })
-        .catch(function (e) { btn.disabled = false; window.alert(e.message); });
+        .catch(function (e) { btn.disabled = false; toastError(e.message); });
     });
   }
 
@@ -356,6 +378,13 @@
     var results = $('[data-slms-results]', root);
     var courseUrl = root.getAttribute('data-course-url') || '';
     var current = 1, sent = false, dirty = false;
+    var assignmentId = parseInt(root.getAttribute('data-assignment') || '0', 10) || 0;
+    var proctored = root.hasAttribute('data-proctor');
+    if (proctored) {
+      form.hidden = true;
+      root.addEventListener('slms:proctor-ready', function () { form.hidden = false; show(current); });
+      root.addEventListener('slms:proctor-submit', function () { send(true, true); });
+    }
 
     function show(n) {
       current = Math.min(Math.max(n, 1), total);
@@ -372,7 +401,7 @@
     if (prev) prev.addEventListener('click', function () { show(current - 1); root.scrollIntoView({ behavior: 'smooth' }); });
     if (next) next.addEventListener('click', function () { show(current + 1); root.scrollIntoView({ behavior: 'smooth' }); });
     form.addEventListener('change', function () { dirty = true; });
-    window.addEventListener('beforeunload', function (e) { if (dirty && !sent) { e.preventDefault(); e.returnValue = t('leave'); } });
+    window.addEventListener('beforeunload', function (e) { if (dirty && !sent && !window.SepoLmsLeaving) { e.preventDefault(); e.returnValue = t('leave'); } });
 
     function answers() {
       var out = {};
@@ -401,20 +430,32 @@
       return bad;
     }
 
-    function send(force) {
+    function send(force, auto) {
       if (sent) return;
       var a = answers();
-      if (!force) {
-        var miss = firstMissing(a);
-        if (miss) { show(miss); errEl.textContent = t('answerAll'); return; }
-        if (!window.confirm(t('confirmSubmit'))) return;
-      }
+      if (force) { deliver(a, auto); return; }
+      var miss = firstMissing(a);
+      if (miss) { show(miss); errEl.textContent = t('answerAll'); return; }
+      confirmModal(t('confirmSubmit'), '', t('submit'), { primary: true }).then(function (yes) {
+        if (yes && !sent) deliver(answers(), false);
+      });
+    }
+
+    function deliver(a, auto) {
+      if (sent) return;
       var emailEl = form.querySelector('[name="slms_email"]');
       sent = true;
       errEl.textContent = '';
       if (submit) { submit.disabled = true; submit.textContent = t('submitting'); }
-      api('/quiz/submit', 'POST', { quiz: quizId, answers: a, email: emailEl ? emailEl.value.trim() : '' })
+      var flush = root.slmsProctorFlush ? root.slmsProctorFlush() : Promise.resolve();
+      flush.then(function () {
+        return api('/quiz/submit', 'POST', {
+          quiz: quizId, answers: a, email: emailEl ? emailEl.value.trim() : '',
+          assignment: assignmentId, proctor: root.getAttribute('data-proctor-token') || '', auto: !!auto
+        });
+      })
         .then(function (d) {
+          root.dispatchEvent(new CustomEvent('slms:submitted', { detail: d }));
           $$('input,textarea,button', form).forEach(function (el) { el.disabled = true; });
           [prev, next, submit].forEach(function (b) { if (b) b.hidden = true; });
           stopTimer();
@@ -430,6 +471,7 @@
 
     function renderResults(d) {
       var h = '';
+      if (d.auto_note) h += '<div class="slms-note">' + esc(d.auto_note) + '</div>';
       if (!d.show_results) {
         h = '<div class="slms-note">' + esc(t('submitted')) + '</div>';
       } else {
@@ -618,6 +660,8 @@
     });
     render();
   }
+
+  window.SepoLmsUI = { api: api, modal: modal, confirmModal: confirmModal, esc: esc, t: t, $: $, $$: $$ };
 
   function boot() {
     $$('[data-slms-index]').forEach(initIndex);

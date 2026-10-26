@@ -10,8 +10,9 @@ use WP_Query;
 /**
  * Front end: templates, assets, shortcodes and the view renderers.
  *
- * Every view is a PHP template in templates/parts. A theme can override any
- * of them by copying it to your-theme/sepo-lms/ (keeping the parts/ folder).
+ * Every view is a PHP template in templates/parts. A theme can supply its own
+ * version of any of them by placing a copy in your-theme/sepo-lms/ (keeping
+ * the parts/ folder).
  */
 final class Frontend
 {
@@ -32,7 +33,7 @@ final class Frontend
     /** @return list<string> */
     public static function types(): array
     {
-        return [PostTypes::COURSE, PostTypes::LESSON, PostTypes::QUIZ, PostTypes::SCHOOL, PostTypes::TEACHER];
+        return [PostTypes::COURSE, PostTypes::LESSON, PostTypes::QUIZ, PostTypes::ASSIGNMENT, PostTypes::SCHOOL, PostTypes::TEACHER];
     }
 
     public static function isLmsContext(): bool
@@ -75,7 +76,7 @@ final class Frontend
     /** Lessons and quizzes are never embedded on other sites. */
     public static function blockEmbeds(): void
     {
-        if (is_embed() && is_singular([PostTypes::LESSON, PostTypes::QUIZ])) {
+        if (is_embed() && is_singular([PostTypes::LESSON, PostTypes::QUIZ, PostTypes::ASSIGNMENT])) {
             global $wp_query;
             $wp_query->set_404();
             status_header(404);
@@ -130,10 +131,19 @@ final class Frontend
 
     public static function registerAssets(): void
     {
-        wp_register_style('sepo-lms', SLMS_URL . 'assets/css/lms.css', [], SLMS_VERSION);
-        wp_add_inline_style('sepo-lms', ':root{--slms-accent:' . esc_attr((string)Settings::get('accent')) . ';}');
+        wp_register_style('sepo-lms', SLMS_URL . 'assets/css/lms.css', [], Plugin::assetVersion('assets/css/lms.css'));
+        wp_add_inline_style('sepo-lms', esc_html(Settings::cssVars()));
 
-        wp_register_script('sepo-lms', SLMS_URL . 'assets/js/lms.js', [], SLMS_VERSION, true);
+        // Light or dark: follows the theme unless a mode is set in LMS → Settings.
+        wp_register_script('sepo-lms-mode', SLMS_URL . 'assets/js/mode.js', [], Plugin::assetVersion('assets/js/mode.js'), false);
+        wp_add_inline_script('sepo-lms-mode', 'window.SepoLmsMode=' . wp_json_encode((string)Settings::get('color_mode')) . ';', 'before');
+
+        wp_register_script('sepo-lms', SLMS_URL . 'assets/js/lms.js', [], Plugin::assetVersion('assets/js/lms.js'), true);
+        wp_register_script('sepo-lms-classroom', SLMS_URL . 'assets/js/classroom.js', ['sepo-lms'], Plugin::assetVersion('assets/js/classroom.js'), true);
+        wp_register_script('sepo-lms-study', SLMS_URL . 'assets/js/study.js', ['sepo-lms'], Plugin::assetVersion('assets/js/study.js'), true);
+        wp_register_script('sepo-lms-proctor', SLMS_URL . 'assets/js/proctor.js', ['sepo-lms'], Plugin::assetVersion('assets/js/proctor.js'), true);
+        wp_register_script('sepo-lms-assignment', SLMS_URL . 'assets/js/assignment.js', ['sepo-lms'], Plugin::assetVersion('assets/js/assignment.js'), true);
+        self::registerViewer();
         wp_localize_script('sepo-lms', 'SepoLms', [
             'api'   => esc_url_raw(rest_url(Rest::NS)),
             'nonce' => wp_create_nonce('wp_rest'),
@@ -198,6 +208,7 @@ final class Frontend
                 'noMatch'       => __('Nothing matches your search.', 'sepo-lms'),
                 'prev'          => __('Previous page', 'sepo-lms'),
                 'next'          => __('Next page', 'sepo-lms'),
+            ] + self::classroomStrings() + [
                 'timeUp'        => __('Time is up. Submitting your answers…', 'sepo-lms'),
                 'leave'         => __('You have unsaved answers.', 'sepo-lms'),
             ],
@@ -222,7 +233,30 @@ final class Frontend
     public static function enqueue(): void
     {
         wp_enqueue_style('sepo-lms');
+        wp_enqueue_script('sepo-lms-mode');
         wp_enqueue_script('sepo-lms');
+    }
+
+    /** Load one of the classroom scripts (classroom, study, proctor, assignment). */
+    /** The in-page file viewer, shared by the assignment page and the grading screen. */
+    public static function registerViewer(): void
+    {
+        if (wp_script_is('sepo-lms-viewer', 'registered')) {
+            return;
+        }
+        wp_register_script('sepo-lms-viewer', SLMS_URL . 'assets/js/viewer.js', [], Plugin::assetVersion('assets/js/viewer.js'), true);
+        wp_localize_script('sepo-lms-viewer', 'SepoLmsViewer', [
+            'view'   => __('View', 'sepo-lms'),
+            'hide'   => __('Hide', 'sepo-lms'),
+            'newTab' => __('Open in a new tab', 'sepo-lms'),
+            'close'  => __('Close the viewer', 'sepo-lms'),
+        ]);
+    }
+
+    public static function enqueueTool(string $name): void
+    {
+        self::enqueue();
+        wp_enqueue_script('sepo-lms-' . $name);
     }
 
     /**
@@ -249,6 +283,7 @@ final class Frontend
             PostTypes::COURSE  => self::renderCourse($post),
             PostTypes::LESSON  => self::renderLesson($post),
             PostTypes::QUIZ    => self::renderQuiz($post),
+            PostTypes::ASSIGNMENT => self::renderAssignment($post),
             PostTypes::SCHOOL  => self::renderSchool($post),
             PostTypes::TEACHER => self::renderTeacher($post),
             default            => '',
@@ -397,6 +432,8 @@ final class Frontend
             'fields'      => $fields,
             'prefill'     => ['name' => $user->display_name ?? '', 'email' => $user->user_email ?? ''],
             'payment'     => $payment,
+            'classroom'   => self::classroom($post->ID, $uid),
+            'study'       => self::studyContext($post->ID, 0, $uid),
         ]);
     }
 
@@ -433,13 +470,35 @@ final class Frontend
             'next'      => $next,
             'done'      => $done,
             'canTrack'  => $uid > 0 && $course !== null,
+            'study'     => self::studyContext($courseId, $post->ID, $uid),
         ]);
     }
 
     public static function renderQuiz(WP_Post $post): string
     {
+        $linked = Assignments::forQuiz($post->ID);
+        if ($linked > 0 && !Access::canTeach(PostTypes::courseOf($post->ID))) {
+            return self::part('gate', [
+                'title'   => get_the_title($post),
+                'message' => __('This quiz is part of an assignment. Open the assignment to take it.', 'sepo-lms'),
+                'actions' => [['label' => __('Go to the assignment', 'sepo-lms'), 'href' => (string)get_permalink($linked), 'primary' => true]],
+            ]);
+        }
+        return self::quizPlayer($post, null);
+    }
+
+    /**
+     * The quiz player, on its own page or inside a quiz-type assignment.
+     *
+     * @param array<string,mixed>|null $assignment Assignment settings when embedded.
+     */
+    public static function quizPlayer(WP_Post $post, ?array $assignment): string
+    {
         $uid = get_current_user_id();
         $s = Quiz::settings($post);
+        $embedded = $assignment !== null;
+        $rules = $embedded ? $assignment['proctor'] : Proctor::settingsFor($post->ID);
+        $proctor = Proctor::required($rules) ? ['item' => $embedded ? $assignment['id'] : $post->ID] + $rules : null;
         $course = $s['course_id'] > 0 ? Course::get($s['course_id']) : null;
         $courseUrl = $course['url'] ?? '';
         $back = $courseUrl !== '' ? [['label' => __('Back to the course', 'sepo-lms'), 'href' => $courseUrl]] : [];
@@ -451,12 +510,12 @@ final class Frontend
                 'review' => $s['review_answers'] ? Quiz::review($post->ID, $existing, true) : []]);
         }
 
-        if ($uid <= 0 && ($s['require_login'] || ($s['require_enrollment'] && $course !== null))) {
+        if ($uid <= 0 && ($s['require_login'] || $embedded || $proctor !== null || ($s['require_enrollment'] && $course !== null))) {
             return self::part('gate', ['title' => __('Sign in required', 'sepo-lms'), 'message' => __('Please sign in to take this quiz.', 'sepo-lms'),
                 'actions' => array_merge([['label' => __('Sign in', 'sepo-lms'), 'href' => Helpers::loginUrl((string)get_permalink($post)), 'primary' => true]], $back)]);
         }
 
-        if ($s['require_enrollment'] && $course !== null) {
+        if (!$embedded && $s['require_enrollment'] && $course !== null) {
             $access = Access::item($post, $uid);
             if (!$access['allowed']) {
                 return self::part('gate', ['title' => __('Not available yet', 'sepo-lms'), 'message' => $access['reason'],
@@ -487,8 +546,14 @@ final class Frontend
             $remaining = $s['time_limit'] * 60;
         }
 
+        if ($proctor !== null) {
+            self::enqueueTool('proctor');
+        }
         return self::part('quiz', [
             'post'      => $post,
+            'embedded'  => $embedded,
+            'assignment'=> $embedded ? (int)$assignment['id'] : 0,
+            'proctor'   => $proctor,
             'settings'  => $s,
             'questions' => $questions,
             'pages'     => array_chunk($questions, $s['per_page']),
@@ -498,6 +563,130 @@ final class Frontend
             'askEmail'  => $uid <= 0 && $s['collect_email'],
             'intro'     => apply_filters('the_content', $post->post_content), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
         ]);
+    }
+
+    public static function renderAssignment(WP_Post $post): string
+    {
+        $uid = get_current_user_id();
+        $s = Assignments::settings($post);
+        $course = $s['course_id'] > 0 ? Course::get($s['course_id']) : null;
+        $back = $course !== null ? [['label' => __('Back to the course', 'sepo-lms'), 'href' => $course['url']]] : [];
+
+        if (!Settings::feature('assignments')) {
+            return self::part('gate', ['title' => $s['title'], 'message' => __('Assignments are not available right now.', 'sepo-lms'), 'actions' => $back]);
+        }
+        if ($uid <= 0) {
+            return self::part('gate', ['title' => $s['title'], 'message' => __('Please sign in to open this assignment.', 'sepo-lms'),
+                'actions' => array_merge([['label' => __('Sign in', 'sepo-lms'), 'href' => Helpers::loginUrl((string)get_permalink($post)), 'primary' => true]], $back)]);
+        }
+        $access = Access::item($post, $uid);
+        if (!$access['allowed']) {
+            return self::part('locked', ['post' => $post, 'course' => $course, 'reason' => $access['reason'], 'code' => $access['code']]);
+        }
+
+        $staff = $s['course_id'] > 0 && Access::canTeach($s['course_id']);
+        $row = Submissions::get($post->ID, $uid);
+        $submission = $row !== null ? Api\AssignmentApi::present($row, $s) : null;
+        $block = Assignments::submitBlock($s, $row);
+        $quizHtml = '';
+        if ($s['type'] === 'quiz') {
+            $quiz = $s['quiz_id'] > 0 ? get_post($s['quiz_id']) : null;
+            $quizHtml = $quiz instanceof WP_Post && $quiz->post_status === 'publish'
+                ? ($block !== '' ? '' : self::quizPlayer($quiz, $s))
+                : '<p class="slms-note">' . esc_html__('The quiz for this assignment is not ready yet.', 'sepo-lms') . '</p>';
+        }
+
+        [$prev, $next] = self::neighbours($s['course_id'], $post->ID, $uid);
+        $proctor = Proctor::required($s['proctor']) && $s['type'] === 'upload' ? ['item' => $post->ID] + $s['proctor'] : null;
+        self::enqueueTool('viewer');
+        if ($s['type'] === 'upload' && $block === '') {
+            self::enqueueTool('assignment');
+            if ($proctor !== null) {
+                self::enqueueTool('proctor');
+            }
+        }
+
+        return self::part('assignment', [
+            'post'        => $post,
+            'settings'    => $s,
+            'course'      => $course,
+            'body'        => apply_filters('the_content', $post->post_content), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+            'submission'  => $submission,
+            'block'       => $block,
+            'quizHtml'    => $quizHtml,
+            'proctor'     => $proctor,
+            'staff'       => $staff,
+            'prev'        => $prev,
+            'next'        => $next,
+            'study'       => self::studyContext($s['course_id'], $post->ID, $uid),
+        ]);
+    }
+
+    /**
+     * The outline items before and after this one.
+     *
+     * @return array{0:?array<string,mixed>,1:?array<string,mixed>}
+     */
+    private static function neighbours(int $courseId, int $itemId, int $uid): array
+    {
+        if ($courseId <= 0) {
+            return [null, null];
+        }
+        $outline = Access::outline($courseId, $uid);
+        foreach ($outline as $i => $row) {
+            if ($row['id'] === $itemId) {
+                return [$outline[$i - 1] ?? null, $outline[$i + 1] ?? null];
+            }
+        }
+        return [null, null];
+    }
+
+    /**
+     * Study drawer context for a page, or null when it should not show.
+     *
+     * @return array{course:int,item:int}|null
+     */
+    public static function studyContext(int $courseId, int $itemId, int $uid): ?array
+    {
+        if (!Settings::feature('study') || $uid <= 0) {
+            return null;
+        }
+        if ($courseId > 0 && !Access::inClassroom($courseId, $uid)) {
+            return null;
+        }
+        self::enqueueTool('study');
+        return ['course' => $courseId, 'item' => $itemId];
+    }
+
+    /**
+     * Classroom features on a course page for this viewer.
+     *
+     * @return array<string,mixed>
+     */
+    public static function classroom(int $courseId, int $uid): array
+    {
+        $in = $uid > 0 && Access::inClassroom($courseId, $uid);
+        $staff = $uid > 0 && Access::canTeach($courseId, $uid);
+        $out = [
+            'in'          => $in,
+            'staff'       => $staff,
+            'forums'      => $in ? Forums::forCourse($courseId) : [],
+            'chat'        => $in && Chat::enabled(),
+            'unread'      => $in && Chat::enabled() ? Chat::unreadTotal($courseId, $uid) : 0,
+            'attendance'  => $in && Settings::feature('attendance'),
+            'certificate' => $uid > 0 && !$staff ? Certificates::status($courseId, $uid) : null,
+            'poll'        => max(2, (int)Settings::get('chat_poll')),
+        ];
+        if ($out['forums'] !== [] || $out['chat'] || $out['attendance'] || ($out['certificate']['enabled'] ?? false)) {
+            self::enqueueTool('classroom');
+        }
+        return $out;
+    }
+
+    /** Strings for the classroom scripts. @return array<string,string> */
+    public static function classroomStrings(): array
+    {
+        return require SLMS_DIR . 'includes/strings.php';
     }
 
     /** @return array<string,mixed> */
@@ -677,12 +866,19 @@ final class Frontend
 
         $rows = [];
         $groups = [];
+        $certificates = [];
         foreach (Enrollments::forUser($uid) as $e) {
             $courseId = (int)$e['course_id'];
             $exists = get_post_status($courseId) === 'publish';
             $outline = $exists ? Access::outline($courseId, $uid) : [];
             $done = count(array_filter($outline, static fn($r) => $r['done']));
-            $grade = self::finalGrade($byCourse[$courseId] ?? []);
+            $grade = Grades::course($courseId, $uid);
+            if ($exists) {
+                $cert = Certificates::status($courseId, $uid);
+                if ($cert['enabled']) {
+                    $certificates[] = ['course' => $courseId, 'title' => (string)($e['title'] ?: get_the_title($courseId)), 'url' => (string)get_permalink($courseId)] + $cert;
+                }
+            }
 
             $gw = (string)$e['gateway'];
             $rows[] = [
@@ -695,19 +891,26 @@ final class Frontend
                 'letter'    => $grade['letter'],
                 'weighted'  => $grade['weighted'],
                 'quizzes'   => $grade['count'],
+                'pending'   => $grade['pending'],
                 'canResume' => $e['status'] === 'pending' && $gw !== '' && $exists,
             ];
 
-            // Every quiz in the course, taken or not, in outline order.
+            // Every quiz and assignment in the course, in outline order. A quiz
+            // used by an assignment shows once, as the assignment, unless its
+            // result was recorded before the link and still counts on its own.
             $items = [];
+            $counted = array_column(array_filter($grade['items'], static fn($i) => $i['kind'] === 'quiz'), 'id');
+            $linked = array_values(array_diff(Assignments::quizzesUsedBy($courseId), $counted));
             foreach ($outline as $o) {
-                if ($o['type'] === 'quiz') {
+                if ($o['type'] === 'quiz' && !in_array($o['id'], $linked, true)) {
                     $items[] = self::quizRow($o['id'], $o['result'], $o['accessible'], $o['reason']);
+                } elseif ($o['type'] === 'assignment' && Settings::feature('assignments')) {
+                    $items[] = self::assignmentRow($o);
                 }
             }
             // Results for quizzes no longer in the outline still count.
             foreach ($byCourse[$courseId] ?? [] as $r) {
-                if (!in_array($r['quiz_id'], array_column($items, 'id'), true)) {
+                if (!in_array($r['quiz_id'], array_column($items, 'id'), true) && !in_array((int)$r['quiz_id'], $linked, true)) {
                     $items[] = self::quizRow($r['quiz_id'], $r, true, '');
                 }
             }
@@ -738,11 +941,25 @@ final class Frontend
             ];
         }
 
+        if (Settings::feature('study')) {
+            self::enqueueTool('study');
+        }
+        if (Settings::feature('certificates') && $certificates !== []) {
+            self::enqueueTool('classroom');
+        }
+        $graded = 0;
+        foreach ($groups as $g) {
+            $graded += count(array_filter($g['items'], static fn($i) => $i['result'] !== null || ($i['submission'] ?? null) !== null));
+        }
+
         return self::part('my-courses', [
-            'rows'    => $rows,
-            'stats'   => QuizResults::userStats($uid),
-            'groups'  => array_values($groups),
-            'taken'   => count($results),
+            'rows'         => $rows,
+            'stats'        => QuizResults::userStats($uid),
+            'groups'       => array_values($groups),
+            'taken'        => $graded,
+            'certificates' => Settings::feature('certificates') ? $certificates : null,
+            'notes'        => Settings::feature('study'),
+            'noteCourses'  => array_values(array_filter(array_map(static fn($r) => ['id' => (int)$r['e']['course_id'], 'title' => (string)$r['e']['title']], $rows), static fn($c) => Access::inClassroom($c['id'], get_current_user_id()))),
         ]);
     }
 
@@ -788,6 +1005,8 @@ final class Frontend
     {
         $weight = (float)get_post_meta($quizId, '_slms_weight', true);
         return [
+            'kind'       => 'quiz',
+            'submission' => null,
             'id'         => $quizId,
             'title'      => get_the_title($quizId),
             'url'        => (string)get_permalink($quizId),
@@ -795,6 +1014,29 @@ final class Frontend
             'weight'     => $weight,
             'accessible' => $accessible,
             'reason'     => $reason,
+        ];
+    }
+
+    /**
+     * @param array<string,mixed> $o An outline row.
+     * @return array<string,mixed>
+     */
+    private static function assignmentRow(array $o): array
+    {
+        $s = Assignments::settings((int)$o['id']);
+        return [
+            'kind'       => 'assignment',
+            'id'         => (int)$o['id'],
+            'title'      => (string)$o['title'],
+            'url'        => (string)$o['url'],
+            'result'     => null,
+            'submission' => $o['submission'],
+            'weight'     => $s['weight'],
+            'pass_mark'  => $s['pass_mark'],
+            'due'        => Assignments::dueLabel($s),
+            'overdue'    => $o['submission'] === null && Assignments::isPastDue($s),
+            'accessible' => (bool)$o['accessible'],
+            'reason'     => (string)$o['reason'],
         ];
     }
 }

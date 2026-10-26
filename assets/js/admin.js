@@ -302,4 +302,73 @@
     $('#post').on('submit', save);
     render();
   });
+
+  // ------------------------------------------------------------ classroom
+
+  // Show or hide assignment fields for the chosen type ("kind=quiz", "kind=upload").
+  var kind = $('#slms_kind');
+  function toggleKind() {
+    var v = kind.val();
+    $('[data-slms-show-when]').each(function () {
+      var rule = String($(this).data('slms-show-when')).split('=');
+      if (rule[0] === 'kind') $(this).toggle(rule[1] === v);
+    });
+  }
+  if (kind.length) { kind.on('change', toggleKind); toggleKind(); }
+
+  // Forum rows on the course screen: add from the template, remove a row.
+  $('[data-slms-forums]').each(function () {
+    var table = $(this);
+    var tpl = $('[data-slms-forum-template]');
+    var next = table.find('tbody tr').length + 1000;
+    $('[data-slms-forum-add]').on('click', function () {
+      var html = tpl.html().replace(/__i__/g, String(next++));
+      var row = $(html);
+      table.find('tbody').append(row);
+      row.find('input[type=text]').first().trigger('focus');
+    });
+    table.on('click', '[data-slms-forum-remove]', function () {
+      $(this).closest('tr').remove();
+    });
+  });
+
+  // Grading a submission.
+  $('[data-slms-grade]').each(function () {
+    var form = $(this);
+    var id = parseInt(form.data('slms-grade'), 10);
+    var status = form.find('[data-slms-grade-status]');
+    var action = 'grade';
+    form.on('click', 'button[data-action]', function () { action = $(this).data('action'); });
+    form.on('submit', function (e) {
+      e.preventDefault();
+      var buttons = form.find('button').prop('disabled', true);
+      status.removeClass('slms-bad').text(T.saving || '…');
+      $.ajax({
+        url: CFG.api + '/staff/submission/grade',
+        method: 'POST',
+        beforeSend: function (x) { x.setRequestHeader('X-WP-Nonce', CFG.nonce); },
+        data: {
+          id: id,
+          points: form.find('[name=points]').val(),
+          feedback: form.find('[name=feedback]').val(),
+          'return': action === 'return' ? 1 : 0
+        }
+      }).done(function (d) {
+        var s = d.submission || {};
+        status.text(action === 'return' ? T.returned : fmt(T.graded, s.score_label || s.score).replace('%%', '%'));
+      }).fail(function (x) {
+        var msg = x.responseJSON && x.responseJSON.message ? x.responseJSON.message : T.failed;
+        status.addClass('slms-bad').text(msg);
+      }).always(function () { buttons.prop('disabled', false); });
+    });
+  });
+
+  // Attendance: fill every learner who has no status yet.
+  $(document).on('click', '[data-slms-att-fill]', function () {
+    var value = String($(this).data('slms-att-fill'));
+    $(this).closest('form').find('[data-slms-att-row]').each(function () {
+      var radios = $(this).find('input[type=radio]');
+      if (!radios.filter(':checked').length) radios.filter('[value="' + value + '"]').prop('checked', true);
+    });
+  });
 })(jQuery);

@@ -118,8 +118,8 @@ final class Course
     }
 
     /**
-     * The course outline: published lessons and quizzes that belong to the
-     * course, in menu order.
+     * The course outline: published lessons, quizzes and assignments that
+     * belong to the course, in menu order.
      *
      * @return list<WP_Post>
      */
@@ -129,7 +129,7 @@ final class Course
             return [];
         }
         $posts = get_posts([
-            'post_type'        => [PostTypes::LESSON, PostTypes::QUIZ],
+            'post_type'        => [PostTypes::LESSON, PostTypes::QUIZ, PostTypes::ASSIGNMENT],
             'post_status'      => $includeDrafts ? ['publish', 'draft', 'pending', 'future', 'private'] : 'publish',
             'posts_per_page'   => 500,
             'meta_key'         => '_slms_course', // phpcs:ignore WordPress.DB.SlowDBQuery

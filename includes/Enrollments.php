@@ -95,6 +95,35 @@ final class Enrollments
         return $course !== null && $course['free'];
     }
 
+    /**
+     * Learners with access to a course (same rule as hasAccess), by name.
+     *
+     * @return list<array{user_id:int,name:string,email:string}>
+     */
+    public static function learners(int $courseId): array
+    {
+        global $wpdb;
+        $course = Course::get($courseId);
+        if ($course === null) {
+            return [];
+        }
+        $sql = 'SELECT e.user_id, e.name, e.email, u.display_name, u.user_email FROM ' . self::table() . " e LEFT JOIN {$wpdb->users} u ON u.ID = e.user_id WHERE e.course_id = %d"
+            . ($course['free'] ? '' : " AND e.status = 'paid'") . ' ORDER BY e.name ASC';
+        $rows = $wpdb->get_results($wpdb->prepare($sql, $courseId), ARRAY_A) ?: []; // phpcs:ignore WordPress.DB
+        $out = [];
+        foreach ($rows as $r) {
+            if ((int)$r['user_id'] <= 0 || $r['display_name'] === null) {
+                continue;
+            }
+            $out[] = [
+                'user_id' => (int)$r['user_id'],
+                'name'    => (string)($r['name'] !== '' ? $r['name'] : $r['display_name']),
+                'email'   => (string)($r['user_email'] ?: $r['email']),
+            ];
+        }
+        return $out;
+    }
+
     public static function count(int $courseId): int
     {
         global $wpdb;
