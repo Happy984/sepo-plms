@@ -148,7 +148,7 @@ Every classroom feature can be switched off in **LMS → Settings → Classroom*
 3. Go to **Plugins** and activate **Sepo LMS**.
 
 > [!NOTE]
-> GitHub's **Code → Download ZIP** names the folder after the branch, for example `sepo-lms-main`. Rename it to `sepo-lms` before uploading.
+> GitHub's **Code → Download ZIP** names the folder after the branch, for example `sepo-plms-main`. Rename it to `sepo-lms` before uploading.
 
 ## Getting started
 
