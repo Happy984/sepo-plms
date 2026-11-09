@@ -18,6 +18,7 @@ return [
     'pRuleRecord'        => __('Your entire screen is recorded from the moment you start until you hand in. Your teacher can watch the recording.', 'sepo-lms'),
     'pRuleFull'          => __('The work runs in full screen. Leaving full screen is recorded.', 'sepo-lms'),
     'pRuleLeave'         => __('Switching to another tab, window or app is recorded with the time it happened.', 'sepo-lms'),
+    /* translators: %s: value. */
     'pRuleLimit'         => __('If you leave more than %s times, your work is handed in automatically.', 'sepo-lms'),
     'pAgree'             => __('I understand and agree to these conditions.', 'sepo-lms'),
     'pStartShare'        => __('Share my screen and start', 'sepo-lms'),
@@ -36,18 +37,25 @@ return [
     'pShareStoppedTitle' => __('Screen sharing stopped', 'sepo-lms'),
     'pShareStoppedBody'  => __('This has been recorded. Share your entire screen again to continue.', 'sepo-lms'),
     'pShareAgain'        => __('Share screen again', 'sepo-lms'),
+    /* translators: %1$s: value, %2$s: value. */
     'pWarnLimit'         => __('You left the page (%1$s of %2$s allowed). This has been recorded.', 'sepo-lms'),
+    /* translators: %s: value. */
     'pWarn'              => __('You left the page (%s times). This has been recorded.', 'sepo-lms'),
     'pAuto'              => __('The leave limit was reached. Handing in your work now…', 'sepo-lms'),
     'pDone'              => __('Recording finished', 'sepo-lms'),
     'pRecording'         => __('Recording your screen', 'sepo-lms'),
     'pProctored'         => __('Proctored', 'sepo-lms'),
+    /* translators: %1$s: value, %2$s: value. */
     'pLeavesOf'          => __('Leaves: %1$s / %2$s', 'sepo-lms'),
+    /* translators: %s: value. */
     'pLeaves'            => __('Leaves: %s', 'sepo-lms'),
     'pFullFailed'        => __('Full screen could not start. Try the button again.', 'sepo-lms'),
     'pLostTitle'         => __('Full screen closed', 'sepo-lms'),
+    /* translators: %s: value. */
     'pLostBody'          => __('Return to full screen within %s seconds and nothing is counted.', 'sepo-lms'),
+    /* translators: %s: value. */
     'pBackAfter'         => __('after %s s', 'sepo-lms'),
+    /* translators: %s: value. */
     'pNotBack'           => __('not back within %s s', 'sepo-lms'),
     'pPickerTitle'       => __('Back to full screen', 'sepo-lms'),
     'pPickerBody'        => __('Your browser closed full screen to show its own window. Nothing was counted. Return to full screen to carry on.', 'sepo-lms'),
@@ -63,14 +71,22 @@ return [
     'pAutoDone'          => __('Your work was handed in automatically because the leave limit was reached.', 'sepo-lms'),
 
     // Hand-ins
+    /* translators: %1$s: value, %2$s: value. */
     'aBadType'       => __('%1$s is not an accepted file type. Accepted: %2$s.', 'sepo-lms'),
+    /* translators: %1$s: value, %2$s: value. */
     'aTooBig'        => __('%1$s is larger than the %2$s limit.', 'sepo-lms'),
+    /* translators: %s: value. */
     'aEmpty'         => __('%s is empty.', 'sepo-lms'),
+    /* translators: %s: value. */
     'aTooMany'       => __('You can attach up to %s files.', 'sepo-lms'),
+    /* translators: %s: value. */
     'aRemove'        => __('Remove %s', 'sepo-lms'),
+    /* translators: %1$s: value, %2$s: value. */
     'aWordsMin'      => __('%1$s words (at least %2$s)', 'sepo-lms'),
+    /* translators: %s: value. */
     'aWords'         => __('%s words', 'sepo-lms'),
     'aNeedText'      => __('Write your answer before handing in.', 'sepo-lms'),
+    /* translators: %s: value. */
     'aNeedWords'     => __('Your answer needs at least %s words.', 'sepo-lms'),
     'aNeedSomething' => __('Attach a file or write your answer before handing in.', 'sepo-lms'),
     'aNeedFile'      => __('Attach a file before handing in.', 'sepo-lms'),
@@ -78,6 +94,7 @@ return [
     'aSending'       => __('Handing in…', 'sepo-lms'),
     'aSubmit'        => __('Hand in', 'sepo-lms'),
     'aYourHandIn'    => __('Your hand-in', 'sepo-lms'),
+    /* translators: %1$s: value, %2$s: value. */
     'aHandedIn'      => __('Handed in %1$s · attempt %2$s', 'sepo-lms'),
     'aLate'          => __('Late', 'sepo-lms'),
     'aView'          => __('View', 'sepo-lms'),
@@ -100,8 +117,10 @@ return [
     'fReplies'      => __('Replies', 'sepo-lms'),
     'fBack'         => __('Back to topics', 'sepo-lms'),
     'fEdited'       => __('edited', 'sepo-lms'),
+    /* translators: %s: value. */
     'fRepliesN'     => __('Replies (%s)', 'sepo-lms'),
     'fHiddenOne'    => __('1 reply is hidden. Post your own reply to see it.', 'sepo-lms'),
+    /* translators: %s: value. */
     'fHidden'       => __('%s replies are hidden. Post your own reply to see them.', 'sepo-lms'),
     'fYourReply'    => __('Your reply', 'sepo-lms'),
     'fPostReply'    => __('Post reply', 'sepo-lms'),
@@ -140,6 +159,7 @@ return [
     // Certificates
     'certIssuing'  => __('Preparing your certificate…', 'sepo-lms'),
     'certDownload' => __('Download certificate', 'sepo-lms'),
+    /* translators: %s: value. */
     'certCode'     => __('Verification code: %s', 'sepo-lms'),
     'certGet'      => __('Get my certificate', 'sepo-lms'),
 
@@ -147,6 +167,7 @@ return [
     'tdAdd'       => __('Add a to-do…', 'sepo-lms'),
     'tdAddBtn'    => __('Add', 'sepo-lms'),
     'tdDue'       => __('Due date', 'sepo-lms'),
+    /* translators: %s: value. */
     'tdLink'      => __('Link to “%s”', 'sepo-lms'),
     'tdShow'      => __('Show', 'sepo-lms'),
     'td_open'     => __('To do', 'sepo-lms'),
@@ -155,7 +176,9 @@ return [
     'tdClear'     => __('Clear done', 'sepo-lms'),
     'tdNone'      => __('Nothing to do. Add a to-do above.', 'sepo-lms'),
     'tdNoneDone'  => __('Nothing ticked off yet.', 'sepo-lms'),
+    /* translators: %s: value. */
     'tdDone'      => __('Mark “%s” as done', 'sepo-lms'),
+    /* translators: %s: value. */
     'tdDelete'    => __('Delete “%s”', 'sepo-lms'),
     'tdEditHint'  => __('Click to edit', 'sepo-lms'),
 

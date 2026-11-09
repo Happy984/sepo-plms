@@ -11,8 +11,6 @@ final class Plugin
 {
     public static function boot(): void
     {
-        load_plugin_textdomain('sepo-lms', false, dirname(plugin_basename(SLMS_FILE)) . '/languages');
-
         Activator::maybeUpgrade();
 
         PostTypes::init();
@@ -22,6 +20,8 @@ final class Plugin
         Frontend::init();
         Privacy::init();
         Downloads::init();
+        Proofs::init();
+        Records::init();
         Certificates::init();
         Forums::init();
         Maintenance::init();
@@ -44,6 +44,7 @@ final class Plugin
             Admin\ProctorPage::init();
             Admin\CertificatesPage::init();
             Admin\CertificateDesignsPage::init();
+            Admin\TranscriptsPage::init();
         }
 
         // Rewrite rules are flushed once, after activation or an address change.

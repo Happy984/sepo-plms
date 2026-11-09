@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+// phpcs:disable WordPress.Security.EscapeOutput.ExceptionNotEscaped -- Exception messages are returned as JSON data or escaped at the point they are displayed.
 
 namespace SepoLms;
 
@@ -15,6 +16,18 @@ namespace SepoLms;
  */
 final class Storage
 {
+    /** Direct file-system access for the private folder. */
+    public static function fs(): \WP_Filesystem_Direct
+    {
+        static $fs = null;
+        if ($fs === null) {
+            require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+            require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
+            $fs = new \WP_Filesystem_Direct(null);
+        }
+        return $fs;
+    }
+
     public const DIR = 'sepo-lms-private';
 
     /** Extensions that are never stored, whatever an assignment allows. */
@@ -144,10 +157,10 @@ final class Storage
         $dir = self::dir($sub);
         $stored = bin2hex(random_bytes(16)) . '.' . $ext;
         $dest = $dir . '/' . $stored;
-        if (!move_uploaded_file($tmp, $dest)) {
+        if (!self::fs()->move($tmp, $dest, true)) {
             throw new \DomainException(__('The server could not store that file.', 'sepo-lms'));
         }
-        @chmod($dest, 0640); // phpcs:ignore WordPress.PHP.NoSilencedErrors
+        self::fs()->chmod($dest, 0640);
 
         return [
             'name' => $original,

@@ -144,11 +144,30 @@ final class Frontend
         wp_register_script('sepo-lms-proctor', SLMS_URL . 'assets/js/proctor.js', ['sepo-lms'], Plugin::assetVersion('assets/js/proctor.js'), true);
         wp_register_script('sepo-lms-assignment', SLMS_URL . 'assets/js/assignment.js', ['sepo-lms'], Plugin::assetVersion('assets/js/assignment.js'), true);
         self::registerViewer();
+        wp_register_script('sepo-lms-media', SLMS_URL . 'assets/js/media.js', [], Plugin::assetVersion('assets/js/media.js'), true);
+        wp_localize_script('sepo-lms-media', 'SepoLmsMedia', [
+            'play'      => __('Play', 'sepo-lms'),
+            'pause'     => __('Pause', 'sepo-lms'),
+            'download'  => __('Download', 'sepo-lms'),
+            'newTab'    => __('Open in a new tab', 'sepo-lms'),
+            'close'     => __('Close', 'sepo-lms'),
+            'previous'  => __('Previous', 'sepo-lms'),
+            'next'      => __('Next', 'sepo-lms'),
+            'loading'   => __('Loading…', 'sepo-lms'),
+            'noPreview' => __('This file could not be shown.', 'sepo-lms'),
+            'noPdf'     => __('This browser cannot show PDFs inside the page. Open it or download it instead.', 'sepo-lms'),
+        ]);
         wp_localize_script('sepo-lms', 'SepoLms', [
             'api'   => esc_url_raw(rest_url(Rest::NS)),
             'nonce' => wp_create_nonce('wp_rest'),
             'i18n'  => [
                 'failed'        => __('That didn’t work. Try again.', 'sepo-lms'),
+                'proof_sent'    => __('Sent. We will check it and email you when your enrolment is confirmed.', 'sepo-lms'),
+                'proof_pending' => __('Waiting to be checked', 'sepo-lms'),
+                'proof_accepted' => __('Accepted', 'sepo-lms'),
+                'proof_declined' => __('Not accepted', 'sepo-lms'),
+                /* translators: 1: this part, 2: number of parts */
+                'page_of'       => __('Part %1$s of %2$s', 'sepo-lms'),
                 'fullName'      => __('Full name', 'sepo-lms'),
                 'email'         => __('Email', 'sepo-lms'),
                 'nationalId'    => __('National ID', 'sepo-lms'),
@@ -200,10 +219,15 @@ final class Frontend
                 'submitted'     => __('Your answers were submitted. Your result will appear under My courses.', 'sepo-lms'),
                 'retake'        => __('Take it again', 'sepo-lms'),
                 'backToCourse'  => __('Back to the course', 'sepo-lms'),
+                /* translators: %s: value. */
                 'attempt'       => __('Attempt %s', 'sepo-lms'),
+                /* translators: %s: value. */
                 'answered'      => __('Answered: %s', 'sepo-lms'),
+                /* translators: %1$s: value, %2$s: value. */
                 'ofCorrect'     => __('%1$s / %2$s correct', 'sepo-lms'),
+                /* translators: %1$s: value, %2$s: value. */
                 'page'          => __('Page %1$s of %2$s', 'sepo-lms'),
+                /* translators: %1$s: value, %2$s: value, %3$s: value. */
                 'showing'       => __('Showing %1$s–%2$s of %3$s', 'sepo-lms'),
                 'noMatch'       => __('Nothing matches your search.', 'sepo-lms'),
                 'prev'          => __('Previous page', 'sepo-lms'),
@@ -437,6 +461,62 @@ final class Frontend
         ]);
     }
 
+    /**
+     * A long lesson as a run of cards, read one at a time.
+     *
+     * The lesson's "Show as cards" setting decides: "auto" splits at page
+     * breaks, or, for a lesson over about 900 words without them, at its main
+     * headings; "headings" always splits at main headings; "off" keeps one page.
+     *
+     * @return list<string> the HTML of each card (one item when not split)
+     */
+    public static function lessonParts(WP_Post $post): array
+    {
+        $mode = (string)get_post_meta($post->ID, '_slms_cards', true) ?: 'auto';
+        $raw = (string)$post->post_content;
+        $filter = static fn(string $c): string => (string)apply_filters('the_content', $c); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+        $keep = static fn(array $parts): array => array_values(array_filter($parts, static fn(string $p): bool => trim(wp_strip_all_tags($p, true)) !== '' || preg_match('~<(img|video|audio|iframe|figure|svg|table)\b~i', $p)));
+        if ($mode !== 'off' && str_contains($raw, '<!--nextpage-->')) {
+            // The whole lesson goes through the content filters at once and is
+            // cut at the page breaks afterwards. Plugins that number things
+            // across a post, such as notes and a bibliography, then see the
+            // whole lesson: notes run on from card to card, and the notes and
+            // bibliography appear on the card where they belong.
+            $break = '<div class="slms-card-break"></div>';
+            $html = $filter(str_replace('<!--nextpage-->', "\n\n" . $break . "\n\n", str_replace(['<!-- wp:nextpage -->', '<!-- /wp:nextpage -->'], '', $raw)));
+            $chunks = $keep(array_map('trim', preg_split('~(?:<p>\s*)?<div class="slms-card-break"></div>(?:\s*</p>)?~i', $html) ?: [$html]));
+            if (count($chunks) > 1) {
+                return $chunks;
+            }
+            $html = (string)preg_replace('~<div class="slms-card-break"></div>~', '', $html);
+        } else {
+            $html = $filter($raw);
+        }
+        $long = str_word_count(wp_strip_all_tags($html)) > 900;
+        if ($mode === 'headings' || ($mode === 'auto' && $long)) {
+            // A section (such as the notes and bibliography) stays whole on one
+            // card, even when it has main headings of its own.
+            $held = [];
+            $html = (string)preg_replace_callback('~<section\b[^>]*>.*?</section>~is', static function (array $m) use (&$held): string {
+                $held[] = $m[0];
+                return '<!--slms-held-' . (count($held) - 1) . '-->';
+            }, $html);
+            $restore = static fn(string $p): string => (string)preg_replace_callback('~<!--slms-held-(\d+)-->~', static fn(array $m): string => $held[(int)$m[1]] ?? '', $p);
+            $pieces = array_map($restore, preg_split('~(?=<h2[\s>])~i', $html) ?: [$html]);
+            $html = $restore($html);
+            $pieces = array_values(array_filter($pieces, static fn(string $p): bool => trim(wp_strip_all_tags($p)) !== ''));
+            // A short opening before the first heading joins the first card.
+            if (count($pieces) > 1 && !preg_match('~^\s*<h2~i', $pieces[0]) && str_word_count(wp_strip_all_tags($pieces[0])) < 60) {
+                $pieces[1] = $pieces[0] . $pieces[1];
+                array_shift($pieces);
+            }
+            if (count($pieces) > 1) {
+                return $pieces;
+            }
+        }
+        return [$html];
+    }
+
     public static function renderLesson(WP_Post $post): string
     {
         $uid = get_current_user_id();
@@ -451,26 +531,45 @@ final class Frontend
         $prev = null;
         $next = null;
         $done = false;
+        $number = 0;
+        $total = 0;
         if ($courseId > 0) {
             $outline = Access::outline($courseId, $uid);
+            $total = count($outline);
             foreach ($outline as $i => $row) {
                 if ($row['id'] === $post->ID) {
                     $prev = $outline[$i - 1] ?? null;
                     $next = $outline[$i + 1] ?? null;
                     $done = $row['done'];
+                    $number = $i + 1;
                     break;
                 }
             }
         }
+        $parts = self::lessonParts($post);
+        $words = str_word_count(wp_strip_all_tags((string) $post->post_content));
+        $teacher = '';
+        if ($course !== null && !empty($course['teacher_id'])) {
+            $tp = get_post((int) $course['teacher_id']);
+            $teacher = $tp instanceof WP_Post && $tp->post_status === 'publish' ? get_the_title($tp) : '';
+        }
+        if ($teacher === '') {
+            $teacher = (string) get_the_author_meta('display_name', (int) $post->post_author);
+        }
         return self::part('lesson', [
             'post'      => $post,
             'course'    => $course,
-            'body'      => apply_filters('the_content', $post->post_content), // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+            'body'      => count($parts) === 1 ? $parts[0] : '',
+            'parts'     => $parts,
             'prev'      => $prev,
             'next'      => $next,
             'done'      => $done,
             'canTrack'  => $uid > 0 && $course !== null,
             'study'     => self::studyContext($courseId, $post->ID, $uid),
+            'number'    => $number,
+            'total'     => $total,
+            'minutes'   => max(1, (int) ceil($words / 200)),
+            'teacher'   => $teacher,
         ]);
     }
 
