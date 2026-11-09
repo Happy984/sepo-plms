@@ -83,7 +83,7 @@ final class CertificateDesignsPage
         // phpcs:disable WordPress.Security.NonceVerification -- read-only routing
         $edit = isset($_GET['design']) ? sanitize_key(wp_unslash((string)$_GET['design'])) : '';
         $msg = isset($_GET['msg']) ? sanitize_key(wp_unslash((string)$_GET['msg'])) : '';
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
         if ($edit !== '' && CertificateDesigns::get($edit) !== null) {
             self::editor(CertificateDesigns::get($edit), $msg);
             return;
@@ -217,9 +217,11 @@ final class CertificateDesignsPage
     public static function handleNew(): void
     {
         self::guard('slms_cert_design_new');
+        // phpcs:disable WordPress.Security.NonceVerification.Missing -- checked in guard()
         $template = isset($_POST['template']) ? sanitize_key(wp_unslash((string)$_POST['template'])) : 'classic';
         $d = CertificateDesigns::template($template);
         $name = isset($_POST['name']) ? sanitize_text_field(wp_unslash((string)$_POST['name'])) : '';
+        // phpcs:enable WordPress.Security.NonceVerification.Missing
         if ($name !== '') {
             $d['name'] = $name;
         }

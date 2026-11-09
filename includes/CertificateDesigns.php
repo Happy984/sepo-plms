@@ -631,7 +631,7 @@ final class CertificateDesigns
             $out['alpha'] = $transparent ? $alpha : '';
         }
         $dir = Storage::dir('cache');
-        if ($dir !== '' && is_writable($dir)) {
+        if ($dir !== '' && wp_is_writable($dir)) {
             file_put_contents($dir . '/' . basename($cacheRel), serialize($out)); // phpcs:ignore WordPress.WP.AlternativeFunctions
         }
         return $out;

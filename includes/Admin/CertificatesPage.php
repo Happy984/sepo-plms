@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+// phpcs:disable PluginCheck.Security.DirectDB.UnescapedDBParameter, WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQL.NotPrepared, WordPress.DB.PreparedSQLPlaceholders.ReplacementsWrongNumber, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare -- Custom plugin tables: names are built from $wpdb->prefix plus a fixed suffix, values go through $wpdb->prepare(), and dynamic fragments come from fixed allow-lists.
 
 namespace SepoLms\Admin;
 
@@ -45,7 +46,7 @@ final class CertificatesPage
         $search = isset($_GET['s']) ? sanitize_text_field(wp_unslash((string)$_GET['s'])) : '';
         $page = max(1, isset($_GET['paged']) ? absint($_GET['paged']) : 1);
         $msg = isset($_GET['msg']) ? sanitize_key(wp_unslash((string)$_GET['msg'])) : '';
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
         $scope = $course > 0 && in_array($course, $courses, true) ? [$course] : $courses;
         $res = Certificates::query($scope, $search, 25, $page);
         $notices = [
@@ -153,7 +154,7 @@ final class CertificatesPage
             exit;
         }
         $id = isset($_GET['id']) ? absint($_GET['id']) : 0;
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
         check_admin_referer('slms_certificate_' . $do . '_' . $id);
         global $wpdb;
         $row = $wpdb->get_row($wpdb->prepare('SELECT course_id FROM ' . Certificates::table() . ' WHERE id = %d', $id), ARRAY_A); // phpcs:ignore WordPress.DB

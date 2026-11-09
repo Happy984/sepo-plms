@@ -33,6 +33,7 @@ final class MetaBoxes
         add_meta_box('slms-details', __('Course details', 'sepo-lms'), [self::class, 'detailsBox'], PostTypes::COURSE, 'normal', 'default');
         add_meta_box('slms-people', __('Teacher and school', 'sepo-lms'), [self::class, 'peopleBox'], PostTypes::COURSE, 'normal', 'default');
         add_meta_box('slms-methods', __('Payment methods', 'sepo-lms'), [self::class, 'methodsBox'], PostTypes::COURSE, 'side', 'default');
+        add_meta_box('slms-resources', __('Course resources', 'sepo-lms'), [self::class, 'resourcesBox'], PostTypes::COURSE, 'normal', 'default');
         add_meta_box('slms-related', __('Related courses', 'sepo-lms'), [self::class, 'relatedBox'], PostTypes::COURSE, 'side', 'low');
         add_meta_box('slms-enrolments', __('Enrolments', 'sepo-lms'), [self::class, 'enrolmentsBox'], PostTypes::COURSE, 'side', 'high');
 
@@ -276,7 +277,40 @@ final class MetaBoxes
         echo '<p class="description">' . esc_html__('Position in the course is the “Order” number below, or drag it in the course’s Outline box.', 'sepo-lms') . '</p>';
         if ($post->post_type === PostTypes::LESSON) {
             echo '<p class="description">' . esc_html__('The excerpt shows as a short note under the lesson in the outline.', 'sepo-lms') . '</p>';
+            $cards = self::m($post, 'cards') ?: 'auto';
+            echo '<p class="slms-f"><label for="slms_cards">' . esc_html__('Show as cards', 'sepo-lms') . '</label><select id="slms_cards" name="slms[cards]" class="widefat">';
+            foreach (['auto' => __('When it is long (at page breaks, or main headings after about 900 words)', 'sepo-lms'), 'headings' => __('One card per main heading', 'sepo-lms'), 'off' => __('One page', 'sepo-lms')] as $k => $label) {
+                echo '<option value="' . esc_attr($k) . '"' . selected($cards, $k, false) . '>' . esc_html($label) . '</option>';
+            }
+            echo '</select><span class="description">' . esc_html__('Learners read one card at a time. "Mark as complete" appears on the last card. Add a Page break block to choose where each card ends.', 'sepo-lms') . '</span></p>';
         }
+    }
+
+    /** Documents and recordings for the course's Resources tab. */
+    public static function resourcesBox(WP_Post $post): void
+    {
+        self::nonce();
+        wp_enqueue_media();
+        echo '<input type="hidden" name="slms_resources_present" value="1">';
+        echo '<p class="description">' . esc_html__('Learners in the classroom find these on the Resources tab: documents to download, and audio or video to play on the page. Add files from the Media Library; drag the handle or use the arrows to change the order.', 'sepo-lms') . '</p>';
+        echo '<ol class="slms-res" data-slms-res>';
+        foreach (\SepoLms\Resources::raw($post->ID) as $i => $r) {
+            echo self::resourceRow((int) $r['id'], (string) $r['title'], (string) $r['note']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in resourceRow().
+        }
+        echo '</ol><template data-slms-res-tpl>' . self::resourceRow(0, '', '') . '</template>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in resourceRow().
+        echo '<p><button type="button" class="button" data-slms-res-add>' . esc_html__('Add files', 'sepo-lms') . '</button></p>';
+    }
+
+    private static function resourceRow(int $id, string $title, string $note): string
+    {
+        $name = $id > 0 ? wp_basename((string) get_attached_file($id)) : '';
+        $mime = $id > 0 ? (string) get_post_mime_type($id) : '';
+        return '<li class="slms-res__row"><span class="slms-res__handle dashicons dashicons-menu" aria-hidden="true"></span>'
+            . '<input type="hidden" name="slms_resources[__i__][id]" value="' . esc_attr((string) ($id ?: '')) . '" data-res-id>'
+            . '<div class="slms-res__body"><span class="slms-res__file" data-res-file>' . esc_html($name) . ($mime !== '' ? ' <span class="description">(' . esc_html($mime) . ')</span>' : '') . '</span>'
+            . '<label class="screen-reader-text">' . esc_html__('Title', 'sepo-lms') . '</label><input type="text" class="widefat" name="slms_resources[__i__][title]" value="' . esc_attr($title) . '" placeholder="' . esc_attr__('Title (the file name when empty)', 'sepo-lms') . '" data-res-title>'
+            . '<label class="screen-reader-text">' . esc_html__('Description', 'sepo-lms') . '</label><textarea class="widefat" rows="2" name="slms_resources[__i__][note]" placeholder="' . esc_attr__('What it is, or when to use it (optional)', 'sepo-lms') . '">' . esc_textarea($note) . '</textarea></div>'
+            . '<div class="slms-res__acts"><button type="button" class="button-link" data-res-up aria-label="' . esc_attr__('Move up', 'sepo-lms') . '">↑</button><button type="button" class="button-link" data-res-down aria-label="' . esc_attr__('Move down', 'sepo-lms') . '">↓</button><button type="button" class="button-link button-link-delete" data-res-remove>' . esc_html__('Remove', 'sepo-lms') . '</button></div></li>';
     }
 
     // ---------------------------------------------------- school and teacher
@@ -362,7 +396,7 @@ final class MetaBoxes
                 'tax_rate' => 'percent', 'tax_type' => 'text', 'tax_country' => 'text', 'level' => 'text', 'sequential' => 'bool',
                 'start_date' => 'date', 'end_date' => 'date', 'objectives' => 'textarea', 'teacher' => 'post', 'school' => 'post', 'teacher_bio' => 'textarea',
             ],
-            PostTypes::LESSON  => ['course' => 'post', 'available_from' => 'date'],
+            PostTypes::LESSON  => ['course' => 'post', 'available_from' => 'date', 'cards' => 'cards'],
             PostTypes::QUIZ    => ['course' => 'post', 'available_from' => 'date'],
             PostTypes::ASSIGNMENT => ['course' => 'post', 'available_from' => 'date'],
             PostTypes::SCHOOL  => [
@@ -392,6 +426,7 @@ final class MetaBoxes
                 'currency' => strlen($c = strtoupper(preg_replace('/[^A-Za-z]/', '', $raw) ?? '')) === 3 ? $c : '',
                 'bool'     => $raw === '1' ? '1' : '0',
                 'date'     => preg_match('/^\d{4}-\d{2}-\d{2}$/', $raw) ? $raw : '',
+                'cards'    => in_array($raw, ['headings', 'off'], true) ? $raw : '',
                 'textarea' => sanitize_textarea_field($raw),
                 'email'    => sanitize_email($raw),
                 'url'      => esc_url_raw($raw, ['http', 'https']),
@@ -412,6 +447,10 @@ final class MetaBoxes
                 $valid = array_keys(Settings::methods());
                 $methods = isset($_POST['slms_methods']) ? array_map('sanitize_key', (array)wp_unslash($_POST['slms_methods'])) : [];
                 update_post_meta($postId, '_slms_methods', array_values(array_intersect($methods, $valid)));
+            }
+            if (isset($_POST['slms_resources_present'])) {
+                $rows = isset($_POST['slms_resources']) && is_array($_POST['slms_resources']) ? wp_unslash($_POST['slms_resources']) : []; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitised per field in Resources::save().
+                \SepoLms\Resources::save($postId, array_values($rows));
             }
             if (isset($_POST['slms_related_present'])) {
                 $ids = isset($_POST['slms_related']) ? array_map('absint', (array)wp_unslash($_POST['slms_related'])) : [];

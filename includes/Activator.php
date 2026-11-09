@@ -9,8 +9,10 @@ namespace SepoLms;
  */
 final class Activator
 {
-    public const DB_VERSION = '2';
+    public const DB_VERSION = '4';
     public const CAP = 'manage_sepo_lms';
+    /** Entering marks and keeping student records for transcripts. */
+    public const CAP_GRADES = 'slms_record_grades';
     public const DB_OPTION = 'sepo_lms_db';
     public const FLUSH_OPTION = 'sepo_lms_flush';
     public const VERSION_OPTION = 'sepo_lms_version';
@@ -25,6 +27,7 @@ final class Activator
                 $role->add_cap(self::CAP);
             }
         }
+        self::grantGradeCap();
 
         self::ensureMyCoursesPage();
 
@@ -50,12 +53,24 @@ final class Activator
     {
         if (get_option(self::DB_OPTION) !== self::DB_VERSION) {
             self::install();
+            self::grantGradeCap();
         }
         // A new release can add post types or addresses, so its rewrite
         // rules are rebuilt once on the first request after an update.
         if (get_option(self::VERSION_OPTION) !== SLMS_VERSION) {
             update_option(self::VERSION_OPTION, SLMS_VERSION, false);
             update_option(self::FLUSH_OPTION, 1, false);
+        }
+    }
+
+    /** Administrators and editors keep student records; other staff are given it on their profile. */
+    public static function grantGradeCap(): void
+    {
+        foreach (['administrator', 'editor'] as $roleName) {
+            $role = get_role($roleName);
+            if ($role && !$role->has_cap(self::CAP_GRADES)) {
+                $role->add_cap(self::CAP_GRADES);
+            }
         }
     }
 
@@ -162,6 +177,7 @@ final class Activator
 ) $c;");
 
         self::installClassroom($p, $c);
+        self::installRecords($p, $c);
         Storage::protect();
 
         update_option(self::DB_OPTION, self::DB_VERSION, false);
@@ -341,6 +357,74 @@ final class Activator
   room varchar(64) NOT NULL,
   last_id bigint(20) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY  (user_id,room)
+) $c;");
+    }
+
+    /** Proofs of payment, and school records: learners, their parents or guardians, and marks. */
+    private static function installRecords(string $p, string $c): void
+    {
+        dbDelta("CREATE TABLE {$p}slms_payment_proofs (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  enrollment_id bigint(20) unsigned NOT NULL,
+  user_id bigint(20) unsigned NOT NULL,
+  path varchar(255) NOT NULL DEFAULT '',
+  name varchar(190) NOT NULL DEFAULT '',
+  mime varchar(100) NOT NULL DEFAULT '',
+  size bigint(20) unsigned NOT NULL DEFAULT 0,
+  note varchar(255) NOT NULL DEFAULT '',
+  status varchar(20) NOT NULL DEFAULT 'pending',
+  reason varchar(255) NOT NULL DEFAULT '',
+  reviewer bigint(20) unsigned NOT NULL DEFAULT 0,
+  created datetime NOT NULL,
+  reviewed datetime NULL DEFAULT NULL,
+  PRIMARY KEY  (id),
+  KEY enrollment_id (enrollment_id),
+  KEY status (status)
+) $c;");
+
+        dbDelta("CREATE TABLE {$p}slms_students (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  user_id bigint(20) unsigned NOT NULL DEFAULT 0,
+  name varchar(120) NOT NULL DEFAULT '',
+  admission_no varchar(60) NOT NULL DEFAULT '',
+  dob varchar(20) NOT NULL DEFAULT '',
+  gender varchar(30) NOT NULL DEFAULT '',
+  level varchar(60) NOT NULL DEFAULT '',
+  class_name varchar(60) NOT NULL DEFAULT '',
+  school_id bigint(20) unsigned NOT NULL DEFAULT 0,
+  notes text NULL,
+  created datetime NOT NULL,
+  updated datetime NOT NULL,
+  PRIMARY KEY  (id),
+  KEY user_id (user_id),
+  KEY level (level),
+  KEY admission_no (admission_no)
+) $c;");
+
+        dbDelta("CREATE TABLE {$p}slms_guardians (
+  student_id bigint(20) unsigned NOT NULL,
+  user_id bigint(20) unsigned NOT NULL,
+  relation varchar(40) NOT NULL DEFAULT '',
+  PRIMARY KEY  (student_id,user_id),
+  KEY user_id (user_id)
+) $c;");
+
+        dbDelta("CREATE TABLE {$p}slms_marks (
+  id bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  student_id bigint(20) unsigned NOT NULL,
+  year smallint(5) unsigned NOT NULL,
+  level varchar(60) NOT NULL DEFAULT '',
+  term varchar(40) NOT NULL DEFAULT '',
+  subject varchar(100) NOT NULL DEFAULT '',
+  score decimal(7,2) NULL DEFAULT NULL,
+  out_of decimal(7,2) NOT NULL DEFAULT 100,
+  remark varchar(255) NOT NULL DEFAULT '',
+  teacher_id bigint(20) unsigned NOT NULL DEFAULT 0,
+  created datetime NOT NULL,
+  updated datetime NOT NULL,
+  PRIMARY KEY  (id),
+  UNIQUE KEY entry (student_id,year,term,subject),
+  KEY year_level (year,level)
 ) $c;");
     }
 

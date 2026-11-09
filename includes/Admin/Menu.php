@@ -55,6 +55,9 @@ final class Menu
             return;
         }
         wp_enqueue_style('sepo-lms-admin', SLMS_URL . 'assets/css/admin.css', [], \SepoLms\Plugin::assetVersion('assets/css/admin.css'));
+        if (str_contains($hook, TranscriptsPage::SLUG)) {
+            wp_enqueue_style('sepo-lms-transcript', SLMS_URL . 'assets/css/transcript.css', [], \SepoLms\Plugin::assetVersion('assets/css/transcript.css'));
+        }
         wp_enqueue_script('sepo-lms-admin', SLMS_URL . 'assets/js/admin.js', ['jquery', 'jquery-ui-sortable'], \SepoLms\Plugin::assetVersion('assets/js/admin.js'), true);
         if (str_contains($hook, 'sepo-lms-submissions')) {
             \SepoLms\Frontend::registerViewer();
@@ -69,6 +72,10 @@ final class Menu
                 'confirmDelete' => __('Delete this result? The learner will be able to take the quiz again.', 'sepo-lms'),
                 'failed'        => __('That didn’t work. Try again.', 'sepo-lms'),
                 'choose'        => __('Choose image', 'sepo-lms'),
+                'resChoose'     => __('Choose files', 'sepo-lms'),
+                'resUse'        => __('Add to resources', 'sepo-lms'),
+                'cancel'        => __('Cancel', 'sepo-lms'),
+                'ok'            => __('Continue', 'sepo-lms'),
                 'use'           => __('Use this image', 'sepo-lms'),
                 'saving'        => __('Saving…', 'sepo-lms'),
                 /* translators: %s: score */

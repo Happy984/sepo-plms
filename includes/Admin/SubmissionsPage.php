@@ -80,7 +80,7 @@ final class SubmissionsPage
         $status = isset($_GET['status']) ? sanitize_key(wp_unslash((string)$_GET['status'])) : '';
         $search = isset($_GET['s']) ? sanitize_text_field(wp_unslash((string)$_GET['s'])) : '';
         $page = max(1, isset($_GET['paged']) ? absint($_GET['paged']) : 1);
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
 
         $scope = $course > 0 && in_array($course, $courses, true) ? [$course] : $courses;
         $assignments = [];

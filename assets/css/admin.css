@@ -237,3 +237,45 @@ a.slms-tile:hover { border-color: #2271b1; }
 }
 .slms-rec-delete { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 18px; }
 p.slms-bulk { margin: 10px 0 0; gap: 10px; }
+
+/* Proof of payment on the enrolments screen */
+.slms-proofs { margin-top: 8px; display: grid; gap: 6px; }
+.slms-proof { padding: 8px 10px; border-radius: 6px; background: #f6f7f7; }
+.slms-proof__acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; align-items: center; }
+.slms-proof__form { display: inline-flex; gap: 4px; align-items: center; margin: 0; }
+.slms-proof__form input[type="text"] { min-width: 160px; }
+.slms-chip { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+.slms-chip--pending { background: #fcf9e8; color: #8a6100; }
+.slms-chip--accepted { background: #edfaef; color: #00701a; }
+.slms-chip--declined { background: #fcf0f1; color: #a00; }
+
+/* Course resources */
+.slms-res { margin: 8px 0; padding: 0; list-style: none; }
+.slms-res__row { display: flex; gap: 10px; align-items: flex-start; padding: 10px; margin: 0 0 8px; background: #f6f7f7; border: 1px solid #dcdcde; border-radius: 6px; }
+.slms-res__handle { cursor: move; color: #646970; margin-top: 4px; }
+.slms-res__body { flex: 1; display: grid; gap: 6px; min-width: 0; }
+.slms-res__file { font-weight: 600; overflow-wrap: anywhere; }
+.slms-res__acts { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+
+/* In-page confirmation dialog */
+.slms-dlg { position: fixed; inset: 0; z-index: 100100; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(0, 0, 0, .45); }
+.slms-dlg__box { width: 100%; max-width: 420px; padding: 20px; border-radius: 8px; background: #fff; color: #1d2327; }
+.slms-dlg__box p { margin: 0 0 16px; font-size: 14px; line-height: 1.5; }
+.slms-dlg__acts { display: flex; justify-content: flex-end; gap: 8px; }
+.slms-dlg__box:focus { outline: none; }
+.slms-btn-spin.spinner { float: none; margin: -2px 6px 0 0; width: 16px; height: 16px; background-size: 16px; vertical-align: middle; }
+.button.is-busy { pointer-events: none; opacity: .85; }
+
+/* Transcripts */
+.slms-rec-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 0 12px; }
+.slms-rec-form label { display: block; font-weight: 600; margin-bottom: 4px; }
+.slms-rec-form input[type=text], .slms-rec-form input[type=email], .slms-rec-form input[type=date], .slms-rec-form select { width: 100%; max-width: 100%; }
+.slms-rec-acts { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.slms-rec-delete { margin-top: 8px; text-align: right; }
+.slms-rec-guardians { margin: 0 0 12px; padding: 0; list-style: none; }
+.slms-rec-guardians li { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid #f0f0f1; }
+.slms-rec-table input.regular-text { width: 100%; }
+.slms-rec-marks, .slms-rec-preview { margin-bottom: 20px; }
+.slms-rec .slms-filters label { font-weight: 600; }
+.slms-rec-hint { margin: 12px 0; padding: 10px 14px; border-radius: 6px; background: #eef4fb; color: #1d2327; }
+.slms-rec-hint p { margin: 0; }

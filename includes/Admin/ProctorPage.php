@@ -67,7 +67,7 @@ final class ProctorPage
         $item = isset($_GET['item']) ? absint($_GET['item']) : 0;
         $flagged = !empty($_GET['flagged']);
         $page = max(1, isset($_GET['paged']) ? absint($_GET['paged']) : 1);
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
         $scope = $course > 0 && in_array($course, $courses, true) ? [$course] : $courses;
         $res = Proctor::query(['course_ids' => $scope, 'item' => $item, 'flagged' => $flagged], 25, $page);
         ?>
@@ -273,7 +273,7 @@ final class ProctorPage
         } elseif (isset($_GET['deleted'])) {
             echo '<div class="notice notice-success is-dismissible"><p>' . esc_html__('Session and recording deleted.', 'sepo-lms') . '</p></div>';
         }
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
     }
 
     public static function handleDelete(): void

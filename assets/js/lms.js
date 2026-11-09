@@ -366,6 +366,126 @@
     });
   }
 
+  // ------------------------------------------------------------ a lesson in cards
+  // One part at a time; "Mark as complete" appears with the last part.
+  function initCards(box) {
+    var cards = $$('[data-card]', box), n = cards.length, nav = $('.slms-cardnav', box);
+    var prev = $('[data-card-prev]', box), next = $('[data-card-next]', box), count = $('[data-card-count]', box);
+    var dots = $$('[data-card-go]', box), end = document.querySelector('[data-slms-cards-end]');
+    var key = 'slms-card-' + location.pathname, cur = 1, seen = 1;
+    try { cur = Math.min(n, Math.max(1, parseInt(sessionStorage.getItem(key), 10) || 1)); } catch (e) { cur = 1; }
+    seen = cur;
+    nav.hidden = false;
+    function show(i, focus) {
+      cur = Math.min(n, Math.max(1, i));
+      seen = Math.max(seen, cur);
+      cards.forEach(function (c, k) { c.hidden = k + 1 !== cur; });
+      dots.forEach(function (d, k) { d.classList.toggle('is-on', k + 1 === cur); d.classList.toggle('is-seen', k + 1 <= seen); if (k + 1 === cur) d.setAttribute('aria-current', 'step'); else d.removeAttribute('aria-current'); });
+      prev.disabled = cur === 1;
+      next.hidden = cur === n;
+      count.textContent = t('page_of', cur, n);
+      if (end) end.hidden = cur !== n;
+      try { sessionStorage.setItem(key, String(cur)); } catch (e) { /* the place is not kept */ }
+      if (focus) {
+        var c = cards[cur - 1];
+        c.setAttribute('tabindex', '-1');
+        c.focus({ preventScroll: true });
+        box.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    }
+    prev.addEventListener('click', function () { show(cur - 1, true); });
+    next.addEventListener('click', function () { show(cur + 1, true); });
+    dots.forEach(function (d) { d.addEventListener('click', function () { show(parseInt(d.getAttribute('data-card-go'), 10), true); }); });
+    show(cur, false);
+
+    // A link to a place on another card (a note number, a contents entry,
+    // a "back to the text" arrow) opens that card first, then goes there.
+    function cardOf(id) {
+      var el = id ? document.getElementById(id) : null;
+      var c = el && box.contains(el) ? el.closest('[data-card]') : null;
+      return c ? { el: el, n: cards.indexOf(c) + 1 } : null;
+    }
+    function goTo(id) {
+      var hit = cardOf(id);
+      if (!hit) { return false; }
+      if (hit.n !== cur) { show(hit.n, false); }
+      hit.el.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      return true;
+    }
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[href*="#"]');
+      if (!a || e.defaultPrevented || a.origin + a.pathname !== location.origin + location.pathname) { return; }
+      var id = decodeURIComponent(a.hash.slice(1));
+      var hit = cardOf(id);
+      if (!hit || hit.n === cur) { return; }
+      e.preventDefault();
+      goTo(id);
+      try { history.replaceState(null, '', '#' + id); } catch (err) { /* the address stays as it was */ }
+    });
+    window.addEventListener('hashchange', function () { goTo(decodeURIComponent(location.hash.slice(1))); });
+    if (location.hash.length > 1) { goTo(decodeURIComponent(location.hash.slice(1))); }
+  }
+
+  // ------------------------------------------------------------ proof of payment
+  function sizeLabel(n) {
+    var u = ['B', 'KB', 'MB', 'GB'], i = 0;
+    while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+    return (i ? n.toFixed(n < 10 ? 1 : 0) : n) + ' ' + u[i];
+  }
+  /* A styled file field: shows the chosen file's name, size and a small
+     picture, and takes a file dropped on it. The real input stays in the
+     form, so the browser's own validation and form data still apply. */
+  function initPick(pick) {
+    var input = $('input[type=file]', pick), empty = $('.slms-pick__empty', pick), chosen = $('.slms-pick__chosen', pick), thumb = $('[data-pick-thumb]', pick), url = null;
+    function paint() {
+      var f = input.files && input.files[0];
+      if (url) { URL.revokeObjectURL(url); url = null; }
+      empty.hidden = !!f; chosen.hidden = !f;
+      pick.classList.toggle('has-file', !!f);
+      if (!f) { return; }
+      $('[data-pick-name]', pick).textContent = f.name;
+      $('[data-pick-size]', pick).textContent = sizeLabel(f.size);
+      if (/^image\/(jpeg|png|webp|gif)$/.test(f.type)) { url = URL.createObjectURL(f); thumb.innerHTML = '<img src="' + url + '" alt="">'; }
+      else { thumb.textContent = (f.name.split('.').pop() || '').slice(0, 4).toUpperCase(); }
+    }
+    input.addEventListener('change', paint);
+    ['dragenter', 'dragover'].forEach(function (ev) { pick.addEventListener(ev, function (e) { e.preventDefault(); pick.classList.add('is-over'); }); });
+    ['dragleave', 'drop'].forEach(function (ev) { pick.addEventListener(ev, function () { pick.classList.remove('is-over'); }); });
+    pick.addEventListener('drop', function (e) {
+      e.preventDefault();
+      if (!e.dataTransfer || !e.dataTransfer.files.length) { return; }
+      try { var dt = new DataTransfer(); dt.items.add(e.dataTransfer.files[0]); input.files = dt.files; } catch (err) { return; }
+      paint();
+    });
+    var form = pick.closest('form');
+    if (form) { form.addEventListener('reset', function () { setTimeout(paint, 0); }); }
+  }
+
+  function initProof(form) {
+    var msg = $('[data-slms-proof-msg]', form), list = $('[data-slms-proof-list]', form), btn = $('button[type=submit]', form);
+    $$('[data-slms-pick]', form).forEach(initPick);
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      fd.append('enrollment', form.getAttribute('data-enrollment'));
+      var label = btn.textContent;
+      btn.disabled = true; btn.setAttribute('aria-busy', 'true'); btn.textContent = btn.getAttribute('data-busy') || label;
+      msg.textContent = '';
+      fetch(CFG.api + '/proofs', { method: 'POST', credentials: 'same-origin', headers: { 'X-WP-Nonce': CFG.nonce }, body: fd })
+        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { if (!r.ok) throw new Error((d && d.message) || t('failed')); return d; }); })
+        .then(function (d) {
+          list.innerHTML = (d.proofs || []).map(function (p) {
+            return '<li class="is-' + esc(p.status) + '"><span class="slms-proofbox__st">' + esc(t('proof_' + p.status) || p.status) + '</span> <a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.name) + '</a>' + (p.reason ? '<small>' + esc(p.reason) + '</small>' : '') + '</li>';
+          }).join('');
+          form.reset();
+          msg.className = 'slms-small is-ok';
+          msg.textContent = t('proof_sent');
+        })
+        .catch(function (err) { msg.className = 'slms-small is-bad'; msg.textContent = err.message; })
+        .then(function () { btn.disabled = false; btn.removeAttribute('aria-busy'); btn.textContent = label; });
+    });
+  }
+
   // ------------------------------------------------------------------- quiz
   function initQuiz(root) {
     var form = $('[data-slms-quiz-form]', root);
@@ -667,6 +787,8 @@
     $$('[data-slms-index]').forEach(initIndex);
     $$('[data-slms-course]').forEach(initCourse);
     $$('[data-slms-complete]').forEach(initComplete);
+    $$('[data-slms-proof]').forEach(initProof);
+    $$('[data-slms-cards]').forEach(initCards);
     $$('[data-slms-quiz]').forEach(initQuiz);
     $$('[data-slms-mine]').forEach(initMine);
     $$('[data-slms-groups]').forEach(initGroups);

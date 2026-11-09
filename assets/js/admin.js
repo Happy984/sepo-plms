@@ -13,11 +13,57 @@
     return String(s).replace(/%(\d+\$)?s/g, function (m, pos) { return String(pos ? args[parseInt(pos, 10) - 1] : args[i++]); });
   }
 
+  // ------------------------------------------------------ in-page dialog
+  /** Ask before a step that cannot be undone. Calls ok() when confirmed. */
+  function ask(msg, ok, yes) {
+    var back = document.activeElement;
+    var wrap = $('<div class="slms-dlg" role="presentation"><div class="slms-dlg__box" role="alertdialog" aria-modal="true" aria-labelledby="slms-dlg-msg" tabindex="-1">'
+      + '<p id="slms-dlg-msg"></p><div class="slms-dlg__acts"><button type="button" class="button" data-no></button><button type="button" class="button button-primary" data-yes></button></div></div></div>');
+    wrap.find('#slms-dlg-msg').text(msg);
+    wrap.find('[data-no]').text(T.cancel || 'Cancel');
+    wrap.find('[data-yes]').text(yes || T.ok || 'OK');
+    function close() { wrap.remove(); $(document).off('keydown.slmsdlg'); if (back && back.focus) back.focus(); }
+    wrap.on('click', '[data-no]', close);
+    wrap.on('click', function (e) { if (e.target === wrap[0]) close(); });
+    wrap.on('click', '[data-yes]', function () { close(); ok(); });
+    $(document).on('keydown.slmsdlg', function (e) {
+      if (e.key === 'Escape') { close(); }
+      if (e.key === 'Tab') {
+        var f = wrap.find('button'), first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+    $('body').append(wrap);
+    wrap.find('[data-yes]').trigger('focus');
+  }
+  window.SepoLmsAsk = ask;
+
+  // --------------------------------------------------- busy submit buttons
+  $(document).on('submit', 'form', function (e) {
+    var btn = e.originalEvent && e.originalEvent.submitter ? $(e.originalEvent.submitter) : $(this).find('[data-busy]').first();
+    if (!btn.length || !btn.is('[data-busy]') || e.isDefaultPrevented()) return;
+    var form = $(this);
+    if (form.data('slmsBusy')) { e.preventDefault(); return; }
+    form.data('slmsBusy', true);
+    btn.attr('aria-busy', 'true').addClass('is-busy').attr('aria-disabled', 'true');
+    if (!btn.is('input')) { btn.data('label', btn.html()); btn.html('<span class="spinner is-active slms-btn-spin" aria-hidden="true"></span>' + esc(T.saving || 'Saving…')); }
+    $(window).one('pageshow', function () { form.removeData('slmsBusy'); btn.removeAttr('aria-busy aria-disabled').removeClass('is-busy'); if (btn.data('label')) btn.html(btn.data('label')); });
+  });
+
   // ------------------------------------------------------- confirm links
   $(document).on('click', '[data-slms-confirm]', function (e) {
-    var k = $(this).data('slms-confirm');
-    var msg = k === 'remove' ? T.confirmRemove : (k === 'paid' ? T.confirmPaid : T.confirmDelete);
-    if (msg && !window.confirm(msg)) e.preventDefault();
+    var el = this, $el = $(el);
+    if ($el.data('slmsOk')) { $el.removeData('slmsOk'); return; }
+    var k = $el.data('slms-confirm');
+    var msg = $el.attr('data-slms-confirm-text') || (k === 'remove' ? T.confirmRemove : (k === 'paid' ? T.confirmPaid : T.confirmDelete));
+    if (!msg) return;
+    e.preventDefault();
+    ask(msg, function () {
+      if (el.tagName === 'A' && el.href) { window.location.href = el.href; return; }
+      $el.data('slmsOk', true);
+      if (el.form && el.form.requestSubmit) { el.form.requestSubmit(el); } else { el.click(); }
+    });
   });
 
   // -------------------------------------------------------- price preview
@@ -62,6 +108,38 @@
     wrap.find('[data-slms-image-id]').val('');
     wrap.find('[data-slms-image-prev]').empty();
     $(this).prop('hidden', true);
+  });
+
+  // ---------------------------------------------------- course resources
+  $('[data-slms-res]').each(function () {
+    var list = $(this), box = list.closest('.inside');
+    function reindex() {
+      list.children('li').each(function (i) {
+        $(this).find('[name]').each(function () { this.name = this.name.replace(/slms_resources\[(?:__i__|\d+)\]/, 'slms_resources[' + i + ']'); });
+      });
+    }
+    list.sortable({ handle: '.slms-res__handle', axis: 'y', update: reindex });
+    reindex();
+    box.on('click', '[data-slms-res-add]', function (e) {
+      e.preventDefault();
+      if (!window.wp || !wp.media) return;
+      var frame = wp.media({ title: T.resChoose || 'Choose files', button: { text: T.resUse || 'Add to resources' }, multiple: true });
+      frame.on('select', function () {
+        var tpl = box.find('template[data-slms-res-tpl]').html();
+        frame.state().get('selection').each(function (m) {
+          var a = m.toJSON(), row = $(tpl);
+          row.find('[data-res-id]').val(a.id);
+          row.find('[data-res-file]').html(esc(a.filename || a.title) + ' <span class="description">(' + esc(a.mime || '') + ')</span>');
+          row.find('[data-res-title]').val(a.title || '');
+          list.append(row);
+        });
+        reindex();
+      });
+      frame.open();
+    });
+    box.on('click', '[data-res-remove]', function (e) { e.preventDefault(); $(this).closest('li').remove(); reindex(); });
+    box.on('click', '[data-res-up]', function (e) { e.preventDefault(); var li = $(this).closest('li'); li.prev().before(li); reindex(); li.find('[data-res-up]').trigger('focus'); });
+    box.on('click', '[data-res-down]', function (e) { e.preventDefault(); var li = $(this).closest('li'); li.next().after(li); reindex(); li.find('[data-res-down]').trigger('focus'); });
   });
 
   // ------------------------------------------------ payment method rows
@@ -257,7 +335,9 @@
         case 'dup':
           if (questions.length >= maxQ) return;
           var copy = JSON.parse(JSON.stringify(q)); copy.id = nextId(); questions.splice(i + 1, 0, copy); break;
-        case 'del': if (!window.confirm(L.confirmDelete)) return; questions.splice(i, 1); break;
+        case 'del':
+          ask(L.confirmDelete, function () { var at = questions.indexOf(q); if (at > -1) { questions.splice(at, 1); render(); } });
+          return;
         case 'toggle': collapsed[q.id] = !collapsed[q.id]; break;
         case 'optadd': if (q.options.length < maxOpt) q.options.push(''); break;
         case 'optdel':

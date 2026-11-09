@@ -73,7 +73,7 @@ final class Downloads
         $nonce = isset($_GET['_wpnonce']) ? sanitize_text_field(wp_unslash((string)$_GET['_wpnonce'])) : '';
         $index = isset($_GET['i']) ? absint($_GET['i']) : 0;
         $view = !empty($_GET['view']);
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
 
         if (!is_user_logged_in()) {
             wp_safe_redirect(wp_login_url(home_url(add_query_arg([]))));
@@ -116,6 +116,6 @@ final class Downloads
 
     private static function deny(string $message, int $status): void
     {
-        wp_die(esc_html($message), '', ['response' => $status]);
+        wp_die(esc_html($message), '', ['response' => (int) $status]);
     }
 }

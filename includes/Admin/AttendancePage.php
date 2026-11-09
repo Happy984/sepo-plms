@@ -56,7 +56,7 @@ final class AttendancePage
         $view = isset($_GET['view']) ? sanitize_key(wp_unslash((string)$_GET['view'])) : '';
         $msg = isset($_GET['msg']) ? sanitize_key(wp_unslash((string)$_GET['msg'])) : '';
         $err = isset($_GET['err']) ? sanitize_text_field(wp_unslash((string)$_GET['err'])) : '';
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
         echo '<div class="wrap slms-admin"><h1>' . esc_html__('Attendance', 'sepo-lms') . '</h1>';
         if ($courses === []) {
             echo '<p>' . esc_html__('You are not staff on any course yet.', 'sepo-lms') . '</p></div>';
