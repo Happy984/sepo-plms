@@ -1,0 +1,58 @@
+/* Sepo LMS: school transcripts, on a page and printed. */
+.slms-tr-wrap, .slms-tr-print {
+  --tr-ink: var(--sd-heading, currentColor);
+  --tr-line: var(--sd-border, rgba(128, 128, 128, .28));
+  --tr-soft: var(--sd-surface-2, rgba(128, 128, 128, .08));
+  --tr-accent: var(--slms-accent, #1d475a);
+  font-variant-numeric: tabular-nums;
+}
+.slms-tr-wrap { margin: 1rem 0; }
+.slms-tr-note { padding: 12px 14px; border-radius: 10px; background: var(--tr-soft); }
+.slms-tr-btn, .slms-tr-tools button {
+  display: inline-block; padding: .5rem .9rem; border: 1px solid var(--tr-accent); border-radius: 8px;
+  background: var(--tr-accent); color: #fff; font: inherit; font-weight: 600; text-decoration: none; cursor: pointer;
+}
+.slms-tr-btn:hover, .slms-tr-btn:focus-visible { filter: brightness(1.1); color: #fff; }
+.slms-tr-btn:focus-visible, .slms-tr-kids a:focus-visible { outline: 2px solid var(--tr-accent); outline-offset: 2px; }
+.slms-tr-kids { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.slms-tr-kids a { padding: .4rem .8rem; border: 1px solid var(--tr-line); border-radius: 999px; color: inherit; text-decoration: none; }
+.slms-tr-kids a.is-on { background: var(--tr-soft); border-color: currentColor; font-weight: 600; }
+.slms-tr-actions { margin: 0 0 12px; }
+
+.slms-tr { color: var(--tr-ink); }
+.slms-tr__head { padding-bottom: 12px; margin-bottom: 16px; border-bottom: 2px solid var(--tr-line); }
+.slms-tr__school { margin: 0 0 4px; font-size: .85rem; letter-spacing: .06em; text-transform: uppercase; opacity: .75; }
+.slms-tr__name { margin: 0 0 8px; font-size: 1.5rem; line-height: 1.2; }
+.slms-tr__facts { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 0; }
+.slms-tr__facts div { min-width: 0; }
+.slms-tr__facts dt { font-size: .75rem; opacity: .72; }
+.slms-tr__facts dd { margin: 0; font-weight: 600; }
+.slms-tr__empty { opacity: .8; }
+.slms-tr__year { margin: 0 0 22px; break-inside: avoid-page; }
+.slms-tr__year h3 { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; align-items: baseline; margin: 0 0 8px; font-size: 1.1rem; }
+.slms-tr__avg { font-size: .85rem; font-weight: 600; padding: 2px 10px; border-radius: 999px; background: var(--tr-soft); }
+.slms-tr__term { overflow-x: auto; margin: 0 0 12px; }
+.slms-tr table { width: 100%; border-collapse: collapse; font-size: .92rem; min-width: 460px; }
+.slms-tr caption { text-align: left; font-weight: 700; padding: 4px 0 6px; }
+.slms-tr th, .slms-tr td { padding: 6px 10px; border-bottom: 1px solid var(--tr-line); text-align: left; vertical-align: top; }
+.slms-tr thead th { font-size: .78rem; font-weight: 600; opacity: .8; background: var(--tr-soft); }
+.slms-tr tbody th { font-weight: 500; }
+.slms-tr tfoot th, .slms-tr tfoot td { font-weight: 600; border-bottom: 0; }
+.slms-tr .num { text-align: right; white-space: nowrap; }
+.slms-tr__band { font-size: .8rem; opacity: .75; }
+.slms-tr__key { display: flex; flex-wrap: wrap; gap: 4px 14px; padding-top: 10px; border-top: 1px solid var(--tr-line); font-size: .8rem; }
+.slms-tr__key span { opacity: .8; }
+
+/* The standalone print page */
+.slms-tr-print { margin: 0 auto; max-width: 880px; padding: 24px 16px 40px; background: #fff; color: #1b1f24; font: 15px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; --tr-ink: #1b1f24; --tr-line: #d4d8de; --tr-soft: #f1f3f5; }
+.slms-tr-tools { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+.slms-tr-sign { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; margin-top: 48px; font-size: .9rem; }
+.slms-tr-sign span { display: block; width: 220px; border-top: 1px solid #1b1f24; }
+
+@media print {
+  .slms-tr-tools, .slms-tr-kids, .slms-tr-actions { display: none !important; }
+  .slms-tr-print { padding: 0; max-width: none; font-size: 11pt; }
+  .slms-tr table { min-width: 0; }
+  .slms-tr__term { overflow: visible; break-inside: avoid; }
+  @page { margin: 15mm; }
+}

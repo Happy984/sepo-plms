@@ -1,0 +1,6681 @@
+# Copyright (C) 2026 Euneolink Solutions
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Sepo LMS 1.6.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/sepo-lms\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-08T20:14:41+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.11.0\n"
+"X-Domain: sepo-lms\n"
+
+#. Plugin Name of the plugin
+#: sepo-lms.php
+#: includes/Privacy.php:35
+#: includes/Privacy.php:42
+#: includes/Privacy.php:233
+msgid "Sepo LMS"
+msgstr ""
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: sepo-lms.php
+msgid "https://edu.sepodesk.com/"
+msgstr ""
+
+#. Description of the plugin
+#: sepo-lms.php
+msgid "Courses, lessons, quizzes, schools and teachers. Enrolment with free, manual, link, Stripe, PayPal, pawaPay mobile-money and WooCommerce payments, lesson progress, graded quizzes, reviews, receipts and an enrolments admin."
+msgstr ""
+
+#. Author of the plugin
+#: sepo-lms.php
+msgid "Euneolink Solutions"
+msgstr ""
+
+#: includes/Access.php:147
+#: templates/parts/my-courses.php:290
+#: templates/parts/my-courses.php:327
+msgid "Locked"
+msgstr ""
+
+#. translators: %s: date
+#: includes/Access.php:151
+msgid "Opens %s"
+msgstr ""
+
+#: includes/Access.php:154
+msgid "Complete the previous item first"
+msgstr ""
+
+#: includes/Access.php:198
+msgid "Please sign in and enrol to open this."
+msgstr ""
+
+#: includes/Access.php:204
+msgid "Enrol in this course to unlock its lessons."
+msgstr ""
+
+#: includes/Access.php:205
+msgid "Enrol and complete payment to unlock this lesson."
+msgstr ""
+
+#: includes/Access.php:208
+msgid "Your payment is pending. This unlocks once it is confirmed."
+msgstr ""
+
+#. translators: %s: date
+#: includes/Access.php:216
+msgid "This opens on %s."
+msgstr ""
+
+#: includes/Access.php:217
+msgid "Complete the previous item to unlock this one."
+msgstr ""
+
+#: includes/Activator.php:441
+#: includes/Receipt.php:47
+msgid "My courses"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:35
+#: includes/Admin/AttendancePage.php:60
+#: includes/Admin/SettingsPage.php:255
+#: includes/Privacy.php:174
+#: includes/strings.php:152
+#: templates/parts/course.php:146
+msgid "Attendance"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:46
+msgid "You cannot take attendance for this course."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:62
+msgid "You are not staff on any course yet."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:68
+msgid "Session saved."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:68
+msgid "Attendance saved."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:68
+msgid "Session deleted."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:68
+msgid "New code created."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:78
+#: includes/Admin/CertificatesPage.php:78
+#: includes/Admin/Columns.php:90
+#: includes/Admin/EnrollmentsPage.php:200
+#: includes/Admin/EnrollmentsPage.php:261
+#: includes/Admin/Menu.php:129
+#: includes/Admin/MetaBoxes.php:40
+#: includes/Admin/SubmissionsPage.php:48
+#: includes/PostTypes.php:42
+#: includes/Privacy.php:148
+#: includes/Privacy.php:158
+#: includes/Privacy.php:167
+#: includes/Privacy.php:175
+#: includes/Privacy.php:185
+#: includes/Privacy.php:202
+#: includes/Receipt.php:97
+#: includes/strings.php:217
+#: templates/parts/my-courses.php:102
+#: templates/parts/my-courses.php:115
+msgid "Course"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:84
+#: includes/strings.php:172
+msgid "Show"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:85
+#: includes/Admin/AttendancePage.php:110
+msgid "Sessions"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:86
+#: includes/Admin/AttendancePage.php:257
+msgid "Register"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:112
+msgid "No sessions yet. Create one to start taking attendance."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:115
+#: includes/Privacy.php:176
+msgid "Session"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:115
+msgid "When"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:115
+msgid "Attended"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:115
+msgid "Check-in"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:124
+msgid "Staff only"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:126
+msgid "Open now"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:128
+msgid "Closed"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:130
+msgid "Not open yet"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:140
+msgid "New session"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:155
+#: includes/Admin/ClassroomBoxes.php:228
+#: includes/Admin/MetaBoxes.php:311
+#: includes/Privacy.php:159
+#: includes/Privacy.php:203
+#: includes/strings.php:130
+msgid "Title"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:156
+msgid "Week 3 lecture"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:158
+#: includes/Privacy.php:177
+#: templates/parts/course.php:403
+msgid "Starts"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:160
+#: templates/parts/course.php:406
+msgid "Ends"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:163
+msgid "Late after (minutes)"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:165
+msgid "Learners can check themselves in from the course page"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:166
+msgid "Require a code (show it to the class)"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:167
+msgid "Self check-in opens 15 minutes before the start and closes at the end."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:168
+msgid "Create session"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:168
+msgid "Save session"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:177
+#: includes/Admin/AttendancePage.php:296
+#: includes/Admin/AttendancePage.php:322
+#: includes/Admin/AttendancePage.php:351
+#: includes/Admin/AttendancePage.php:365
+#: includes/Admin/ProctorPage.php:54
+#: includes/Admin/ProctorPage.php:222
+#: includes/Admin/ProctorPage.php:285
+#: includes/Attendance.php:104
+#: includes/Attendance.php:158
+msgid "Session not found."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:186
+#: includes/Admin/ProctorPage.php:56
+msgid "All sessions"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:191
+msgid "Check-in code"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:196
+msgid "Make a new code"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:208
+msgid "Mark everyone without a status as:"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:214
+#: includes/Admin/AttendancePage.php:266
+#: includes/Admin/AttendancePage.php:384
+#: includes/Admin/CertificatesPage.php:77
+#: includes/Admin/CertificatesPage.php:115
+#: includes/Admin/ProctorPage.php:91
+#: includes/Admin/ResultsPage.php:101
+#: includes/Admin/SubmissionsPage.php:129
+msgid "Learner"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:216
+msgid "Note"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:219
+msgid "No learners in this course yet."
+msgstr ""
+
+#. translators: %s: time
+#: includes/Admin/AttendancePage.php:225
+msgid "Checked in at %s"
+msgstr ""
+
+#. translators: %s: time
+#: includes/Admin/AttendancePage.php:226
+msgid "No record: counts as absent"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:236
+msgid "Save attendance"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:240
+msgid "Edit session"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:242
+msgid "Delete this session and its attendance records?"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:245
+msgid "Delete session"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:258
+msgid "Download CSV"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:259
+msgid "P present · L late · A absent · E excused. Attendance counts present and late; excused sessions are left out."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:261
+msgid "Nothing to show yet."
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:268
+msgid "Rate"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:384
+#: includes/Admin/MetaBoxes.php:340
+#: includes/Admin/MetaBoxes.php:359
+#: includes/Admin/QuizBuilder.php:44
+#: includes/Admin/TranscriptsPage.php:295
+#: includes/Frontend.php:172
+#: includes/Receipt.php:99
+msgid "Email"
+msgstr ""
+
+#: includes/Admin/AttendancePage.php:388
+msgid "Attendance rate"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:35
+#: includes/Admin/CertificateDesignsPage.php:106
+msgid "Certificate designs"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:81
+#: includes/Admin/CertificateDesignsPage.php:201
+#: includes/Admin/CertificateDesignsPage.php:261
+msgid "You cannot manage certificate designs."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:99
+msgid "Design deleted. Courses that used it now use the default design."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:100
+msgid "Design copied."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:101
+msgid "Default design changed."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:102
+msgid "The last design cannot be deleted."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:111
+msgid "A course uses the default design unless you choose another in its Certificate box. Changes apply to certificates already issued the next time they are opened."
+msgstr ""
+
+#. translators: %s: design name
+#. translators: %s: item type
+#: includes/Admin/CertificateDesignsPage.php:117
+#: includes/PostTypes.php:148
+msgid "Edit %s"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:122
+msgid "Default"
+msgstr ""
+
+#. translators: %d: number of courses
+#: includes/Admin/CertificateDesignsPage.php:127
+msgid "Chosen by %d course"
+msgid_plural "Chosen by %d courses"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/CertificateDesignsPage.php:128
+msgid "Used by every course without its own choice"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:128
+msgid "Not chosen by any course"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:132
+#: includes/strings.php:129
+msgid "Edit"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:133
+#: includes/Admin/CertificateDesignsPage.php:366
+#: includes/Admin/QuizBuilder.php:67
+#: includes/strings.php:207
+msgid "Duplicate"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:135
+msgid "Make default"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:138
+#: includes/Admin/CertificateDesignsPage.php:367
+#: includes/Admin/CertificatesPage.php:98
+#: includes/Admin/QuizBuilder.php:68
+#: includes/Admin/ResultsPage.php:129
+#: includes/Frontend.php:202
+msgid "Delete"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:138
+msgid "Delete this design? Courses that use it will use the default design."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:148
+msgid "New design"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:149
+#: includes/Admin/TranscriptsPage.php:169
+#: includes/Admin/TranscriptsPage.php:298
+#: includes/Privacy.php:149
+msgid "Name"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:150
+msgid "Graduation 2026"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:151
+msgid "Start from"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:157
+msgid "Create and edit"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:175
+msgid "All designs"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:177
+msgid "Design created. Make it your own, then save."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:177
+msgid "Design saved."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:180
+msgid "The designer needs JavaScript."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:212
+msgid "The design could not be read. Go back and try again."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:292
+msgid "Design name"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:293
+#: includes/strings.php:133
+msgid "Save"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:294
+#: includes/Admin/Menu.php:80
+#: includes/strings.php:189
+msgid "Saving…"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:295
+msgid "Preview PDF"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:296
+msgid "Undo"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:297
+msgid "Redo"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:298
+msgid "Show field names"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:299
+#: includes/Admin/CertificateDesignsPage.php:321
+msgid "Fit"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:300
+#: includes/strings.php:168
+msgid "Add"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:301
+#: includes/Admin/CertificateDesignsPage.php:329
+#: includes/Admin/CertificateDesignsPage.php:370
+#: includes/strings.php:223
+msgid "Text"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:302
+msgid "Field…"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:303
+#: includes/Admin/SettingsPage.php:282
+#: includes/PostTypes.php:86
+msgid "Logo"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:304
+#: includes/Admin/CertificateDesignsPage.php:348
+#: includes/Admin/CertificateDesignsPage.php:371
+#: includes/Admin/QuizBuilder.php:64
+msgid "Image"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:305
+#: includes/Admin/CertificateDesignsPage.php:372
+msgid "Line"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:306
+#: includes/Admin/CertificateDesignsPage.php:373
+msgid "Box"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:307
+msgid "Layers"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:308
+msgid "Top of the list is drawn on top."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:309
+msgid "Page"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:310
+#: includes/Admin/CertificateDesignsPage.php:337
+msgid "Size"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:311
+msgid "A4"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:312
+msgid "US Letter"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:313
+msgid "Orientation"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:314
+msgid "Landscape"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:315
+msgid "Portrait"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:316
+msgid "Background colour"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:317
+msgid "Background image"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:318
+#: includes/Admin/Menu.php:74
+#: includes/Admin/MetaBoxes.php:327
+#: includes/Admin/SettingsPage.php:287
+msgid "Choose image"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:319
+msgid "Replace image"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:320
+#: includes/Admin/ClassroomBoxes.php:286
+#: includes/Admin/EnrollmentsPage.php:220
+#: includes/Admin/EnrollmentsPage.php:312
+#: includes/Admin/MetaBoxes.php:313
+#: includes/Admin/MetaBoxes.php:328
+#: includes/Admin/SettingsPage.php:288
+#: includes/Admin/SettingsPage.php:331
+#: includes/Admin/TranscriptsPage.php:285
+msgid "Remove"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:322
+msgid "Fill the area (crop)"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:323
+msgid "Show it whole"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:324
+msgid "Stretch"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:325
+msgid "Click an element to edit it. Drag to move, use the handles to resize. Arrow keys nudge (Shift for 10), Delete removes, Ctrl+D duplicates, Ctrl+Z undoes. Hold Alt while dragging to turn off snapping."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:326
+msgid "Position and size (points)"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:327
+msgid "Layer name"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:328
+msgid "Lock in place"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:330
+msgid "Insert a field…"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:331
+msgid "Font"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:332
+msgid "Sans serif (Helvetica)"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:333
+msgid "Serif (Times)"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:334
+msgid "Monospace (Courier)"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:335
+#: includes/strings.php:208
+msgid "Bold"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:336
+#: includes/strings.php:209
+msgid "Italic"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:338
+msgid "Colour"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:339
+msgid "Alignment"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:340
+msgid "Left"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:341
+msgid "Centre"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:342
+msgid "Right"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:343
+msgid "Letter spacing"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:344
+msgid "Line height"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:345
+msgid "Capital letters"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:346
+msgid "Shrink to fit on one line"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:347
+msgid "Hide when a field in it is empty"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:349
+msgid "Certificate logo (LMS → Settings)"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:350
+msgid "An image from the Media Library"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:351
+msgid "No logo is set in LMS → Settings, so this shows nothing."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:352
+msgid "Direction"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:353
+msgid "Horizontal"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:354
+msgid "Vertical"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:355
+msgid "Thickness"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:356
+msgid "Fill"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:357
+msgid "No fill"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:358
+msgid "Border"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:359
+msgid "No border"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:360
+msgid "Arrange"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:361
+msgid "Bring to front"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:362
+msgid "Bring forward"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:363
+msgid "Send backward"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:364
+msgid "Send to back"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:365
+msgid "Centre on the page"
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:368
+msgid "You have unsaved changes."
+msgstr ""
+
+#: includes/Admin/CertificateDesignsPage.php:369
+msgid "Your text"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:33
+#: includes/Admin/CertificatesPage.php:61
+#: includes/Admin/SettingsPage.php:252
+#: includes/Admin/SettingsPage.php:274
+#: includes/Privacy.php:147
+#: templates/parts/my-courses.php:52
+msgid "Certificates"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:53
+msgid "Certificate issued."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:54
+msgid "Certificate withdrawn. Its verification page now says so."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:55
+msgid "Certificate restored."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:56
+msgid "Certificate deleted. The learner can earn it again."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:57
+msgid "That learner already has this certificate."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:65
+msgid "Certificates are issued automatically when a learner meets the course’s certificate rules (set on the course edit screen). Learners download them from the course page and My courses."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:70
+msgid "Name, code or course"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:71
+#: includes/Admin/EnrollmentsPage.php:268
+#: includes/Admin/ProctorPage.php:82
+#: includes/Admin/ResultsPage.php:72
+#: includes/Admin/SubmissionsPage.php:124
+msgid "Filter"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:76
+#: includes/Certificates.php:357
+#: includes/Privacy.php:150
+#: includes/strings.php:232
+msgid "Code"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:79
+#: includes/Admin/SubmissionsPage.php:134
+#: includes/Admin/SubmissionsPage.php:151
+#: includes/Admin/SubmissionsPage.php:238
+#: includes/Records.php:552
+msgid "Grade"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:80
+#: includes/Certificates.php:355
+#: includes/Privacy.php:151
+msgid "Issued"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:81
+#: templates/parts/my-courses.php:107
+msgid "Actions"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:85
+msgid "No certificates issued yet."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:89
+#: includes/Certificates.php:351
+#: includes/Privacy.php:152
+msgid "Withdrawn"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:95
+#: includes/Assignments.php:42
+msgid "PDF"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:96
+msgid "Verify page"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:97
+msgid "Restore"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:97
+msgid "Withdraw"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:108
+msgid "Issue a certificate by hand"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:109
+msgid "Skips the course’s certificate rules. Use it for learners who completed the course another way."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:117
+msgid "— Choose a learner —"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:122
+msgid "Issue certificate"
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:125
+msgid "Choose a course above to issue a certificate by hand."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:134
+msgid "Delete this certificate? Its code will stop verifying."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:147
+msgid "You cannot issue certificates for this course."
+msgstr ""
+
+#: includes/Admin/CertificatesPage.php:162
+#: includes/Certificates.php:313
+msgid "Certificate not found."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:32
+#: includes/Admin/MetaBoxes.php:237
+#: includes/Admin/ProctorPage.php:107
+#: includes/Admin/SubmissionsPage.php:116
+#: includes/Admin/SubmissionsPage.php:130
+#: includes/PostTypes.php:75
+#: includes/Privacy.php:123
+#: templates/parts/course.php:172
+#: templates/parts/my-courses.php:270
+msgid "Assignment"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:33
+msgid "Hand-in requirements"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:36
+#: includes/Admin/ProctorPage.php:38
+#: includes/Admin/ProctorPage.php:75
+#: includes/Admin/SettingsPage.php:251
+#: includes/Admin/SubmissionsPage.php:269
+msgid "Proctoring"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:39
+#: includes/CertificateDesigns.php:243
+#: includes/CertificateDesigns.php:258
+#: includes/CertificateDesigns.php:273
+#: includes/CertificateDesigns.php:297
+#: templates/parts/course.php:486
+msgid "Certificate"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:42
+#: includes/Admin/SettingsPage.php:253
+#: templates/parts/course.php:131
+msgid "Forums"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:100
+msgid "— Choose a quiz —"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:110
+#: includes/Admin/ClassroomBoxes.php:249
+#: includes/Admin/QuizBuilder.php:51
+#: includes/Admin/SettingsPage.php:173
+#: includes/Admin/SettingsPage.php:324
+msgid "Type"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:111
+msgid "Hand in files or a written answer"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:112
+msgid "Take a quiz"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:116
+#: includes/Admin/MetaBoxes.php:237
+#: includes/Admin/ProctorPage.php:107
+#: includes/Admin/ResultsPage.php:102
+#: includes/PostTypes.php:64
+#: includes/Privacy.php:61
+#: templates/parts/course.php:172
+#: templates/parts/course.php:187
+msgid "Quiz"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:116
+msgid "The quiz score, less any late penalty, becomes the assignment grade. Learners take it from this assignment’s page."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:119
+#: includes/Admin/SubmissionsPage.php:208
+#: includes/Privacy.php:188
+msgid "Due"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:119
+msgid "Optional. In the site’s time zone."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:120
+msgid "After the due date"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:121
+msgid "Accept late work"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:122
+msgid "Close hand-in"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:124
+msgid "Late penalty"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:124
+msgid "Percentage points taken off per day late. 0 for none."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:129
+#: includes/Admin/QuizBuilder.php:52
+msgid "Points"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:129
+msgid "What the work is marked out of."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:130
+msgid "Pass mark"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:130
+msgid "Percentage needed to pass."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:131
+msgid "Weight in the course grade"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:131
+msgid "Used when every graded item in the course has a weight."
+msgstr ""
+
+#. translators: %s: date
+#: includes/Admin/ClassroomBoxes.php:134
+#: templates/parts/course.php:218
+#: templates/parts/my-courses.php:271
+msgid "Due %s"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:138
+msgid "Write the instructions in the editor above. The excerpt shows under the assignment in the course outline."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:149
+#: includes/Admin/SubmissionsPage.php:232
+#: templates/parts/assignment.php:89
+msgid "Requirements"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:150
+msgid ""
+"At least 1,500 words\n"
+"Include a reference list\n"
+"Save as PDF"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:151
+msgid "One per line. Shown as a checklist on the assignment page."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:152
+msgid "Learners must tick every requirement before handing in"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:156
+msgid "Accepted file types"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:162
+msgid "Other extensions"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:162
+msgid "Comma-separated. Scripts and executables are always refused."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:166
+msgid "Files per hand-in"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:166
+msgid "0 for a written answer only."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:167
+msgid "Largest file (MB)"
+msgstr ""
+
+#. translators: %d: MB
+#: includes/Admin/ClassroomBoxes.php:167
+msgid "Up to the site limit of %d MB."
+msgstr ""
+
+#. translators: %d: MB
+#: includes/Admin/ClassroomBoxes.php:168
+#: includes/Admin/SubmissionsPage.php:228
+#: includes/Privacy.php:128
+#: templates/parts/assignment.php:181
+msgid "Written answer"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:169
+msgid "Optional"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:170
+#: includes/Admin/QuizBuilder.php:53
+msgid "Required"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:171
+msgid "Not used"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:173
+msgid "Minimum words"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:174
+msgid "Handing in again"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:175
+msgid "Allowed until graded"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:176
+msgid "Allowed until the due date"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:177
+msgid "Not allowed"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:178
+msgid "Returning work for rework always reopens it."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:183
+msgid "Quiz assignments use the quiz’s own questions, attempts and time limit."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:191
+msgid "Record the learner’s screen"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:192
+msgid "Require full screen and watch for leaving"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:193
+msgid "Leaves allowed"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:195
+msgid "Going over this submits the work automatically. 0 logs leaves without submitting."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:196
+msgid "Note to learners"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:198
+msgid "Learners agree before starting and need Chrome, Edge or Firefox on a computer. Browsers cannot block other tabs or apps; leaving is logged and counted, and the recording shows the whole screen."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:200
+msgid "This quiz is used by an assignment, so the assignment’s proctoring applies."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:212
+msgid "Issue a certificate for this course"
+msgstr ""
+
+#. translators: %s: design name
+#: includes/Admin/ClassroomBoxes.php:213
+msgid "Default design (%s)"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:218
+msgid "Edit designs"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:220
+msgid "Design"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:224
+msgid "Every lesson, quiz and assignment must be complete"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:225
+msgid "Minimum final grade (%)"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:225
+msgid "0 for none. Submitted assignments must be graded first."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:226
+msgid "Print the final grade on the certificate"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:228
+#: includes/CertificateDesigns.php:71
+#: includes/Certificates.php:58
+msgid "Certificate of Completion"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:229
+msgid "Wording before the course name"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:229
+#: includes/CertificateDesigns.php:72
+#: includes/Certificates.php:59
+msgid "has successfully completed the course"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:230
+#: includes/Admin/SettingsPage.php:279
+#: includes/Admin/TranscriptsPage.php:471
+#: includes/CertificateDesigns.php:59
+msgid "Signed by"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:230
+msgid "Leave empty to use the name in LMS → Settings."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:231
+#: includes/Admin/SettingsPage.php:280
+#: includes/CertificateDesigns.php:60
+msgid "Signatory title"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:234
+msgid "Certificates issued for this course"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:244
+msgid "Show forums on this course"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:248
+msgid "Forum"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:250
+#: includes/Admin/MetaBoxes.php:312
+msgid "Description"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:251
+#: includes/Admin/ClassroomBoxes.php:285
+#: includes/Admin/SettingsPage.php:159
+msgid "Email learners"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:261
+msgid "Add forum"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:263
+#: includes/Forums.php:41
+msgid "Open discussion"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:263
+msgid "anyone in the course starts topics and replies."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:264
+#: includes/Forums.php:42
+msgid "Post first, then see others"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:264
+msgid "a learner sees other learners’ replies to a topic only after replying to it."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:265
+#: includes/Forums.php:51
+#: includes/strings.php:106
+msgid "Announcements"
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:265
+msgid "only course staff post; with “Email learners” on, each new topic is emailed to everyone in the course."
+msgstr ""
+
+#: includes/Admin/ClassroomBoxes.php:278
+msgid "Forum name"
+msgstr ""
+
+#: includes/Admin/Columns.php:40
+#: includes/Admin/MetaBoxes.php:31
+#: includes/Admin/MetaBoxes.php:116
+msgid "Price"
+msgstr ""
+
+#: includes/Admin/Columns.php:41
+#: includes/Admin/MetaBoxes.php:149
+#: includes/Admin/TranscriptsPage.php:153
+#: includes/Admin/TranscriptsPage.php:169
+#: includes/Admin/TranscriptsPage.php:399
+#: includes/Receipt.php:101
+#: templates/parts/course-index.php:42
+#: templates/parts/course.php:386
+msgid "Level"
+msgstr ""
+
+#: includes/Admin/Columns.php:42
+#: includes/Privacy.php:204
+#: templates/parts/course.php:395
+msgid "Content"
+msgstr ""
+
+#: includes/Admin/Columns.php:43
+#: includes/Admin/EnrollmentsPage.php:205
+#: includes/Receipt.php:103
+#: templates/parts/course.php:388
+msgid "Enrolled"
+msgstr ""
+
+#. translators: 1: lessons, 2: quizzes
+#: includes/Admin/Columns.php:70
+msgid "%1$d lessons · %2$d quizzes"
+msgstr ""
+
+#: includes/Admin/Columns.php:91
+msgid "Order"
+msgstr ""
+
+#: includes/Admin/Columns.php:92
+msgid "Opens"
+msgstr ""
+
+#: includes/Admin/Columns.php:94
+#: includes/Admin/QuizBuilder.php:29
+msgid "Questions"
+msgstr ""
+
+#. translators: 1: questions, 2: points
+#: includes/Admin/Columns.php:124
+msgid "%1$d · %2$s pts"
+msgstr ""
+
+#: includes/Admin/Columns.php:142
+msgid "Filter by course"
+msgstr ""
+
+#: includes/Admin/Columns.php:143
+#: includes/Admin/EnrollmentsPage.php:261
+#: includes/Admin/ResultsPage.php:65
+#: includes/strings.php:218
+msgid "All courses"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:35
+#: includes/Admin/EnrollmentsPage.php:76
+#: includes/Admin/Menu.php:116
+#: includes/Admin/MetaBoxes.php:38
+msgid "Enrolments"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:65
+msgid "You are not allowed to see enrolments."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:77
+msgid "Export CSV"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:84
+msgid "Marked as paid. A receipt was emailed."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:85
+msgid "Enrolment activated."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:86
+msgid "Marked as awaiting payment."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:87
+msgid "Enrolment removed."
+msgstr ""
+
+#. translators: %d: number of enrolments
+#: includes/Admin/EnrollmentsPage.php:88
+msgid "%d enrolment updated."
+msgid_plural "%d enrolments updated."
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of enrolments
+#: includes/Admin/EnrollmentsPage.php:89
+msgid "That enrolment could not be changed."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:90
+msgid "Proof accepted. The enrolment is confirmed, and the learner was emailed the receipt and a note."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:91
+msgid "Proof declined. The learner was emailed the reason."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:99
+#: includes/Admin/SubmissionsPage.php:103
+#: includes/strings.php:175
+msgid "All"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:108
+msgid "Search enrolments"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:122
+#: includes/Admin/EnrollmentsPage.php:150
+#: includes/Admin/ResultsPage.php:173
+msgid "You are not allowed to do that."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:199
+#: includes/Admin/Menu.php:128
+#: includes/Admin/TranscriptsPage.php:434
+#: includes/Receipt.php:98
+msgid "Student"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:201
+msgid "Details"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:202
+#: includes/Admin/Menu.php:130
+#: includes/Frontend.php:213
+#: includes/Receipt.php:125
+msgid "Total"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:203
+msgid "Payment"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:204
+#: includes/Admin/Menu.php:131
+#: includes/Admin/ProctorPage.php:97
+#: includes/Admin/ProctorPage.php:134
+#: includes/Admin/SubmissionsPage.php:133
+#: includes/Privacy.php:124
+#: includes/Privacy.php:138
+#: includes/Privacy.php:178
+#: templates/parts/my-courses.php:77
+#: templates/parts/my-courses.php:106
+#: templates/parts/my-courses.php:150
+msgid "Status"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:217
+#: includes/Admin/EnrollmentsPage.php:303
+msgid "Mark paid"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:218
+#: includes/Admin/EnrollmentsPage.php:306
+msgid "Activate"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:219
+#: includes/Admin/EnrollmentsPage.php:309
+msgid "Mark awaiting payment"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:266
+msgid "From"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:267
+msgid "To"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:283
+msgid "No enrolments found."
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:311
+#: templates/parts/my-courses.php:156
+msgid "Receipt"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:330
+#: includes/Admin/SettingsPage.php:171
+#: includes/Admin/SettingsPage.php:322
+msgid "ID"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:330
+#: includes/Admin/SettingsPage.php:143
+#: includes/Admin/TranscriptsPage.php:239
+#: includes/Frontend.php:174
+msgid "Gender"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:330
+msgid "Born"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:330
+#: includes/Admin/MetaBoxes.php:338
+#: includes/Admin/SettingsPage.php:144
+#: includes/Frontend.php:177
+msgid "Location"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:330
+#: includes/Admin/MetaBoxes.php:339
+#: includes/Admin/MetaBoxes.php:361
+#: includes/Admin/QuizBuilder.php:45
+msgid "Phone"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:342
+#: includes/Helpers.php:20
+#: includes/Receipt.php:125
+#: templates/parts/course-index.php:76
+#: templates/parts/course.php:62
+#: templates/parts/course.php:97
+#: templates/parts/course.php:370
+#: templates/parts/course.php:518
+#: templates/parts/school.php:87
+#: templates/parts/teacher.php:82
+msgid "Free"
+msgstr ""
+
+#. translators: 1: rate, 2: amount
+#: includes/Admin/EnrollmentsPage.php:347
+msgid "Discount %1$s%% (−%2$s)"
+msgstr ""
+
+#. translators: 1: tax name, 2: rate, 3: amount
+#: includes/Admin/EnrollmentsPage.php:350
+msgid "%1$s %2$s%% (%3$s)"
+msgstr ""
+
+#. translators: %s: order number
+#: includes/Admin/EnrollmentsPage.php:363
+msgid "Order #%s"
+msgstr ""
+
+#: includes/Admin/EnrollmentsPage.php:367
+msgid "Proof of payment"
+msgstr ""
+
+#: includes/Admin/Menu.php:30
+msgid "LMS"
+msgstr ""
+
+#: includes/Admin/Menu.php:31
+#: includes/Admin/Menu.php:105
+msgid "LMS overview"
+msgstr ""
+
+#: includes/Admin/Menu.php:31
+msgid "Overview"
+msgstr ""
+
+#: includes/Admin/Menu.php:36
+#: includes/PostTypes.php:107
+msgid "Course categories"
+msgstr ""
+
+#: includes/Admin/Menu.php:36
+#: includes/PostTypes.php:109
+msgid "Categories"
+msgstr ""
+
+#: includes/Admin/Menu.php:70
+msgid "Remove this enrolment? The learner loses access to the course."
+msgstr ""
+
+#: includes/Admin/Menu.php:71
+msgid "Mark this enrolment as paid? A receipt is emailed to the learner."
+msgstr ""
+
+#: includes/Admin/Menu.php:72
+msgid "Delete this result? The learner will be able to take the quiz again."
+msgstr ""
+
+#: includes/Admin/Menu.php:73
+#: includes/Frontend.php:164
+msgid "That didn’t work. Try again."
+msgstr ""
+
+#: includes/Admin/Menu.php:75
+msgid "Choose files"
+msgstr ""
+
+#: includes/Admin/Menu.php:76
+msgid "Add to resources"
+msgstr ""
+
+#: includes/Admin/Menu.php:77
+#: includes/Frontend.php:186
+msgid "Cancel"
+msgstr ""
+
+#: includes/Admin/Menu.php:78
+msgid "Continue"
+msgstr ""
+
+#: includes/Admin/Menu.php:79
+msgid "Use this image"
+msgstr ""
+
+#. translators: %s: score
+#: includes/Admin/Menu.php:82
+msgid "Graded %s%%. The learner has been notified."
+msgstr ""
+
+#: includes/Admin/Menu.php:83
+msgid "Returned for rework. The learner has been notified."
+msgstr ""
+
+#: includes/Admin/Menu.php:95
+#: includes/Admin/SettingsPage.php:129
+#: includes/PostTypes.php:42
+#: templates/parts/my-courses.php:35
+#: templates/parts/my-courses.php:45
+#: templates/parts/school.php:76
+#: templates/parts/teacher.php:74
+msgid "Courses"
+msgstr ""
+
+#: includes/Admin/Menu.php:96
+#: includes/Admin/SettingsPage.php:130
+#: includes/PostTypes.php:53
+#: templates/parts/lesson.php:98
+msgid "Lessons"
+msgstr ""
+
+#: includes/Admin/Menu.php:97
+#: includes/Admin/SettingsPage.php:131
+#: includes/PostTypes.php:64
+msgid "Quizzes"
+msgstr ""
+
+#: includes/Admin/Menu.php:98
+#: includes/Admin/SettingsPage.php:132
+#: includes/Admin/SettingsPage.php:250
+#: includes/PostTypes.php:75
+msgid "Assignments"
+msgstr ""
+
+#: includes/Admin/Menu.php:99
+#: includes/Admin/SettingsPage.php:133
+#: includes/PostTypes.php:86
+msgid "Schools"
+msgstr ""
+
+#: includes/Admin/Menu.php:100
+#: includes/Admin/SettingsPage.php:134
+#: includes/PostTypes.php:96
+#: templates/parts/school.php:97
+msgid "Teachers"
+msgstr ""
+
+#: includes/Admin/Menu.php:119
+#: includes/Receipt.php:142
+msgid "Awaiting payment"
+msgstr ""
+
+#: includes/Admin/Menu.php:125
+msgid "Latest enrolments"
+msgstr ""
+
+#: includes/Admin/Menu.php:132
+#: includes/Admin/QuizBuilder.php:43
+msgid "Date"
+msgstr ""
+
+#: includes/Admin/Menu.php:148
+msgid "Getting started"
+msgstr ""
+
+#: includes/Admin/Menu.php:150
+msgid "Add schools and teachers (optional)."
+msgstr ""
+
+#: includes/Admin/Menu.php:151
+msgid "Create a course: price, tax, discount, level, teacher and school are in the boxes under the editor."
+msgstr ""
+
+#: includes/Admin/Menu.php:152
+msgid "Add lessons and quizzes, choosing the course in their “Course” box. Drag them into order in the course’s Outline box."
+msgstr ""
+
+#: includes/Admin/Menu.php:153
+msgid "Build quizzes with the visual question builder: pick a question type, type the question, tick the right answers."
+msgstr ""
+
+#. translators: %s: link to the settings page
+#: includes/Admin/Menu.php:158
+msgid "Set your currency and payment methods in %s."
+msgstr ""
+
+#: includes/Admin/Menu.php:159
+#: includes/Admin/SettingsPage.php:29
+#: includes/Admin/SettingsPage.php:35
+msgid "Settings"
+msgstr ""
+
+#. translators: 1: shortcode, 2: link to the page
+#: includes/Admin/Menu.php:168
+msgid "Learners see their courses, grades and receipts on the page holding %1$s %2$s."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:32
+#: templates/parts/course.php:123
+msgid "Outline"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:33
+msgid "Course details"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:34
+msgid "Teacher and school"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:35
+#: includes/Admin/SettingsPage.php:165
+msgid "Payment methods"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:36
+msgid "Course resources"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:37
+#: templates/parts/course.php:511
+msgid "Related courses"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:41
+msgid "School details"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:42
+msgid "Teacher details"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:116
+msgid "Leave at 0 for a free course."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:117
+#: includes/Admin/SettingsPage.php:96
+msgid "Currency"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:119
+msgid "Three-letter code. Empty uses the site currency."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:122
+msgid "Discount %"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:123
+msgid "Discount label"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:123
+#: includes/Course.php:65
+#: includes/Receipt.php:115
+msgid "Discount"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:124
+msgid "Hide the price before discount"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:127
+msgid "Tax %"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:127
+msgid "Added on top of the discounted price."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:128
+msgid "Tax name"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:129
+#: includes/Admin/MetaBoxes.php:346
+msgid "Tax country"
+msgstr ""
+
+#. translators: 1: base price, 2: after discount, 3: tax, 4: total
+#: includes/Admin/MetaBoxes.php:136
+msgid "Price %1$s → after discount %2$s → tax %3$s → learner pays %4$s"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:149
+msgid "For example Beginner, Intermediate, Advanced."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:150
+msgid "Beginner"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:150
+msgid "Intermediate"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:150
+msgid "Advanced"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:151
+msgid "Lessons open one after another (each needs the one before it done)"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:153
+msgid "Start date"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:154
+msgid "End date"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:156
+msgid "What learners will learn"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:156
+msgid "One objective per line."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:157
+msgid "The excerpt (Summary) appears at the top of the outline and on course cards."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:164
+#: includes/PostTypes.php:96
+#: templates/parts/course.php:128
+msgid "Teacher"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:164
+#: includes/Admin/MetaBoxes.php:166
+#: includes/Admin/MetaBoxes.php:358
+#: includes/Admin/MetaBoxes.php:369
+msgid "— None —"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:166
+#: includes/Admin/MetaBoxes.php:358
+#: includes/PostTypes.php:86
+msgid "School"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:168
+msgid "About the teacher, for this course"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:168
+msgid "Optional. Empty uses the teacher’s own summary."
+msgstr ""
+
+#. translators: %s: settings link
+#: includes/Admin/MetaBoxes.php:180
+msgid "No payment methods are enabled. Add them in %s."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:181
+#: includes/Admin/SettingsPage.php:29
+#: includes/Admin/SettingsPage.php:88
+msgid "LMS settings"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:185
+msgid "Tick the methods learners can use for this course. None ticked means all of them."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:200
+msgid "No other courses yet."
+msgstr ""
+
+#. translators: %d: number of learners
+#: includes/Admin/MetaBoxes.php:214
+msgid "%d learner enrolled"
+msgid_plural "%d learners enrolled"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/MetaBoxes.php:216
+msgid "View enrolments"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:226
+msgid "Lessons, quizzes and assignments that belong to this course. Drag to reorder; the order is saved with the course."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:228
+msgid "Nothing in this course yet."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:237
+#: includes/PostTypes.php:53
+msgid "Lesson"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:240
+msgid "(no title)"
+msgstr ""
+
+#. translators: %s: date
+#: includes/Admin/MetaBoxes.php:243
+msgid "opens %s"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:250
+msgid "Save the course once, then add lessons, quizzes and assignments."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:252
+msgid "Add lesson"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:253
+msgid "Add quiz"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:255
+#: includes/Admin/SubmissionsPage.php:99
+msgid "Add assignment"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:271
+msgid "Belongs to"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:271
+msgid "— No course —"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:276
+msgid "Opens on"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:276
+msgid "Optional. Locked until this date."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:277
+msgid "Position in the course is the “Order” number below, or drag it in the course’s Outline box."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:279
+msgid "The excerpt shows as a short note under the lesson in the outline."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:281
+msgid "Show as cards"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:282
+msgid "When it is long (at page breaks, or main headings after about 900 words)"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:282
+msgid "One card per main heading"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:282
+msgid "One page"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:285
+msgid "Learners read one card at a time. \"Mark as complete\" appears on the last card. Add a Page break block to choose where each card ends."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:295
+msgid "Learners in the classroom find these on the Resources tab: documents to download, and audio or video to play on the page. Add files from the Media Library; drag the handle or use the arrows to change the order."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:301
+msgid "Add files"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:311
+msgid "Title (the file name when empty)"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:312
+msgid "What it is, or when to use it (optional)"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:313
+#: includes/Admin/QuizBuilder.php:72
+#: includes/strings.php:205
+msgid "Move up"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:313
+#: includes/Admin/QuizBuilder.php:73
+#: includes/strings.php:206
+msgid "Move down"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:336
+msgid "The featured image is the school’s logo. The excerpt is the short description on school cards."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:341
+#: includes/Admin/MetaBoxes.php:362
+#: templates/parts/school.php:52
+#: templates/parts/teacher.php:46
+msgid "Website"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:343
+msgid "Registration number"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:344
+msgid "Tax number label"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:345
+#: includes/Receipt.php:90
+msgid "Tax number"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:348
+#: templates/parts/school.php:68
+msgid "Accreditations"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:348
+#: includes/Admin/MetaBoxes.php:376
+msgid "One per line."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:349
+#: includes/Admin/MetaBoxes.php:378
+msgid "Cover image"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:355
+msgid "The featured image is the teacher’s photo. The excerpt is the short bio shown on courses."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:357
+msgid "Role or title"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:357
+msgid "Senior lecturer"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:364
+msgid "WordPress account"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:374
+msgid "This person can grade assignments, take attendance, moderate forums and chat, and post announcements in this teacher’s courses. Needs a role that can edit posts (Author or above)."
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:376
+#: includes/Admin/TranscriptsPage.php:477
+#: templates/parts/teacher.php:65
+msgid "Subjects"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:377
+msgid "Social links"
+msgstr ""
+
+#: includes/Admin/MetaBoxes.php:377
+msgid "One per line: Label | https://…"
+msgstr ""
+
+#. translators: 1: learner, 2: item
+#: includes/Admin/ProctorPage.php:58
+msgid "%1$s — %2$s"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:60
+msgid "Delete this session and its recording?"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:63
+msgid "Delete session and recording"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:77
+msgid "Sessions from proctored assignments and quizzes. A leave is a switch to another tab or window, leaving full screen, or stopping the screen share."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:81
+msgid "Only sessions with leaves or auto-submission"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:84
+msgid "Delete the recordings of the selected sessions? The sessions, their timelines and the submissions are kept."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:90
+msgid "Select all sessions with a recording"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:92
+msgid "Assessment"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:93
+#: includes/Admin/ProctorPage.php:135
+#: includes/Privacy.php:141
+msgid "Started"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:94
+#: includes/Admin/ProctorPage.php:136
+msgid "Duration"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:95
+#: includes/Admin/ProctorPage.php:137
+msgid "Leaves"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:96
+msgid "Recording"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:101
+msgid "No proctored sessions yet."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:105
+msgid "Select this session"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:110
+msgid "auto-submitted"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:111
+msgid "Deleted"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:111
+msgid "None received"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:117
+msgid "Delete recordings of selected sessions"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:118
+msgid "Frees the space the videos take. Sessions, timelines and submissions are kept."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:138
+msgid "Auto-submitted"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:138
+#: includes/Privacy.php:139
+#: includes/Privacy.php:152
+#: includes/Privacy.php:187
+msgid "Yes"
+msgstr ""
+
+#. translators: %d: days
+#: includes/Admin/ProctorPage.php:138
+#: includes/Admin/SubmissionsPage.php:209
+#: includes/Privacy.php:139
+#: includes/Privacy.php:152
+#: includes/Privacy.php:187
+msgid "No"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:139
+msgid "Shared"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:139
+msgid "Entire screen"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:143
+msgid "Screen recording"
+msgstr ""
+
+#. translators: 1: who or why, 2: date
+#: includes/Admin/ProctorPage.php:146
+msgid "The recording was deleted (%1$s, %2$s). The session details and timeline below are kept."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:148
+msgid "The recording was deleted after the retention period."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:148
+msgid "No recording reached the server."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:151
+msgid "Sharing restarted during the session, so the recording is in parts."
+msgstr ""
+
+#. translators: 1: part number, 2: size
+#: includes/Admin/ProctorPage.php:157
+msgid "Part %1$d · %2$s"
+msgstr ""
+
+#. translators: 1: part number, 2: size
+#: includes/Admin/ProctorPage.php:157
+#: includes/Admin/SubmissionsPage.php:223
+#: includes/Frontend.php:151
+#: includes/Media.php:75
+#: includes/strings.php:101
+#: templates/parts/assignment.php:142
+#: templates/parts/course.php:293
+msgid "Download"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:162
+msgid "Delete this recording? The session details, timeline and the submission are kept. The video cannot be recovered."
+msgstr ""
+
+#. translators: %s: size
+#: includes/Admin/ProctorPage.php:167
+msgid "Delete recording only (%s)"
+msgstr ""
+
+#. translators: %s: size
+#: includes/Admin/ProctorPage.php:168
+msgid "Keeps the session details, timeline, submission and grade."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:174
+msgid "Timeline"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:176
+msgid "Time"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:176
+msgid "Into session"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:176
+msgid "Event"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:176
+msgid "Detail"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:201
+#: templates/parts/my-courses.php:92
+msgid "In progress"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:202
+msgid "Finished"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:203
+msgid "Left without finishing"
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:267
+msgid "Recording deleted. The session, its timeline and the submission are kept."
+msgstr ""
+
+#. translators: %d: number of recordings
+#: includes/Admin/ProctorPage.php:270
+msgid "%d recording deleted. The sessions, timelines and submissions are kept."
+msgid_plural "%d recordings deleted. The sessions, timelines and submissions are kept."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/ProctorPage.php:272
+msgid "That session has no recording to delete."
+msgstr ""
+
+#: includes/Admin/ProctorPage.php:274
+msgid "Session and recording deleted."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:30
+msgid "Quiz settings"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:38
+msgid "Multiple choice — one answer"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:39
+msgid "Checkboxes — several answers"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:40
+msgid "Short text"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:41
+msgid "Paragraph"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:42
+msgid "Number"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:46
+msgid "Web address"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:49
+msgid "Question"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:50
+msgid "Type the question…"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:54
+msgid "Answers — tick the correct one"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:55
+msgid "Answers — tick every correct one"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/Admin/QuizBuilder.php:57
+msgid "Answer %s"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:58
+msgid "Add answer"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:59
+#: includes/Admin/ResultsPage.php:104
+#: includes/Frontend.php:209
+msgid "Correct"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:60
+msgid "Expected answer"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:61
+msgid "Matched without regard to capitals. Several accepted answers can be separated with |. Leave empty and set points to 0 for an open, ungraded question."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:62
+msgid "The exact number expected."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:63
+msgid "Explanation (shown after submitting)"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:65
+msgid "Add image"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:66
+msgid "Remove image"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:69
+msgid "Collapse"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:70
+msgid "Expand"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:71
+msgid "Remove answer"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:74
+msgid "Delete this question?"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:75
+msgid "No correct answer ticked"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:76
+msgid "No expected answer"
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/Admin/QuizBuilder.php:78
+msgid "%1$s questions · %2$s points"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:79
+msgid "No questions yet. Add the first one below."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:80
+msgid "(no question text)"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/Admin/QuizBuilder.php:82
+msgid "Up to %s answers per question."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:94
+msgid "Collapse all"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:95
+msgid "Expand all"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:100
+msgid "Add a question:"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:104
+msgid "Other question types"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:105
+msgid "More types…"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:111
+msgid "The question builder needs JavaScript."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:130
+msgid "Pass mark (%)"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:131
+msgid "Time limit (minutes)"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:131
+msgid "0 = no limit"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:132
+msgid "Attempts allowed"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:132
+msgid "0 = unlimited (when retakes are on)"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:133
+msgid "Weight in the final grade (%)"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:133
+msgid "Used only when every quiz in the course has a weight."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:134
+msgid "Questions per page"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:136
+msgid "Learners can retake it"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:137
+msgid "Sign-in required"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:138
+msgid "Only learners enrolled in the course"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:138
+msgid "Also respects the course’s order and opening dates."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:139
+msgid "Show the score straight after submitting"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:140
+msgid "Let learners review their answers"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:140
+msgid "Correct answers are only revealed once no attempts remain."
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:141
+msgid "Ask guests for their email"
+msgstr ""
+
+#: includes/Admin/QuizBuilder.php:141
+msgid "Only when sign-in is not required."
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:29
+#: includes/Admin/ResultsPage.php:55
+#: includes/Privacy.php:60
+msgid "Quiz results"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:35
+msgid "You are not allowed to see quiz results."
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:57
+msgid "Result deleted. The learner can take the quiz again."
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:68
+msgid "All quizzes"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:71
+#: includes/Admin/SubmissionsPage.php:123
+msgid "Learner name or email"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:80
+msgid "Learners"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:81
+#: includes/Admin/ResultsPage.php:105
+#: includes/Privacy.php:63
+#: templates/parts/my-courses.php:256
+#: templates/parts/my-courses.php:282
+#: templates/parts/my-courses.php:319
+msgid "Attempts"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:82
+msgid "Average"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:83
+msgid "Pass rate"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:84
+msgid "Highest"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:85
+msgid "Lowest"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:103
+#: includes/Admin/TranscriptsPage.php:349
+#: includes/Admin/TranscriptsPage.php:362
+#: includes/Admin/TranscriptsPage.php:434
+#: includes/Privacy.php:62
+#: includes/Privacy.php:127
+msgid "Score"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:106
+#: includes/Privacy.php:64
+#: templates/parts/my-courses.php:257
+#: templates/parts/my-courses.php:283
+#: templates/parts/my-courses.php:320
+msgid "Submitted"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:111
+msgid "No results yet."
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:119
+#: includes/Admin/ResultsPage.php:153
+msgid "Guest"
+msgstr ""
+
+#. translators: %d: score
+#: includes/Admin/ResultsPage.php:123
+msgid "best %d%%"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:128
+msgid "Answers"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:146
+msgid "All results"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:148
+#: includes/Rest.php:387
+msgid "Result not found."
+msgstr ""
+
+#. translators: 1: score, 2: correct, 3: total, 4: attempt
+#: includes/Admin/ResultsPage.php:155
+msgid "%1$d%% · %2$d / %3$d correct · attempt %4$d"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:161
+msgid "Answer"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:161
+#: includes/Frontend.php:217
+#: templates/parts/quiz-taken.php:80
+msgid "Not answered"
+msgstr ""
+
+#: includes/Admin/ResultsPage.php:162
+msgid "Expected"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:69
+msgid "You are not allowed to change these settings."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:82
+#: includes/Admin/SettingsPage.php:170
+msgid "On"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:93
+msgid "General"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:96
+msgid "Three-letter code (ZMW, USD, EUR…). Courses can set their own."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:97
+msgid "Items per page"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:97
+msgid "Courses, schools and teachers per page on the index pages."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:98
+msgid "Accent colour"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:99
+msgid "Accent colour in dark mode"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:99
+msgid "Leave empty to use the theme’s button colour, or a lighter version of the accent."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:101
+msgid "Light or dark"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:103
+msgid "Follow the theme"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:103
+msgid "Always light"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:103
+msgid "Always dark"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:107
+msgid "“Follow the theme” reads the page’s background, so course pages switch to dark with any theme that has a dark mode, including one that follows the device setting."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:111
+msgid "My courses page"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:117
+msgid "— Choose —"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:121
+msgid "The page holding <code>[sepo_lms_my_courses]</code>. Receipts link back to it."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:125
+msgid "Addresses"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:138
+msgid "Enrolment form"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:139
+msgid "Name and email are always asked. Choose what else to ask."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:142
+#: includes/Frontend.php:173
+msgid "National ID"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:145
+#: includes/Admin/TranscriptsPage.php:237
+#: includes/Frontend.php:179
+#: includes/Records.php:532
+msgid "Date of birth"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:149
+msgid "Receipts and email"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:152
+#: includes/CertificateDesigns.php:58
+msgid "Business name"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:152
+msgid "Printed at the top of receipts."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:153
+msgid "Business tax number"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:155
+msgid "Receipt footer"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:159
+msgid "Payment instructions on enrolment, and the receipt once paid."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:160
+msgid "Email the site"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:160
+msgid "A copy of each receipt, and a note for every enrolment awaiting payment."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:161
+msgid "Site email address"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:166
+msgid "What learners can choose when enrolling in a paid course. Manual and link methods wait for you to mark the enrolment paid; Stripe, PayPal and pawaPay confirm themselves."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:172
+#: includes/Admin/SettingsPage.php:323
+msgid "Label"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:174
+msgid "Instructions, link or network"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:184
+msgid "Add payment method"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:186
+msgid "pawaPay: put the network code in the last column (MTN_MOMO_ZMB, AIRTEL_OAPI_ZMB, ZAMTEL_ZMB) to send the payment prompt straight to the learner’s phone; leave it empty to send them to pawaPay’s payment page to choose their network."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:189
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:193
+msgid "WooCommerce is active. Add a payment method of type “WooCommerce checkout” and learners can pay with any gateway set up in WooCommerce → Settings → Payments. Each enrolment creates an order; the course opens when the order is paid (processing or completed), and closes again if the order is refunded or cancelled."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:194
+msgid "Install and activate WooCommerce to let learners pay with your shop’s gateways. Methods of type “WooCommerce checkout” stay hidden until then."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:198
+msgid "Stripe"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:201
+msgid "Secret key"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:201
+msgid "Starts with sk_live_ or sk_test_. A restricted key needs write access to Checkout Sessions."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:202
+msgid "Webhook signing secret"
+msgstr ""
+
+#. translators: %s: webhook URL
+#: includes/Admin/SettingsPage.php:204
+msgid "Optional but recommended. Add a webhook endpoint for %s with the checkout.session.completed and checkout.session.async_payment_succeeded events, then paste its whsec_ secret here."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:210
+#: includes/Admin/SettingsPage.php:313
+msgid "PayPal"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:213
+msgid "Client ID"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:214
+msgid "Secret"
+msgstr ""
+
+#. translators: %s: webhook URL
+#: includes/Admin/SettingsPage.php:216
+msgid "From a REST app in the PayPal developer dashboard. Optional webhook: %s (CHECKOUT.ORDER.APPROVED, PAYMENT.CAPTURE.COMPLETED)."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:219
+#: includes/Admin/SettingsPage.php:231
+msgid "Sandbox"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:219
+msgid "Use PayPal’s test environment."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:223
+msgid "pawaPay"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:226
+msgid "API token"
+msgstr ""
+
+#. translators: %s: callback URL
+#: includes/Admin/SettingsPage.php:228
+msgid "Merchant API v2. Set the deposit and checkout callback URLs in the pawaPay dashboard to %s."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:231
+msgid "Use pawaPay’s sandbox."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:232
+msgid "Sandbox address"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:233
+msgid "Live address"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:234
+msgid "Country"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:234
+msgid "Three-letter country code for the payment page, e.g. ZMB."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:235
+msgid "Phone country code"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:235
+msgid "Added to local numbers that start with 0, e.g. 260 for Zambia."
+msgstr ""
+
+#. translators: %s: list of method IDs
+#: includes/Admin/SettingsPage.php:242
+msgid "Methods learners can use right now: %s"
+msgstr ""
+
+#. translators: %s: list of method IDs
+#: includes/Admin/SettingsPage.php:242
+msgid "none"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:246
+msgid "Classroom"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:247
+msgid "Switch classroom features on or off for every course. Each course can also turn forums and its certificate on or off."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:250
+msgid "File-upload and quiz assignments with due dates, grading and feedback."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:251
+msgid "Lets an assignment or quiz require screen recording and stay in full screen. Learners must agree before it starts."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:252
+msgid "Issue a PDF certificate when a learner completes a course."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:254
+msgid "Checklist and notes"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:254
+msgid "The study panel on course and lesson pages, and the Notes tab in My courses."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:256
+#: templates/parts/course.php:141
+msgid "Chat"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:257
+msgid "Largest upload"
+msgstr ""
+
+#. translators: %s: server limit
+#: includes/Admin/SettingsPage.php:259
+msgid "Megabytes per file for assignment uploads. This server accepts up to %s."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:262
+msgid "Keep recordings for"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:262
+msgid "Days. Proctoring recordings older than this are deleted automatically. 0 keeps them."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:263
+msgid "Learner-to-learner messages"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:263
+msgid "Off: learners can message course staff only. The course room is always open to everyone in the course."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:264
+msgid "Chat refresh"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:264
+msgid "Seconds between checks for new messages while a chat is open."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:265
+msgid "Keep chat for"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:265
+msgid "Days. 0 keeps messages until the course is deleted."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:267
+msgid "Private files folder"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:269
+msgid "Uploads and recordings are kept here, closed to direct access on Apache, LiteSpeed and IIS. On nginx, add this rule to the server block:"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:275
+msgid "The signatory and logo below fill the matching fields in every certificate design."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:276
+msgid "Design certificates"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:279
+msgid "Name printed under the signature line. A course can use its own."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:290
+msgid "JPEG or PNG, shown at the top of every certificate. Defaults to the site icon."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:294
+msgid "Data"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:296
+msgid "Delete data on uninstall"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:296
+msgid "When the plugin is deleted, also remove enrolments, progress, quiz results, reviews, submissions and their files, recordings, certificates, forum posts, notes, checklists, attendance, chat and settings. Courses, lessons and other posts are never deleted."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:310
+msgid "Manual (bank, cash…)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:311
+msgid "Payment link"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:312
+msgid "Stripe Checkout"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:314
+msgid "pawaPay mobile money"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:315
+msgid "WooCommerce checkout"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:321
+msgid "Enabled"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:323
+#: includes/Settings.php:49
+msgid "Bank transfer"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:328
+msgid "Instructions (manual) or https:// link"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:328
+msgid "Instructions or link"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:329
+msgid "pawaPay network, e.g. MTN_MOMO_ZMB"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:329
+msgid "pawaPay network"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:36
+#: includes/Admin/SubmissionsPage.php:37
+#: includes/Admin/SubmissionsPage.php:98
+msgid "Submissions"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:48
+msgid "All my courses"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:103
+msgid "To grade"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:103
+#: includes/Submissions.php:311
+msgid "Graded"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:103
+msgid "Returned"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:103
+#: includes/Admin/SubmissionsPage.php:209
+#: includes/Attendance.php:45
+#: includes/strings.php:99
+#: templates/parts/my-courses.php:281
+msgid "Late"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:118
+msgid "All assignments"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:131
+#: includes/Admin/SubmissionsPage.php:207
+#: includes/Privacy.php:125
+#: includes/Proctor.php:331
+msgid "Handed in"
+msgstr ""
+
+#. translators: %d: days
+#: includes/Admin/SubmissionsPage.php:132
+#: includes/Admin/SubmissionsPage.php:210
+#: includes/Privacy.php:126
+msgid "Attempt"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:139
+msgid "Nothing here yet."
+msgstr ""
+
+#. translators: %d: days
+#: includes/Admin/SubmissionsPage.php:147
+#: templates/parts/assignment.php:122
+msgid "%d day late"
+msgid_plural "%d days late"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/SubmissionsPage.php:151
+#: includes/Admin/TranscriptsPage.php:338
+#: templates/parts/my-courses.php:288
+msgid "Open"
+msgstr ""
+
+#. translators: %d: learners
+#: includes/Admin/SubmissionsPage.php:178
+msgid "%d learner has not handed in"
+msgid_plural "%d learners have not handed in"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/SubmissionsPage.php:189
+#: includes/Api/AssignmentApi.php:219
+#: includes/Api/AssignmentApi.php:229
+msgid "Submission not found."
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:196
+msgid "All submissions"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:205
+msgid "Hand-in"
+msgstr ""
+
+#. translators: %d: days
+#: includes/Admin/SubmissionsPage.php:209
+msgid "%d day"
+msgid_plural "%d days"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/SubmissionsPage.php:213
+#: includes/Privacy.php:129
+msgid "Files"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:221
+#: includes/Frontend.php:273
+#: includes/strings.php:100
+#: templates/parts/assignment.php:140
+msgid "View"
+msgstr ""
+
+#. translators: %d: words
+#: includes/Admin/SubmissionsPage.php:228
+msgid "%d word"
+msgid_plural "%d words"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: max points
+#: includes/Admin/SubmissionsPage.php:240
+msgid "Points (out of %s)"
+msgstr ""
+
+#. translators: 1: penalty per day, 2: days late, 3: total
+#: includes/Admin/SubmissionsPage.php:245
+msgid "Late penalty: %1$s points per day × %2$d days = %3$s percentage points off."
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:251
+msgid "Feedback for the learner"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:254
+msgid "Save grade and notify"
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:255
+msgid "Return for rework"
+msgstr ""
+
+#. translators: 1: score, 2: date
+#: includes/Admin/SubmissionsPage.php:259
+msgid "Graded %1$s%% on %2$s."
+msgstr ""
+
+#: includes/Admin/SubmissionsPage.php:261
+msgid "Returned for rework. The learner can hand in again."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:38
+#: includes/Admin/TranscriptsPage.php:84
+#: includes/Admin/TranscriptsPage.php:636
+msgid "Transcripts"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:50
+#: includes/Admin/TranscriptsPage.php:72
+msgid "You cannot keep student records."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:80
+msgid "Students"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:81
+msgid "Mark sheet"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:82
+msgid "Grading and subjects"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:86
+msgid "Add student"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:95
+msgid "Student saved."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:96
+msgid "Student and their marks deleted."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:97
+msgid "Marks saved."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:98
+msgid "Parent or guardian linked. A new account is emailed a link to set a password."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:99
+msgid "Parent or guardian removed from this record."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:100
+msgid "Settings saved."
+msgstr ""
+
+#. translators: %d: number of students added
+#: includes/Admin/TranscriptsPage.php:108
+msgid "%d student added."
+msgid_plural "%d students added."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/TranscriptsPage.php:151
+msgid "Search students"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:152
+msgid "Name or admission no."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:154
+#: templates/parts/course-index.php:44
+msgid "All levels"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:157
+#: includes/Admin/TranscriptsPage.php:169
+#: includes/Admin/TranscriptsPage.php:403
+#: includes/Admin/TranscriptsPage.php:434
+msgid "Class"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:158
+#: includes/Admin/TranscriptsPage.php:404
+msgid "All classes"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:160
+msgid "Search"
+msgstr ""
+
+#. translators: %d: number of students
+#: includes/Admin/TranscriptsPage.php:164
+#: templates/parts/course.php:391
+msgid "%d student"
+msgid_plural "%d students"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Admin/TranscriptsPage.php:166
+msgid "No students yet. Add one, or paste a class list on the right."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:169
+#: includes/Admin/TranscriptsPage.php:235
+#: includes/Records.php:531
+msgid "Admission no."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:195
+msgid "Add a class list"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:199
+msgid "One student per line: name | admission no. | level | class | parent’s email. Only the name is needed. A parent without an account is given one and emailed a link to set a password."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:200
+msgid "Class list"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:202
+msgid "Add students"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:218
+#: includes/Admin/TranscriptsPage.php:554
+#: includes/Records.php:492
+msgid "That record no longer exists."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:224
+msgid "All students"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:227
+msgid "New student"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:232
+#: includes/Frontend.php:171
+msgid "Full name"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:243
+#: includes/Records.php:533
+msgid "Current level"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:245
+msgid "Class or stream"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:247
+msgid "Student’s own account (email)"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:250
+msgid "Optional. When the student has an account on this site, they can read their own transcript."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:251
+msgid "Notes (staff only)"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:254
+msgid "Save student"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:256
+msgid "Print transcript"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:265
+msgid "Delete this student and every mark on their transcript? This cannot be undone."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:265
+msgid "Delete student"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:271
+msgid "Parents and guardians"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:274
+msgid "Nobody is linked yet. Linked parents read this transcript on the school reports page."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:300
+msgid "Relationship"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:301
+msgid "Mother, Father, Guardian…"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:303
+msgid "Link parent or guardian"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:329
+msgid "Enter marks"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:334
+#: includes/Admin/TranscriptsPage.php:393
+msgid "Year"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:336
+#: includes/Admin/TranscriptsPage.php:395
+msgid "Term"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:346
+msgid "Level that year"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:349
+#: includes/Admin/TranscriptsPage.php:397
+#: includes/Records.php:549
+msgid "Subject"
+msgstr ""
+
+#. translators: 1: subject, 2: term, 3: year
+#: includes/Admin/TranscriptsPage.php:349
+#: includes/Admin/TranscriptsPage.php:363
+#: includes/Admin/TranscriptsPage.php:431
+msgid "Out of"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:349
+#: includes/Admin/TranscriptsPage.php:364
+#: includes/Admin/TranscriptsPage.php:434
+#: includes/Records.php:553
+msgid "Remark"
+msgstr ""
+
+#. translators: %s: subject
+#. translators: %s: student name
+#: includes/Admin/TranscriptsPage.php:355
+#: includes/Admin/TranscriptsPage.php:441
+msgid "Score for %s"
+msgstr ""
+
+#. translators: %s: subject
+#: includes/Admin/TranscriptsPage.php:356
+msgid "Out of, for %s"
+msgstr ""
+
+#. translators: %s: subject
+#. translators: %s: student name
+#: includes/Admin/TranscriptsPage.php:357
+#: includes/Admin/TranscriptsPage.php:442
+msgid "Remark for %s"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:361
+msgid "Another subject"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:368
+msgid "Clear a score and its remark to take that subject off the transcript."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:369
+msgid "Save marks"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:373
+msgid "Transcript"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:389
+msgid "Enter one subject for a whole class. Choose the year, term, subject and class, then type each mark."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:400
+msgid "Choose a level"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:406
+msgid "Open sheet"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:410
+msgid "Choose a level or class to list its students."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:414
+msgid "Add subjects and terms under Grading and subjects first."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:419
+msgid "No students in that level or class."
+msgstr ""
+
+#. translators: 1: subject, 2: term, 3: year
+#: includes/Admin/TranscriptsPage.php:430
+msgid "%1$s · %2$s %3$s"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:447
+msgid "Save mark sheet"
+msgstr ""
+
+#. translators: %s: shortcode
+#: includes/Admin/TranscriptsPage.php:463
+msgid "Parents and students read transcripts on any page that holds %s. Add it to a page such as “School reports” and link it from your menu."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:469
+msgid "School name"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:470
+msgid "Printed at the top of each transcript."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:472
+msgid "Head teacher"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:472
+msgid "Printed under a signature line. Leave empty for no signature line."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:474
+#: includes/Records.php:580
+msgid "Grading scale"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:474
+msgid "One band per line: lowest percentage | grade | description. For example 75 | A | Distinction."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:475
+msgid "Levels"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:475
+msgid "One per line, from the first year of primary to the last year of secondary."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:476
+msgid "Terms"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:476
+msgid "One per line, in order."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:477
+msgid "One per line, in the order they appear on the transcript."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:480
+msgid "Save settings"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:501
+msgid "No account uses that email address. Leave it empty, or ask the student to register first."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:507
+msgid "Enter the student’s name."
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:634
+msgid "School records"
+msgstr ""
+
+#: includes/Admin/TranscriptsPage.php:637
+msgid "Can keep student records and enter marks"
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:45
+msgid "Assignments are switched off."
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:49
+msgid "Assignment not found."
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:54
+msgid "This assignment is taken as a quiz."
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:62
+msgid "Enrol in the course to hand in work."
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:78
+#: includes/Api/AssignmentApi.php:101
+msgid "Write your answer in the text box."
+msgstr ""
+
+#. translators: %d: words
+#: includes/Api/AssignmentApi.php:81
+msgid "Your written answer needs at least %d words."
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:86
+msgid "Confirm each requirement before handing in."
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:93
+msgid "This assignment takes a written answer only."
+msgstr ""
+
+#. translators: %d: files
+#: includes/Api/AssignmentApi.php:96
+msgid "You can attach up to %d file."
+msgid_plural "You can attach up to %d files."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Api/AssignmentApi.php:100
+msgid "Attach a file or write an answer before handing in."
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:101
+msgid "Attach at least one file."
+msgstr ""
+
+#. translators: 1: learner, 2: assignment
+#: includes/Api/AssignmentApi.php:204
+msgid "%1$s handed in %2$s"
+msgstr ""
+
+#. translators: 1: learner, 2: assignment
+#: includes/Api/AssignmentApi.php:205
+msgid "late"
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:206
+msgid "Open the submission"
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:224
+msgid "Enter the points awarded."
+msgstr ""
+
+#. translators: %s: assignment
+#: includes/Api/AssignmentApi.php:244
+msgid "Please rework: %s"
+msgstr ""
+
+#. translators: %s: assignment
+#: includes/Api/AssignmentApi.php:245
+msgid "Graded: %s"
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:251
+msgid "Your teacher returned your work so you can improve it and hand it in again."
+msgstr ""
+
+#: includes/Api/AssignmentApi.php:256
+msgid "Open the assignment"
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:87
+msgid "Study tools are switched off."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:96
+#: includes/Api/ClassroomApi.php:224
+#: includes/Payments.php:97
+#: includes/Rest.php:138
+msgid "Course not found."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:119
+msgid "Type the task first."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:135
+msgid "Task not found."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:179
+#: includes/Api/ClassroomApi.php:205
+msgid "Note not found."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:219
+#: includes/Api/ClassroomApi.php:240
+msgid "Attendance is switched off."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:253
+msgid "Chat is not available here."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:267
+msgid "Conversation not found."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:295
+msgid "Message not found."
+msgstr ""
+
+#: includes/Api/ClassroomApi.php:309
+msgid "This course does not issue certificates."
+msgstr ""
+
+#: includes/Api/ForumApi.php:51
+msgid "Forum not found."
+msgstr ""
+
+#: includes/Api/ForumApi.php:79
+#: includes/Api/ForumApi.php:83
+#: includes/Api/ForumApi.php:122
+#: includes/Api/ForumApi.php:179
+msgid "Topic not found."
+msgstr ""
+
+#: includes/Api/ForumApi.php:117
+#: includes/Api/ForumApi.php:158
+msgid "Write something first."
+msgstr ""
+
+#: includes/Api/ForumApi.php:125
+#: includes/Api/ForumApi.php:129
+msgid "Only course staff can post here."
+msgstr ""
+
+#: includes/Api/ForumApi.php:132
+msgid "Give your topic a title."
+msgstr ""
+
+#: includes/Api/ForumApi.php:138
+msgid "You are posting too quickly. Wait a minute and try again."
+msgstr ""
+
+#: includes/Api/ForumApi.php:154
+msgid "You cannot edit this post."
+msgstr ""
+
+#: includes/Api/ForumApi.php:169
+msgid "You cannot delete this post."
+msgstr ""
+
+#: includes/Api/ForumApi.php:198
+#: includes/Chat.php:162
+#: includes/Chat.php:201
+msgid "Former member"
+msgstr ""
+
+#: includes/Api/ProctorApi.php:45
+msgid "Proctoring is switched off."
+msgstr ""
+
+#: includes/Api/ProctorApi.php:49
+msgid "Not found."
+msgstr ""
+
+#: includes/Api/ProctorApi.php:53
+msgid "This is not proctored."
+msgstr ""
+
+#: includes/Api/ProctorApi.php:62
+msgid "Screen recording is required."
+msgstr ""
+
+#: includes/Api/ProctorApi.php:66
+msgid "Share your entire screen, not a window or a tab."
+msgstr ""
+
+#: includes/Api/ProctorApi.php:107
+msgid "Proctoring session not found."
+msgstr ""
+
+#: includes/Assignments.php:43
+msgid "Documents (Word, text)"
+msgstr ""
+
+#: includes/Assignments.php:44
+msgid "Spreadsheets"
+msgstr ""
+
+#: includes/Assignments.php:45
+msgid "Presentations"
+msgstr ""
+
+#: includes/Assignments.php:46
+msgid "Images"
+msgstr ""
+
+#: includes/Assignments.php:47
+msgid "Archives (zip)"
+msgstr ""
+
+#: includes/Assignments.php:48
+msgid "Audio"
+msgstr ""
+
+#: includes/Assignments.php:49
+msgid "Video"
+msgstr ""
+
+#: includes/Assignments.php:205
+#: includes/Rest.php:214
+msgid "The due date has passed and late work is not accepted."
+msgstr ""
+
+#: includes/Assignments.php:211
+msgid "You have already handed this in."
+msgstr ""
+
+#: includes/Assignments.php:212
+msgid "You can no longer change your work: the due date has passed."
+msgstr ""
+
+#: includes/Assignments.php:213
+msgid "This has been graded, so it can no longer be changed."
+msgstr ""
+
+#: includes/Attendance.php:44
+msgid "Present"
+msgstr ""
+
+#: includes/Attendance.php:46
+msgid "Absent"
+msgstr ""
+
+#: includes/Attendance.php:47
+msgid "Excused"
+msgstr ""
+
+#: includes/Attendance.php:85
+msgid "Enter a start and an end time."
+msgstr ""
+
+#: includes/Attendance.php:88
+msgid "The session must end after it starts."
+msgstr ""
+
+#. translators: %s: date
+#: includes/Attendance.php:91
+msgid "Class on %s"
+msgstr ""
+
+#: includes/Attendance.php:161
+msgid "Check-in is not open for this session."
+msgstr ""
+
+#: includes/Attendance.php:164
+msgid "That code is not right. Ask your teacher for the session code."
+msgstr ""
+
+#: includes/CertificateDesigns.php:49
+msgid "Learner’s name"
+msgstr ""
+
+#: includes/CertificateDesigns.php:50
+msgid "Course title"
+msgstr ""
+
+#: includes/CertificateDesigns.php:51
+msgid "Certificate title (from the course)"
+msgstr ""
+
+#: includes/CertificateDesigns.php:52
+msgid "Wording before the course name (from the course)"
+msgstr ""
+
+#: includes/CertificateDesigns.php:53
+#: includes/CertificateDesigns.php:254
+#: includes/CertificateDesigns.php:293
+msgid "Date issued"
+msgstr ""
+
+#: includes/CertificateDesigns.php:54
+msgid "Final grade (when the course prints it)"
+msgstr ""
+
+#: includes/CertificateDesigns.php:55
+msgid "Letter grade"
+msgstr ""
+
+#: includes/CertificateDesigns.php:56
+#: includes/Certificates.php:361
+msgid "Certificate code"
+msgstr ""
+
+#: includes/CertificateDesigns.php:57
+msgid "Verification address"
+msgstr ""
+
+#: includes/CertificateDesigns.php:70
+msgid "Introduction to Data Analysis"
+msgstr ""
+
+#: includes/CertificateDesigns.php:79
+msgid "Signatory name"
+msgstr ""
+
+#: includes/CertificateDesigns.php:80
+msgid "Course Director"
+msgstr ""
+
+#: includes/CertificateDesigns.php:102
+msgid "Signature"
+msgstr ""
+
+#. translators: %s: design name
+#: includes/CertificateDesigns.php:181
+msgid "%s (copy)"
+msgstr ""
+
+#: includes/CertificateDesigns.php:215
+msgid "Classic — centred, framed"
+msgstr ""
+
+#: includes/CertificateDesigns.php:216
+msgid "Modern — colour band on the left"
+msgstr ""
+
+#: includes/CertificateDesigns.php:217
+msgid "Minimal — fine border, lots of space"
+msgstr ""
+
+#: includes/CertificateDesigns.php:218
+msgid "Blank page"
+msgstr ""
+
+#: includes/CertificateDesigns.php:244
+msgid "of completion"
+msgstr ""
+
+#: includes/CertificateDesigns.php:246
+#: includes/CertificateDesigns.php:285
+msgid "This is to certify that"
+msgstr ""
+
+#: includes/CertificateDesigns.php:251
+#: includes/CertificateDesigns.php:290
+msgid "Final grade:"
+msgstr ""
+
+#: includes/CertificateDesigns.php:258
+#: includes/CertificateDesigns.php:298
+msgid "Verify at"
+msgstr ""
+
+#: includes/CertificateDesigns.php:266
+msgid "Presented to"
+msgstr ""
+
+#: includes/CertificateDesigns.php:303
+msgid "Classic"
+msgstr ""
+
+#: includes/CertificateDesigns.php:380
+msgid "Untitled design"
+msgstr ""
+
+#: includes/Certificates.php:81
+msgid "Enrol in the course first."
+msgstr ""
+
+#. translators: 1: items done, 2: items in the course
+#: includes/Certificates.php:90
+msgid "Complete every item in the course (%1$d of %2$d done)."
+msgstr ""
+
+#: includes/Certificates.php:100
+msgid "Wait for your submitted assignments to be graded."
+msgstr ""
+
+#. translators: %s: minimum grade
+#: includes/Certificates.php:105
+msgid "Reach a final grade of at least %s%%."
+msgstr ""
+
+#. translators: %s: course
+#: includes/Certificates.php:187
+msgid "Your certificate for %s"
+msgstr ""
+
+#. translators: %s: course
+#: includes/Certificates.php:188
+msgid "Congratulations!"
+msgstr ""
+
+#. translators: %s: course
+#: includes/Certificates.php:189
+msgid "You have completed %s and your certificate is ready."
+msgstr ""
+
+#. translators: %s: course
+#: includes/Certificates.php:190
+#: includes/strings.php:161
+#: templates/parts/course.php:489
+msgid "Download certificate"
+msgstr ""
+
+#. translators: %s: code
+#: includes/Certificates.php:191
+msgid "Certificate code: %s"
+msgstr ""
+
+#. translators: %s: code
+#: includes/Certificates.php:192
+msgid "Anyone can check it at:"
+msgstr ""
+
+#: includes/Certificates.php:316
+msgid "This certificate has been withdrawn."
+msgstr ""
+
+#: includes/Certificates.php:345
+msgid "Certificate verification"
+msgstr ""
+
+#: includes/Certificates.php:351
+msgid "Valid certificate"
+msgstr ""
+
+#: includes/Certificates.php:351
+msgid "Not found"
+msgstr ""
+
+#: includes/Certificates.php:354
+msgid "Awarded to"
+msgstr ""
+
+#: includes/Certificates.php:356
+msgid "Issued by"
+msgstr ""
+
+#: includes/Certificates.php:359
+msgid "No certificate matches that code. Check it and try again."
+msgstr ""
+
+#: includes/Certificates.php:362
+msgid "Check"
+msgstr ""
+
+#: includes/Chat.php:157
+msgid "Course room"
+msgstr ""
+
+#: includes/Chat.php:229
+msgid "Type a message first."
+msgstr ""
+
+#. translators: %d: characters
+#: includes/Chat.php:232
+msgid "Messages can be up to %d characters."
+msgstr ""
+
+#: includes/Chat.php:237
+msgid "You are sending messages too quickly. Wait a moment."
+msgstr ""
+
+#: includes/Downloads.php:83
+msgid "This link has expired. Go back and open it again."
+msgstr ""
+
+#: includes/Downloads.php:89
+#: includes/Downloads.php:94
+#: includes/Proofs.php:161
+#: includes/Proofs.php:165
+msgid "File not found."
+msgstr ""
+
+#: includes/Downloads.php:106
+#: includes/Downloads.php:111
+msgid "Recording not found."
+msgstr ""
+
+#: includes/Enrollments.php:235
+#: includes/Payments.php:127
+msgid "You are already enrolled in this course."
+msgstr ""
+
+#: includes/Enrollments.php:323
+msgid "Unknown status."
+msgstr ""
+
+#: includes/Forums.php:43
+msgid "Announcements (staff only)"
+msgstr ""
+
+#: includes/Forums.php:51
+msgid "News and updates from your teacher."
+msgstr ""
+
+#: includes/Forums.php:52
+msgid "General discussion"
+msgstr ""
+
+#: includes/Forums.php:52
+msgid "Ask questions and talk about the course."
+msgstr ""
+
+#: includes/Forums.php:256
+msgid "[removed at the author’s request]"
+msgstr ""
+
+#: includes/Forums.php:296
+msgid "Open in the course"
+msgstr ""
+
+#: includes/Frontend.php:149
+#: includes/Media.php:62
+msgid "Play"
+msgstr ""
+
+#: includes/Frontend.php:150
+msgid "Pause"
+msgstr ""
+
+#: includes/Frontend.php:152
+#: includes/Frontend.php:275
+msgid "Open in a new tab"
+msgstr ""
+
+#: includes/Frontend.php:153
+#: includes/Frontend.php:187
+msgid "Close"
+msgstr ""
+
+#: includes/Frontend.php:154
+#: templates/parts/quiz.php:170
+msgid "Previous"
+msgstr ""
+
+#: includes/Frontend.php:155
+#: templates/parts/quiz.php:172
+msgid "Next"
+msgstr ""
+
+#: includes/Frontend.php:156
+msgid "Loading…"
+msgstr ""
+
+#: includes/Frontend.php:157
+msgid "This file could not be shown."
+msgstr ""
+
+#: includes/Frontend.php:158
+msgid "This browser cannot show PDFs inside the page. Open it or download it instead."
+msgstr ""
+
+#: includes/Frontend.php:165
+msgid "Sent. We will check it and email you when your enrolment is confirmed."
+msgstr ""
+
+#: includes/Frontend.php:166
+#: includes/Proofs.php:137
+msgid "Waiting to be checked"
+msgstr ""
+
+#: includes/Frontend.php:167
+#: includes/Proofs.php:138
+msgid "Accepted"
+msgstr ""
+
+#: includes/Frontend.php:168
+#: includes/Proofs.php:139
+msgid "Not accepted"
+msgstr ""
+
+#. translators: 1: this part, 2: number of parts
+#: includes/Frontend.php:170
+msgid "Part %1$s of %2$s"
+msgstr ""
+
+#: includes/Frontend.php:175
+msgid "Female"
+msgstr ""
+
+#: includes/Frontend.php:176
+msgid "Male"
+msgstr ""
+
+#: includes/Frontend.php:178
+msgid "City, country"
+msgstr ""
+
+#: includes/Frontend.php:180
+#: includes/Receipt.php:108
+msgid "Payment method"
+msgstr ""
+
+#: includes/Frontend.php:181
+msgid "Mobile money number"
+msgstr ""
+
+#: includes/Frontend.php:182
+msgid "Name and email are required."
+msgstr ""
+
+#: includes/Frontend.php:183
+msgid "A phone number is required for this payment method."
+msgstr ""
+
+#: includes/Frontend.php:184
+msgid "Enrol"
+msgstr ""
+
+#: includes/Frontend.php:185
+#: templates/parts/course.php:479
+msgid "Enrol & pay"
+msgstr ""
+
+#: includes/Frontend.php:188
+#: includes/Privacy.php:187
+#: includes/strings.php:174
+msgid "Done"
+msgstr ""
+
+#: includes/Frontend.php:189
+#: templates/parts/course.php:424
+msgid "You are enrolled"
+msgstr ""
+
+#: includes/Frontend.php:190
+msgid "Enrolled and paid"
+msgstr ""
+
+#: includes/Frontend.php:191
+msgid "Waiting for payment…"
+msgstr ""
+
+#: includes/Frontend.php:192
+msgid "Payment received. The course is open."
+msgstr ""
+
+#: includes/Frontend.php:193
+#: templates/parts/course.php:56
+msgid "The payment did not go through. You can try again."
+msgstr ""
+
+#: includes/Frontend.php:194
+msgid "We have not heard back yet. If you approved the payment, this page will update shortly; you can also check My courses later."
+msgstr ""
+
+#: includes/Frontend.php:195
+#: includes/Payments.php:263
+msgid "Taking you to the secure checkout…"
+msgstr ""
+
+#: includes/Frontend.php:196
+msgid "Continue to payment"
+msgstr ""
+
+#: includes/Frontend.php:197
+#: includes/Mailer.php:48
+#: templates/parts/course.php:436
+msgid "Pay now"
+msgstr ""
+
+#: includes/Frontend.php:198
+#: templates/parts/course.php:426
+msgid "View receipt"
+msgstr ""
+
+#: includes/Frontend.php:199
+msgid "Posting…"
+msgstr ""
+
+#: includes/Frontend.php:200
+#: templates/parts/course.php:330
+msgid "Delete review"
+msgstr ""
+
+#: includes/Frontend.php:201
+msgid "Delete this review? This cannot be undone."
+msgstr ""
+
+#: includes/Frontend.php:203
+msgid "Please answer all required questions before submitting."
+msgstr ""
+
+#: includes/Frontend.php:204
+msgid "Submit your answers?"
+msgstr ""
+
+#: includes/Frontend.php:205
+msgid "Submitting…"
+msgstr ""
+
+#: includes/Frontend.php:206
+#: templates/parts/quiz.php:173
+msgid "Submit quiz"
+msgstr ""
+
+#: includes/Frontend.php:207
+#: templates/parts/assignment.php:132
+#: templates/parts/my-courses.php:38
+#: templates/parts/my-courses.php:185
+#: templates/parts/quiz-taken.php:59
+msgid "Passed"
+msgstr ""
+
+#: includes/Frontend.php:208
+#: templates/parts/assignment.php:132
+#: templates/parts/my-courses.php:186
+#: templates/parts/quiz-taken.php:59
+msgid "Not passed"
+msgstr ""
+
+#: includes/Frontend.php:210
+msgid "Incorrect"
+msgstr ""
+
+#: includes/Frontend.php:211
+msgid "Unanswered"
+msgstr ""
+
+#: includes/Frontend.php:212
+msgid "Not graded"
+msgstr ""
+
+#: includes/Frontend.php:214
+#: templates/parts/quiz-taken.php:80
+msgid "Your answer"
+msgstr ""
+
+#: includes/Frontend.php:215
+#: templates/parts/quiz-taken.php:82
+msgid "Correct answer"
+msgstr ""
+
+#: includes/Frontend.php:216
+msgid "Explanation"
+msgstr ""
+
+#: includes/Frontend.php:218
+msgid "Review your answers"
+msgstr ""
+
+#: includes/Frontend.php:219
+msgid "Your answers were submitted. Your result will appear under My courses."
+msgstr ""
+
+#: includes/Frontend.php:220
+msgid "Take it again"
+msgstr ""
+
+#: includes/Frontend.php:221
+#: includes/Frontend.php:603
+#: includes/Frontend.php:672
+#: templates/parts/quiz-taken.php:93
+msgid "Back to the course"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/Frontend.php:223
+msgid "Attempt %s"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/Frontend.php:225
+msgid "Answered: %s"
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/Frontend.php:227
+msgid "%1$s / %2$s correct"
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/Frontend.php:229
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value, %3$s: value.
+#: includes/Frontend.php:231
+msgid "Showing %1$s–%2$s of %3$s"
+msgstr ""
+
+#: includes/Frontend.php:232
+msgid "Nothing matches your search."
+msgstr ""
+
+#: includes/Frontend.php:233
+msgid "Previous page"
+msgstr ""
+
+#: includes/Frontend.php:234
+msgid "Next page"
+msgstr ""
+
+#: includes/Frontend.php:236
+msgid "Time is up. Submitting your answers…"
+msgstr ""
+
+#: includes/Frontend.php:237
+msgid "You have unsaved answers."
+msgstr ""
+
+#: includes/Frontend.php:274
+msgid "Hide"
+msgstr ""
+
+#: includes/Frontend.php:276
+msgid "Close the viewer"
+msgstr ""
+
+#: includes/Frontend.php:582
+msgid "This quiz is part of an assignment. Open the assignment to take it."
+msgstr ""
+
+#: includes/Frontend.php:583
+msgid "Go to the assignment"
+msgstr ""
+
+#: includes/Frontend.php:613
+msgid "Sign in required"
+msgstr ""
+
+#: includes/Frontend.php:613
+msgid "Please sign in to take this quiz."
+msgstr ""
+
+#: includes/Frontend.php:614
+#: includes/Frontend.php:679
+#: includes/Frontend.php:956
+#: includes/Records.php:601
+#: templates/parts/course.php:343
+#: templates/parts/locked.php:28
+msgid "Sign in"
+msgstr ""
+
+#: includes/Frontend.php:620
+msgid "Not available yet"
+msgstr ""
+
+#: includes/Frontend.php:621
+#: includes/Gateways/WooCommerce.php:242
+#: includes/Mailer.php:28
+#: includes/Proofs.php:209
+#: templates/parts/my-courses.php:336
+#: templates/parts/my-courses.php:369
+msgid "Go to the course"
+msgstr ""
+
+#: includes/Frontend.php:632
+#: includes/Rest.php:259
+msgid "This quiz has no questions yet."
+msgstr ""
+
+#: includes/Frontend.php:675
+msgid "Assignments are not available right now."
+msgstr ""
+
+#: includes/Frontend.php:678
+msgid "Please sign in to open this assignment."
+msgstr ""
+
+#: includes/Frontend.php:695
+msgid "The quiz for this assignment is not ready yet."
+msgstr ""
+
+#: includes/Frontend.php:808
+msgid "TPIN"
+msgstr ""
+
+#: includes/Frontend.php:954
+msgid "Sign in to see your courses."
+msgstr ""
+
+#: includes/Frontend.php:1036
+msgid "Other quizzes"
+msgstr ""
+
+#. translators: 1: HTTP status code, 2: error message
+#: includes/Gateways/Http.php:46
+msgid "The payment service answered %1$d. %2$s"
+msgstr ""
+
+#: includes/Gateways/PawaPay.php:101
+msgid "A phone number is needed for mobile money."
+msgstr ""
+
+#. translators: %s: reason given by pawaPay
+#: includes/Gateways/PawaPay.php:116
+msgid "The mobile money request was refused: %s"
+msgstr ""
+
+#: includes/Gateways/PawaPay.php:125
+msgid "Check your phone and approve the payment prompt. This page will update once it goes through."
+msgstr ""
+
+#. translators: %s: status or reason given by pawaPay
+#: includes/Gateways/PawaPay.php:164
+msgid "pawaPay did not accept the checkout: %s"
+msgstr ""
+
+#: includes/Gateways/PawaPay.php:165
+msgid "no answer"
+msgstr ""
+
+#: includes/Gateways/PayPal.php:43
+msgid "PayPal did not issue an access token. Check the client ID and secret."
+msgstr ""
+
+#. translators: %s: currency code
+#: includes/Gateways/PayPal.php:71
+#: includes/Payments.php:153
+msgid "PayPal cannot take payments in %s. Choose another payment method."
+msgstr ""
+
+#: includes/Gateways/PayPal.php:101
+msgid "PayPal did not return an approval page."
+msgstr ""
+
+#: includes/Gateways/Stripe.php:64
+msgid "Stripe did not return a checkout page."
+msgstr ""
+
+#: includes/Gateways/WooCommerce.php:51
+msgid "WooCommerce is not active."
+msgstr ""
+
+#: includes/Gateways/WooCommerce.php:58
+msgid "Replaced by a new payment attempt for the same enrolment."
+msgstr ""
+
+#: includes/Gateways/WooCommerce.php:85
+#: includes/Receipt.php:96
+msgid "Reference"
+msgstr ""
+
+#. translators: %s: enrolment reference
+#: includes/Gateways/WooCommerce.php:110
+msgid "Created by Sepo LMS for enrolment %s."
+msgstr ""
+
+#. translators: %s: order status, e.g. refunded
+#: includes/Gateways/WooCommerce.php:209
+msgid "Sepo LMS: course access closed because the order was %s."
+msgstr ""
+
+#: includes/Gateways/WooCommerce.php:240
+msgid "Payment received — your course is open."
+msgstr ""
+
+#: includes/Gateways/WooCommerce.php:240
+msgid "Your enrolment opens once this order is paid."
+msgstr ""
+
+#. translators: %s: course title
+#: includes/Mailer.php:22
+msgid "Receipt: %s"
+msgstr ""
+
+#. translators: %s: learner name
+#: includes/Mailer.php:25
+#: includes/Mailer.php:45
+#: includes/Proofs.php:205
+msgid "Hello %s,"
+msgstr ""
+
+#: includes/Mailer.php:27
+msgid "Your payment is confirmed and the course is open."
+msgstr ""
+
+#. translators: 1: learner name, 2: course title
+#: includes/Mailer.php:34
+msgid "Payment received: %1$s — %2$s"
+msgstr ""
+
+#. translators: %s: course title
+#: includes/Mailer.php:44
+msgid "How to pay for %s"
+msgstr ""
+
+#. translators: %s: learner name
+#: includes/Mailer.php:46
+msgid "Thanks for enrolling. Your place is reserved; the lessons open once your payment is confirmed."
+msgstr ""
+
+#. translators: 1: learner name, 2: course title
+#: includes/Mailer.php:54
+msgid "New enrolment awaiting payment: %1$s — %2$s"
+msgstr ""
+
+#: includes/Mailer.php:55
+msgid "Review enrolments"
+msgstr ""
+
+#: includes/Media.php:61
+msgid "Back 15 seconds"
+msgstr ""
+
+#: includes/Media.php:67
+msgid "Forward 15 seconds"
+msgstr ""
+
+#: includes/Media.php:69
+msgid "Playback speed"
+msgstr ""
+
+#: includes/Media.php:71
+msgid "Mute"
+msgstr ""
+
+#: includes/Media.php:72
+msgid "Volume"
+msgstr ""
+
+#: includes/Media.php:80
+msgid "Seek"
+msgstr ""
+
+#: includes/Payments.php:103
+msgid "Your name and a valid email address are required."
+msgstr ""
+
+#: includes/Payments.php:114
+msgid "Your payment has gone through — you are enrolled. Reload the page."
+msgstr ""
+
+#: includes/Payments.php:118
+msgid "A payment request is still waiting on your phone. Approve it, or try again in a few minutes."
+msgstr ""
+
+#: includes/Payments.php:141
+msgid "No payment method is set up for this course."
+msgstr ""
+
+#: includes/Payments.php:144
+msgid "Choose a valid payment method."
+msgstr ""
+
+#: includes/Payments.php:149
+msgid "A phone number is required for mobile money payments."
+msgstr ""
+
+#: includes/Payments.php:214
+msgid "You are enrolled. The course is open."
+msgstr ""
+
+#: includes/Payments.php:222
+msgid "Complete payment using the link below. Your enrolment opens once payment is confirmed."
+msgstr ""
+
+#: includes/Payments.php:230
+msgid "That payment method is unavailable."
+msgstr ""
+
+#. translators: %s: error from the payment service
+#: includes/Payments.php:244
+msgid "Could not start the payment: %s"
+msgstr ""
+
+#: includes/Payments.php:252
+msgid "We could not confirm the payment request. If a prompt appears on your phone, approve it — this page will update. If nothing arrives, try again in a few minutes."
+msgstr ""
+
+#: includes/Payments.php:255
+msgid "The payment service did not answer. Please try again in a minute."
+msgstr ""
+
+#: includes/PostTypes.php:42
+msgid "Course image"
+msgstr ""
+
+#: includes/PostTypes.php:96
+msgid "Photo"
+msgstr ""
+
+#: includes/PostTypes.php:108
+msgid "Course category"
+msgstr ""
+
+#: includes/PostTypes.php:110
+msgid "All categories"
+msgstr ""
+
+#: includes/PostTypes.php:111
+msgid "Edit category"
+msgstr ""
+
+#: includes/PostTypes.php:112
+msgid "Add new category"
+msgstr ""
+
+#. translators: %s: image name, e.g. Logo
+#: includes/PostTypes.php:128
+msgid "Set %s"
+msgstr ""
+
+#. translators: %s: image name
+#. translators: %s: value.
+#: includes/PostTypes.php:130
+#: includes/strings.php:83
+msgid "Remove %s"
+msgstr ""
+
+#. translators: %s: image name
+#: includes/PostTypes.php:132
+msgid "Use as %s"
+msgstr ""
+
+#. translators: %s: item type, e.g. Course
+#: includes/PostTypes.php:145
+msgid "Add new %s"
+msgstr ""
+
+#: includes/PostTypes.php:146
+msgid "Add new"
+msgstr ""
+
+#. translators: %s: item type
+#: includes/PostTypes.php:150
+msgid "New %s"
+msgstr ""
+
+#. translators: %s: item type
+#: includes/PostTypes.php:152
+msgid "View %s"
+msgstr ""
+
+#. translators: %s: item type, plural
+#: includes/PostTypes.php:154
+msgid "Search %s"
+msgstr ""
+
+#. translators: %s: item type, plural
+#: includes/PostTypes.php:156
+msgid "No %s found"
+msgstr ""
+
+#. translators: %s: item type, plural
+#: includes/PostTypes.php:158
+msgid "No %s in the bin"
+msgstr ""
+
+#: includes/Privacy.php:57
+msgid "Course enrolments"
+msgstr ""
+
+#: includes/Privacy.php:94
+msgid "Paid enrolments were kept as financial records with personal details removed."
+msgstr ""
+
+#: includes/Privacy.php:122
+msgid "Assignment hand-ins"
+msgstr ""
+
+#: includes/Privacy.php:130
+#: templates/parts/assignment.php:151
+msgid "Feedback"
+msgstr ""
+
+#: includes/Privacy.php:136
+msgid "Proctoring sessions"
+msgstr ""
+
+#: includes/Privacy.php:137
+msgid "Work"
+msgstr ""
+
+#: includes/Privacy.php:139
+msgid "Screen recorded"
+msgstr ""
+
+#: includes/Privacy.php:140
+msgid "Times left the page"
+msgstr ""
+
+#: includes/Privacy.php:142
+msgid "Ended"
+msgstr ""
+
+#: includes/Privacy.php:157
+msgid "Forum posts"
+msgstr ""
+
+#: includes/Privacy.php:160
+#: includes/Privacy.php:168
+#: includes/strings.php:131
+#: includes/strings.php:143
+msgid "Message"
+msgstr ""
+
+#: includes/Privacy.php:161
+msgid "Posted"
+msgstr ""
+
+#: includes/Privacy.php:166
+msgid "Chat messages"
+msgstr ""
+
+#: includes/Privacy.php:169
+msgid "Sent"
+msgstr ""
+
+#: includes/Privacy.php:184
+msgid "Study checklist"
+msgstr ""
+
+#: includes/Privacy.php:186
+msgid "Task"
+msgstr ""
+
+#: includes/Privacy.php:201
+msgid "Study notes"
+msgstr ""
+
+#: includes/Privacy.php:205
+msgid "Updated"
+msgstr ""
+
+#: includes/Privacy.php:223
+msgid "Forum posts were kept so discussions stay readable, with the author and text removed."
+msgstr ""
+
+#: includes/Privacy.php:234
+msgid "When you enrol in a course we store the details you give on the enrolment form (name, email, and where asked national ID, gender, location, date of birth and phone number), the price you paid and the payment method. We also store your lesson progress, quiz answers and scores, and any course reviews you write."
+msgstr ""
+
+#: includes/Privacy.php:235
+msgid "In the classroom we store the work you hand in (written answers and files), grades and feedback, your forum posts and chat messages, your attendance, the certificates issued to you, and the checklist and notes you keep while studying."
+msgstr ""
+
+#: includes/Privacy.php:236
+msgid "Proctored work records when you leave the page or full screen. When screen recording is switched on for a piece of work, your entire screen is recorded while you work on it, after you agree; recordings are visible only to the course staff and are deleted after the retention period set by the site."
+msgstr ""
+
+#: includes/Privacy.php:237
+msgid "If you pay by card, PayPal or mobile money, the payment is handled by that provider (Stripe, PayPal or pawaPay), which receives the amount, a reference, your email address and, for mobile money, your phone number."
+msgstr ""
+
+#: includes/Proctor.php:127
+msgid "This session is not recording."
+msgstr ""
+
+#: includes/Proctor.php:131
+msgid "Recording chunk rejected."
+msgstr ""
+
+#: includes/Proctor.php:134
+msgid "The recording has reached its size limit."
+msgstr ""
+
+#: includes/Proctor.php:143
+msgid "Recording chunk out of order."
+msgstr ""
+
+#: includes/Proctor.php:151
+msgid "The server could not save the recording."
+msgstr ""
+
+#: includes/Proctor.php:236
+msgid "This work is proctored. Start the proctored session before handing in."
+msgstr ""
+
+#: includes/Proctor.php:239
+msgid "This proctored session was closed. Reload the page and start again."
+msgstr ""
+
+#: includes/Proctor.php:242
+msgid "Your screen recording did not reach the server. Keep sharing your screen and try again."
+msgstr ""
+
+#: includes/Proctor.php:313
+msgid "Session started"
+msgstr ""
+
+#: includes/Proctor.php:314
+msgid "Screen sharing started"
+msgstr ""
+
+#: includes/Proctor.php:315
+#: includes/strings.php:37
+msgid "Screen sharing stopped"
+msgstr ""
+
+#: includes/Proctor.php:316
+msgid "Entered full screen"
+msgstr ""
+
+#: includes/Proctor.php:317
+msgid "Left full screen"
+msgstr ""
+
+#: includes/Proctor.php:318
+msgid "Full screen closed (not counted while the learner can return)"
+msgstr ""
+
+#: includes/Proctor.php:319
+msgid "Returned to full screen"
+msgstr ""
+
+#: includes/Proctor.php:320
+msgid "Opened the file chooser"
+msgstr ""
+
+#: includes/Proctor.php:321
+msgid "Closed the file chooser"
+msgstr ""
+
+#: includes/Proctor.php:322
+msgid "Asked to leave; chose to stay"
+msgstr ""
+
+#: includes/Proctor.php:323
+msgid "Left the page after confirming"
+msgstr ""
+
+#: includes/Proctor.php:324
+msgid "Left the page (tab or window switch)"
+msgstr ""
+
+#: includes/Proctor.php:325
+msgid "Came back to the page"
+msgstr ""
+
+#: includes/Proctor.php:326
+msgid "Copied text"
+msgstr ""
+
+#: includes/Proctor.php:327
+msgid "Pasted text"
+msgstr ""
+
+#: includes/Proctor.php:328
+msgid "Pressed Print Screen"
+msgstr ""
+
+#: includes/Proctor.php:329
+msgid "Warning shown"
+msgstr ""
+
+#: includes/Proctor.php:330
+msgid "Submitted automatically (limit exceeded)"
+msgstr ""
+
+#: includes/Proctor.php:332
+msgid "Session ended"
+msgstr ""
+
+#: includes/Proctor.php:333
+msgid "Recording deleted"
+msgstr ""
+
+#: includes/Proctor.php:411
+msgid "retention period"
+msgstr ""
+
+#: includes/Proofs.php:81
+msgid "That enrolment was not found."
+msgstr ""
+
+#: includes/Proofs.php:84
+msgid "This enrolment is already confirmed."
+msgstr ""
+
+#: includes/Proofs.php:87
+msgid "Five proofs are already waiting to be checked. Please wait for a reply."
+msgstr ""
+
+#: includes/Proofs.php:91
+msgid "Choose a photo, screenshot or PDF of your payment."
+msgstr ""
+
+#. translators: 1: learner name, 2: course title
+#: includes/Proofs.php:112
+msgid "Proof of payment: %1$s — %2$s"
+msgstr ""
+
+#: includes/Proofs.php:114
+msgid "A learner has sent proof of payment."
+msgstr ""
+
+#: includes/Proofs.php:114
+msgid "Check it and confirm the enrolment"
+msgstr ""
+
+#: includes/Proofs.php:179
+msgid "You cannot review this proof."
+msgstr ""
+
+#. translators: %s: course title
+#: includes/Proofs.php:208
+msgid "Your proof of payment was accepted: %s"
+msgstr ""
+
+#: includes/Proofs.php:209
+msgid "Thank you. We checked your proof of payment and accepted it. The course is open now."
+msgstr ""
+
+#. translators: %s: course title
+#: includes/Proofs.php:212
+msgid "About your proof of payment: %s"
+msgstr ""
+
+#: includes/Proofs.php:213
+msgid "We could not accept the proof of payment you sent."
+msgstr ""
+
+#: includes/Proofs.php:214
+msgid "Reason:"
+msgstr ""
+
+#: includes/Proofs.php:215
+msgid "You can send another one from the course page."
+msgstr ""
+
+#: includes/Proofs.php:215
+msgid "Open the course"
+msgstr ""
+
+#: includes/Proofs.php:252
+msgid "Accept and confirm"
+msgstr ""
+
+#: includes/Proofs.php:253
+msgid "Reason"
+msgstr ""
+
+#: includes/Proofs.php:254
+msgid "Reason (the learner sees it)"
+msgstr ""
+
+#: includes/Proofs.php:255
+msgid "Decline"
+msgstr ""
+
+#. translators: %s: number of points
+#: includes/Quiz.php:360
+msgid "%s pt"
+msgid_plural "%s pts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/Receipt.php:32
+msgid "Receipt not found."
+msgstr ""
+
+#. translators: %s: reference
+#: includes/Receipt.php:37
+msgid "Receipt %s"
+msgstr ""
+
+#: includes/Receipt.php:48
+msgid "Print"
+msgstr ""
+
+#: includes/Receipt.php:94
+msgid "Payment receipt"
+msgstr ""
+
+#: includes/Receipt.php:94
+#: templates/parts/course.php:475
+msgid "Enrolment summary"
+msgstr ""
+
+#: includes/Receipt.php:105
+#: includes/Receipt.php:140
+msgid "Paid"
+msgstr ""
+
+#: includes/Receipt.php:113
+msgid "Course price"
+msgstr ""
+
+#: includes/Receipt.php:117
+msgid "Subtotal"
+msgstr ""
+
+#: includes/Receipt.php:123
+msgid "Total paid"
+msgstr ""
+
+#: includes/Receipt.php:123
+msgid "Total due"
+msgstr ""
+
+#: includes/Receipt.php:141
+msgid "Active"
+msgstr ""
+
+#: includes/Records.php:264
+msgid "Enter a valid email address for the parent or guardian."
+msgstr ""
+
+#: includes/Records.php:289
+msgid "The account could not be found."
+msgstr ""
+
+#: includes/Records.php:488
+msgid "You cannot view this transcript."
+msgstr ""
+
+#. translators: %s: pupil's name
+#: includes/Records.php:503
+msgid "Transcript: %s"
+msgstr ""
+
+#: includes/Records.php:507
+#: includes/Records.php:624
+msgid "Print or save as PDF"
+msgstr ""
+
+#: includes/Records.php:534
+msgid "Overall average"
+msgstr ""
+
+#: includes/Records.php:538
+msgid "No marks have been recorded yet."
+msgstr ""
+
+#. translators: 1: average percentage, 2: grade
+#: includes/Records.php:543
+msgid "Year average %1$s %2$s"
+msgstr ""
+
+#: includes/Records.php:550
+#: templates/parts/my-courses.php:254
+#: templates/parts/my-courses.php:274
+#: templates/parts/my-courses.php:285
+#: templates/parts/my-courses.php:314
+#: templates/parts/my-courses.php:322
+msgid "Mark"
+msgstr ""
+
+#: includes/Records.php:567
+msgid "Term average"
+msgstr ""
+
+#: includes/Records.php:601
+msgid "Sign in to see school reports."
+msgstr ""
+
+#: includes/Records.php:605
+msgid "No school records are linked to your account yet. Ask the school to add your email address to your child’s record."
+msgstr ""
+
+#: includes/Records.php:617
+msgid "Choose a child"
+msgstr ""
+
+#: includes/Rest.php:93
+#: includes/Rest.php:369
+msgid "Enrolment not found."
+msgstr ""
+
+#: includes/Rest.php:113
+msgid "Lesson not found."
+msgstr ""
+
+#: includes/Rest.php:117
+msgid "This lesson is not part of a course."
+msgstr ""
+
+#: includes/Rest.php:142
+msgid "Only enrolled learners can review this course."
+msgstr ""
+
+#: includes/Rest.php:157
+msgid "Review not found."
+msgstr ""
+
+#: includes/Rest.php:160
+msgid "You can only delete your own reviews."
+msgstr ""
+
+#: includes/Rest.php:172
+msgid "Quiz not found."
+msgstr ""
+
+#: includes/Rest.php:178
+#: includes/Rest.php:205
+#: includes/Rest.php:226
+msgid "You must be signed in to submit this quiz."
+msgstr ""
+
+#: includes/Rest.php:181
+msgid "You cannot take this quiz."
+msgstr ""
+
+#: includes/Rest.php:185
+msgid "Your session expired. Reload the page and try again."
+msgstr ""
+
+#: includes/Rest.php:201
+msgid "Take this quiz from its assignment page."
+msgstr ""
+
+#: includes/Rest.php:234
+msgid "Enter a valid email address."
+msgstr ""
+
+#: includes/Rest.php:243
+msgid "You have already taken this quiz."
+msgstr ""
+
+#: includes/Rest.php:246
+msgid "You have used all your attempts for this quiz."
+msgstr ""
+
+#: includes/Rest.php:253
+msgid "Time is up for this attempt. Reload the quiz to start again."
+msgstr ""
+
+#: includes/Rest.php:379
+msgid "Unknown action."
+msgstr ""
+
+#: includes/Reviews.php:56
+msgid "Write a few words about the course."
+msgstr ""
+
+#: includes/Settings.php:37
+msgid "Thank you for enrolling."
+msgstr ""
+
+#: includes/Settings.php:51
+msgid "Pay into our account and send the slip to us. Your enrolment opens once payment is confirmed."
+msgstr ""
+
+#: includes/Storage.php:107
+msgid "That file is larger than the server accepts."
+msgstr ""
+
+#: includes/Storage.php:108
+msgid "The upload was interrupted. Try again."
+msgstr ""
+
+#: includes/Storage.php:109
+#: includes/Storage.php:115
+msgid "No file was received."
+msgstr ""
+
+#: includes/Storage.php:110
+#: includes/Storage.php:161
+msgid "The server could not store that file."
+msgstr ""
+
+#: includes/Storage.php:120
+msgid "That file is empty."
+msgstr ""
+
+#. translators: 1: file name, 2: size limit
+#: includes/Storage.php:125
+msgid "“%1$s” is larger than the %2$s limit."
+msgstr ""
+
+#. translators: %s: file name
+#: includes/Storage.php:135
+msgid "“%s” is a type of file that cannot be uploaded."
+msgstr ""
+
+#. translators: 1: file name, 2: allowed types
+#: includes/Storage.php:141
+msgid "“%1$s” is not an accepted file type. Accepted: %2$s."
+msgstr ""
+
+#. translators: %s: file name
+#: includes/Storage.php:151
+msgid "“%s” does not look like the type its name says."
+msgstr ""
+
+#: includes/strings.php:17
+msgid "This work is proctored"
+msgstr ""
+
+#: includes/strings.php:18
+msgid "Your entire screen is recorded from the moment you start until you hand in. Your teacher can watch the recording."
+msgstr ""
+
+#: includes/strings.php:19
+msgid "The work runs in full screen. Leaving full screen is recorded."
+msgstr ""
+
+#: includes/strings.php:20
+msgid "Switching to another tab, window or app is recorded with the time it happened."
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:22
+msgid "If you leave more than %s times, your work is handed in automatically."
+msgstr ""
+
+#: includes/strings.php:23
+msgid "I understand and agree to these conditions."
+msgstr ""
+
+#: includes/strings.php:24
+msgid "Share my screen and start"
+msgstr ""
+
+#: includes/strings.php:25
+msgid "Start"
+msgstr ""
+
+#: includes/strings.php:26
+msgid "When your browser asks, choose “Entire screen”. A single window or tab is not accepted."
+msgstr ""
+
+#: includes/strings.php:27
+msgid "This work needs Chrome, Edge or Firefox on a computer. Open it on a computer to continue."
+msgstr ""
+
+#: includes/strings.php:28
+msgid "Please share your entire screen, not a window or a tab."
+msgstr ""
+
+#: includes/strings.php:29
+msgid "Screen sharing was not allowed. Allow it to start the work."
+msgstr ""
+
+#: includes/strings.php:30
+msgid "Screen sharing could not start. Try again."
+msgstr ""
+
+#: includes/strings.php:31
+msgid "Starting…"
+msgstr ""
+
+#: includes/strings.php:32
+msgid "Switch to full screen"
+msgstr ""
+
+#: includes/strings.php:33
+msgid "The work opens in full screen. Stay on this page until you hand in."
+msgstr ""
+
+#: includes/strings.php:34
+msgid "You left full screen"
+msgstr ""
+
+#: includes/strings.php:35
+msgid "This has been recorded. Return to full screen to continue."
+msgstr ""
+
+#: includes/strings.php:36
+msgid "Enter full screen"
+msgstr ""
+
+#: includes/strings.php:38
+msgid "This has been recorded. Share your entire screen again to continue."
+msgstr ""
+
+#: includes/strings.php:39
+msgid "Share screen again"
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/strings.php:41
+msgid "You left the page (%1$s of %2$s allowed). This has been recorded."
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:43
+msgid "You left the page (%s times). This has been recorded."
+msgstr ""
+
+#: includes/strings.php:44
+msgid "The leave limit was reached. Handing in your work now…"
+msgstr ""
+
+#: includes/strings.php:45
+msgid "Recording finished"
+msgstr ""
+
+#: includes/strings.php:46
+msgid "Recording your screen"
+msgstr ""
+
+#: includes/strings.php:47
+#: templates/parts/assignment.php:73
+msgid "Proctored"
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/strings.php:49
+msgid "Leaves: %1$s / %2$s"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:51
+msgid "Leaves: %s"
+msgstr ""
+
+#: includes/strings.php:52
+msgid "Full screen could not start. Try the button again."
+msgstr ""
+
+#: includes/strings.php:53
+msgid "Full screen closed"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:55
+msgid "Return to full screen within %s seconds and nothing is counted."
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:57
+msgid "after %s s"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:59
+msgid "not back within %s s"
+msgstr ""
+
+#: includes/strings.php:60
+msgid "Back to full screen"
+msgstr ""
+
+#: includes/strings.php:61
+msgid "Your browser closed full screen to show its own window. Nothing was counted. Return to full screen to carry on."
+msgstr ""
+
+#: includes/strings.php:62
+msgid "Leave full screen?"
+msgstr ""
+
+#: includes/strings.php:63
+msgid "Your work stays hidden until you return to full screen, and leaving is recorded."
+msgstr ""
+
+#: includes/strings.php:64
+msgid "Leave full screen"
+msgstr ""
+
+#: includes/strings.php:65
+msgid "Stay"
+msgstr ""
+
+#: includes/strings.php:66
+msgid "chose to leave"
+msgstr ""
+
+#: includes/strings.php:67
+msgid "Leave this page?"
+msgstr ""
+
+#: includes/strings.php:68
+msgid "Your work has not been handed in. Leaving ends this proctored session and is recorded."
+msgstr ""
+
+#: includes/strings.php:69
+msgid "Leave the page"
+msgstr ""
+
+#: includes/strings.php:70
+msgid "Use the box to choose your files. Dragging files in from another window counts as leaving the page."
+msgstr ""
+
+#: includes/strings.php:71
+msgid "Your work was handed in automatically because the leave limit was reached."
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/strings.php:75
+msgid "%1$s is not an accepted file type. Accepted: %2$s."
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/strings.php:77
+msgid "%1$s is larger than the %2$s limit."
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:79
+msgid "%s is empty."
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:81
+msgid "You can attach up to %s files."
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/strings.php:85
+msgid "%1$s words (at least %2$s)"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:87
+msgid "%s words"
+msgstr ""
+
+#: includes/strings.php:88
+msgid "Write your answer before handing in."
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:90
+msgid "Your answer needs at least %s words."
+msgstr ""
+
+#: includes/strings.php:91
+msgid "Attach a file or write your answer before handing in."
+msgstr ""
+
+#: includes/strings.php:92
+msgid "Attach a file before handing in."
+msgstr ""
+
+#: includes/strings.php:93
+msgid "Tick every statement before handing in."
+msgstr ""
+
+#: includes/strings.php:94
+msgid "Handing in…"
+msgstr ""
+
+#: includes/strings.php:95
+#: templates/parts/assignment.php:213
+msgid "Hand in"
+msgstr ""
+
+#: includes/strings.php:96
+#: templates/parts/assignment.php:115
+msgid "Your hand-in"
+msgstr ""
+
+#. translators: %1$s: value, %2$s: value.
+#: includes/strings.php:98
+msgid "Handed in %1$s · attempt %2$s"
+msgstr ""
+
+#: includes/strings.php:102
+msgid "Your work was handed in. You will be notified when it is graded."
+msgstr ""
+
+#: includes/strings.php:105
+msgid "Staff"
+msgstr ""
+
+#: includes/strings.php:107
+msgid "Post to see replies"
+msgstr ""
+
+#: includes/strings.php:108
+msgid "Discussion"
+msgstr ""
+
+#: includes/strings.php:109
+msgid "New announcement"
+msgstr ""
+
+#: includes/strings.php:110
+msgid "New topic"
+msgstr ""
+
+#: includes/strings.php:111
+msgid "In this forum you see other people’s replies to a topic after you have replied to it yourself."
+msgstr ""
+
+#: includes/strings.php:112
+msgid "Only teachers post here."
+msgstr ""
+
+#: includes/strings.php:113
+msgid "Search topics"
+msgstr ""
+
+#: includes/strings.php:114
+msgid "Nothing has been posted yet."
+msgstr ""
+
+#: includes/strings.php:115
+msgid "Pinned"
+msgstr ""
+
+#: includes/strings.php:116
+msgid "Reply to see others"
+msgstr ""
+
+#: includes/strings.php:117
+msgid "Replies"
+msgstr ""
+
+#: includes/strings.php:118
+msgid "Back to topics"
+msgstr ""
+
+#: includes/strings.php:119
+msgid "edited"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:121
+msgid "Replies (%s)"
+msgstr ""
+
+#: includes/strings.php:122
+msgid "1 reply is hidden. Post your own reply to see it."
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:124
+msgid "%s replies are hidden. Post your own reply to see them."
+msgstr ""
+
+#: includes/strings.php:125
+msgid "Your reply"
+msgstr ""
+
+#: includes/strings.php:126
+msgid "Post reply"
+msgstr ""
+
+#: includes/strings.php:127
+msgid "Unpin"
+msgstr ""
+
+#: includes/strings.php:128
+msgid "Pin"
+msgstr ""
+
+#: includes/strings.php:132
+msgid "Learners enrolled in the course are emailed a copy."
+msgstr ""
+
+#: includes/strings.php:134
+msgid "Post"
+msgstr ""
+
+#: includes/strings.php:135
+msgid "Delete post"
+msgstr ""
+
+#: includes/strings.php:136
+msgid "Delete this topic and all of its replies? This cannot be undone."
+msgstr ""
+
+#: includes/strings.php:137
+msgid "Delete this reply? This cannot be undone."
+msgstr ""
+
+#: includes/strings.php:140
+msgid "New message"
+msgstr ""
+
+#: includes/strings.php:141
+msgid "Choose a conversation."
+msgstr ""
+
+#: includes/strings.php:142
+msgid "Load earlier messages"
+msgstr ""
+
+#: includes/strings.php:144
+msgid "Write a message…"
+msgstr ""
+
+#: includes/strings.php:145
+msgid "Send"
+msgstr ""
+
+#: includes/strings.php:146
+msgid "Message removed"
+msgstr ""
+
+#: includes/strings.php:147
+msgid "Class chat"
+msgstr ""
+
+#: includes/strings.php:150
+msgid "You teach this course."
+msgstr ""
+
+#: includes/strings.php:151
+msgid "Manage attendance"
+msgstr ""
+
+#: includes/strings.php:153
+msgid "No sessions have been scheduled yet."
+msgstr ""
+
+#: includes/strings.php:154
+msgid "Session code"
+msgstr ""
+
+#: includes/strings.php:155
+msgid "Check in"
+msgstr ""
+
+#: includes/strings.php:156
+msgid "Check-in is not open"
+msgstr ""
+
+#: includes/strings.php:157
+msgid "Your teacher takes the register"
+msgstr ""
+
+#: includes/strings.php:160
+msgid "Preparing your certificate…"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:163
+msgid "Verification code: %s"
+msgstr ""
+
+#: includes/strings.php:164
+#: templates/parts/course.php:493
+#: templates/parts/my-courses.php:363
+msgid "Get my certificate"
+msgstr ""
+
+#: includes/strings.php:167
+msgid "Add a to-do…"
+msgstr ""
+
+#: includes/strings.php:169
+msgid "Due date"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:171
+msgid "Link to “%s”"
+msgstr ""
+
+#: includes/strings.php:173
+msgid "To do"
+msgstr ""
+
+#: includes/strings.php:176
+msgid "Clear done"
+msgstr ""
+
+#: includes/strings.php:177
+msgid "Nothing to do. Add a to-do above."
+msgstr ""
+
+#: includes/strings.php:178
+msgid "Nothing ticked off yet."
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:180
+msgid "Mark “%s” as done"
+msgstr ""
+
+#. translators: %s: value.
+#: includes/strings.php:182
+msgid "Delete “%s”"
+msgstr ""
+
+#: includes/strings.php:183
+msgid "Click to edit"
+msgstr ""
+
+#: includes/strings.php:186
+msgid "All notes"
+msgstr ""
+
+#: includes/strings.php:187
+msgid "Saved"
+msgstr ""
+
+#: includes/strings.php:188
+msgid "Editing…"
+msgstr ""
+
+#: includes/strings.php:190
+msgid "Not saved. Retrying…"
+msgstr ""
+
+#: includes/strings.php:191
+#: includes/strings.php:192
+msgid "Delete note"
+msgstr ""
+
+#: includes/strings.php:193
+msgid "Delete this note? This cannot be undone."
+msgstr ""
+
+#: includes/strings.php:194
+msgid "Change icon"
+msgstr ""
+
+#: includes/strings.php:195
+msgid "Note title"
+msgstr ""
+
+#: includes/strings.php:196
+msgid "Untitled"
+msgstr ""
+
+#: includes/strings.php:197
+msgid "No course"
+msgstr ""
+
+#: includes/strings.php:198
+msgid "Type “/” for blocks. Shortcuts: # heading, - list, 1. numbered, [] to-do, > quote, ``` code, --- divider. Select text to format it."
+msgstr ""
+
+#: includes/strings.php:199
+msgid "Type “/” for blocks"
+msgstr ""
+
+#: includes/strings.php:200
+msgid "Block options"
+msgstr ""
+
+#: includes/strings.php:201
+msgid "Drag to move, click for options"
+msgstr ""
+
+#: includes/strings.php:202
+msgid "Blocks"
+msgstr ""
+
+#: includes/strings.php:203
+msgid "No matching block"
+msgstr ""
+
+#: includes/strings.php:204
+msgid "Turn into"
+msgstr ""
+
+#: includes/strings.php:210
+msgid "Underline"
+msgstr ""
+
+#: includes/strings.php:211
+msgid "Strikethrough"
+msgstr ""
+
+#: includes/strings.php:212
+msgid "Inline code"
+msgstr ""
+
+#: includes/strings.php:213
+msgid "Highlight"
+msgstr ""
+
+#: includes/strings.php:214
+msgid "Link"
+msgstr ""
+
+#: includes/strings.php:215
+msgid "Link address"
+msgstr ""
+
+#: includes/strings.php:216
+msgid "Search notes"
+msgstr ""
+
+#: includes/strings.php:219
+msgid "New note"
+msgstr ""
+
+#: includes/strings.php:220
+msgid "No notes yet."
+msgstr ""
+
+#: includes/strings.php:221
+msgid "Choose a note, or start a new one."
+msgstr ""
+
+#: includes/strings.php:222
+msgid "Open all notes"
+msgstr ""
+
+#: includes/strings.php:224
+msgid "Heading 1"
+msgstr ""
+
+#: includes/strings.php:225
+msgid "Heading 2"
+msgstr ""
+
+#: includes/strings.php:226
+msgid "Heading 3"
+msgstr ""
+
+#: includes/strings.php:227
+msgid "Bulleted list"
+msgstr ""
+
+#: includes/strings.php:228
+msgid "Numbered list"
+msgstr ""
+
+#: includes/strings.php:229
+msgid "To-do"
+msgstr ""
+
+#: includes/strings.php:230
+msgid "Quote"
+msgstr ""
+
+#: includes/strings.php:231
+msgid "Callout"
+msgstr ""
+
+#: includes/strings.php:233
+msgid "Divider"
+msgstr ""
+
+#: includes/Study.php:71
+msgid "Your checklist is full. Delete finished items to add more."
+msgstr ""
+
+#: includes/Submissions.php:312
+msgid "Returned for rework"
+msgstr ""
+
+#: includes/Submissions.php:313
+#: templates/parts/my-courses.php:187
+msgid "Awaiting grade"
+msgstr ""
+
+#: sepo-lms.php:25
+msgid "Sepo LMS needs PHP 8.1 or newer. The plugin is installed but not running."
+msgstr ""
+
+#: templates/parts/assignment.php:54
+msgid "Quiz assignment"
+msgstr ""
+
+#: templates/parts/assignment.php:54
+msgid "Hand-in assignment"
+msgstr ""
+
+#. translators: 1: date, 2: time left
+#: templates/parts/assignment.php:61
+msgid "Due %1$s (in %2$s)"
+msgstr ""
+
+#. translators: 1: date, 2: how long ago
+#: templates/parts/assignment.php:63
+msgid "Was due %1$s (%2$s ago)"
+msgstr ""
+
+#. translators: %s: points
+#: templates/parts/assignment.php:67
+msgid "%s points"
+msgstr ""
+
+#. translators: %s: pass mark
+#: templates/parts/assignment.php:68
+msgid "Pass mark %s%%"
+msgstr ""
+
+#. translators: %s: weight
+#. translators: %s: weight percentage
+#: templates/parts/assignment.php:70
+#: templates/parts/my-courses.php:308
+#: templates/parts/quiz-taken.php:45
+#: templates/parts/quiz.php:96
+msgid "Weight %s%%"
+msgstr ""
+
+#: templates/parts/assignment.php:73
+msgid "Proctored · screen recorded"
+msgstr ""
+
+#. translators: %s: penalty
+#: templates/parts/assignment.php:78
+msgid "Late work loses %s percentage points per day."
+msgstr ""
+
+#: templates/parts/assignment.php:80
+msgid "Hand-in closes at the due time."
+msgstr ""
+
+#. translators: 1: number of files, 2: size, 3: file types
+#: templates/parts/assignment.php:100
+msgid "Up to %1$d file, %2$s each. Accepted: %3$s."
+msgid_plural "Up to %1$d files, %2$s each. Accepted: %3$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/parts/assignment.php:115
+msgid "Your result"
+msgstr ""
+
+#. translators: 1: date, 2: attempt
+#: templates/parts/assignment.php:120
+msgid "Handed in %1$s · attempt %2$d"
+msgstr ""
+
+#: templates/parts/assignment.php:147
+msgid "Your written answer"
+msgstr ""
+
+#: templates/parts/assignment.php:174
+#: templates/parts/assignment.php:213
+msgid "Hand in again"
+msgstr ""
+
+#: templates/parts/assignment.php:174
+msgid "Hand in your work"
+msgstr ""
+
+#: templates/parts/assignment.php:176
+msgid "Handing in again replaces your previous files and answer."
+msgstr ""
+
+#: templates/parts/assignment.php:181
+msgid "Written answer (optional)"
+msgstr ""
+
+#. translators: %d: words
+#: templates/parts/assignment.php:184
+msgid "0 words · at least %d needed"
+msgstr ""
+
+#. translators: %d: words
+#: templates/parts/assignment.php:184
+msgid "0 words"
+msgstr ""
+
+#: templates/parts/assignment.php:192
+msgid "Drop files here or choose them"
+msgstr ""
+
+#. translators: 1: count, 2: size
+#: templates/parts/assignment.php:194
+msgid "Up to %1$d file, %2$s max"
+msgid_plural "Up to %1$d files, %2$s max each"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/parts/assignment.php:203
+msgid "Before you hand in, confirm:"
+msgstr ""
+
+#: templates/parts/assignment.php:223
+msgid "View all submissions"
+msgstr ""
+
+#: templates/parts/assignment.php:226
+msgid "Course items"
+msgstr ""
+
+#: templates/parts/course-index.php:32
+msgid "No courses yet."
+msgstr ""
+
+#: templates/parts/course-index.php:37
+msgid "Search courses"
+msgstr ""
+
+#: templates/parts/course-index.php:38
+msgid "Search courses…"
+msgstr ""
+
+#: templates/parts/course-index.php:51
+#: templates/parts/school-index.php:39
+#: templates/parts/teacher-index.php:39
+msgid "Layout"
+msgstr ""
+
+#: templates/parts/course-index.php:52
+#: templates/parts/school-index.php:40
+#: templates/parts/teacher-index.php:40
+msgid "Grid"
+msgstr ""
+
+#: templates/parts/course-index.php:53
+#: templates/parts/school-index.php:41
+#: templates/parts/teacher-index.php:41
+msgid "List"
+msgstr ""
+
+#: templates/parts/course-index.php:85
+msgid "No courses match your search."
+msgstr ""
+
+#: templates/parts/course-index.php:86
+#: templates/parts/school-index.php:67
+#: templates/parts/teacher-index.php:64
+msgid "Pages"
+msgstr ""
+
+#: templates/parts/course.php:53
+msgid "Payment received. Welcome — the course is open."
+msgstr ""
+
+#: templates/parts/course.php:54
+msgid "We are waiting for the payment service to confirm your payment. This page will update by itself."
+msgstr ""
+
+#: templates/parts/course.php:55
+msgid "The payment was cancelled. You can try again whenever you are ready."
+msgstr ""
+
+#. translators: 1: average rating, 2: number of reviews
+#: templates/parts/course.php:89
+msgid "%1$s · %2$d review"
+msgid_plural "%1$s · %2$d reviews"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: tax name, 2: rate, 3: amount
+#: templates/parts/course.php:110
+msgid "+ %1$s %2$s%% (%3$s)"
+msgstr ""
+
+#: templates/parts/course.php:125
+msgid "Objectives"
+msgstr ""
+
+#: templates/parts/course.php:136
+msgid "Resources"
+msgstr ""
+
+#. translators: %d: number of reviews
+#: templates/parts/course.php:151
+msgid "Reviews (%d)"
+msgstr ""
+
+#: templates/parts/course.php:165
+msgid "Course outline"
+msgstr ""
+
+#. translators: %s: lesson title
+#: templates/parts/course.php:180
+msgid "Mark “%s” complete"
+msgstr ""
+
+#: templates/parts/course.php:189
+msgid "Results"
+msgstr ""
+
+#. translators: %s: date
+#: templates/parts/course.php:225
+msgid "Available on %s"
+msgstr ""
+
+#: templates/parts/course.php:238
+msgid "What you’ll learn"
+msgstr ""
+
+#: templates/parts/course.php:256
+msgid "Instructor"
+msgstr ""
+
+#: templates/parts/course.php:261
+msgid "View full profile"
+msgstr ""
+
+#: templates/parts/course.php:286
+msgid "Watch"
+msgstr ""
+
+#: templates/parts/course.php:286
+msgid "File"
+msgstr ""
+
+#: templates/parts/course.php:291
+msgid "Preview"
+msgstr ""
+
+#. translators: %d: number of resources
+#: templates/parts/course.php:305
+msgid "This course has %d resource for its learners. Enrol to open it."
+msgid_plural "This course has %d resources for its learners. Enrol to open them."
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/parts/course.php:319
+msgid "No reviews yet."
+msgstr ""
+
+#. translators: %d: rating
+#: templates/parts/course.php:327
+msgid "%d out of 5"
+msgstr ""
+
+#: templates/parts/course.php:343
+msgid "to write a review."
+msgstr ""
+
+#: templates/parts/course.php:346
+msgid "Write a review"
+msgstr ""
+
+#: templates/parts/course.php:348
+msgid "Rating"
+msgstr ""
+
+#. translators: %d: stars
+#: templates/parts/course.php:351
+msgid "%d star"
+msgid_plural "%d stars"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/parts/course.php:354
+msgid "Your review"
+msgstr ""
+
+#: templates/parts/course.php:355
+msgid "Share your experience…"
+msgstr ""
+
+#: templates/parts/course.php:358
+msgid "Submit"
+msgstr ""
+
+#: templates/parts/course.php:362
+msgid "Enrol in the course to leave a review."
+msgstr ""
+
+#. translators: 1: tax name, 2: rate
+#: templates/parts/course.php:379
+msgid "Includes %1$s %2$s%%"
+msgstr ""
+
+#. translators: %d: number of items
+#: templates/parts/course.php:398
+msgid "%d item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/parts/course.php:413
+msgid "Your progress"
+msgstr ""
+
+#: templates/parts/course.php:422
+msgid "Sign in to enrol"
+msgstr ""
+
+#: templates/parts/course.php:431
+#: templates/parts/my-courses.php:153
+msgid "Complete payment"
+msgstr ""
+
+#: templates/parts/course.php:441
+msgid "The lessons open once your payment is confirmed."
+msgstr ""
+
+#: templates/parts/course.php:444
+msgid "Paid already? Send proof of payment"
+msgstr ""
+
+#: templates/parts/course.php:455
+msgid "Photo, screenshot or PDF of the payment"
+msgstr ""
+
+#: templates/parts/course.php:460
+msgid "Choose a file"
+msgstr ""
+
+#: templates/parts/course.php:461
+msgid "or drop it here · JPEG, PNG, WebP, HEIC or PDF"
+msgstr ""
+
+#: templates/parts/course.php:466
+msgid "Change"
+msgstr ""
+
+#: templates/parts/course.php:470
+msgid "Transaction ID or a note (optional)"
+msgstr ""
+
+#: templates/parts/course.php:472
+msgid "Sending…"
+msgstr ""
+
+#: templates/parts/course.php:472
+msgid "Send proof"
+msgstr ""
+
+#: templates/parts/course.php:477
+msgid "Enrolment is not open yet: no payment method is set up for this course."
+msgstr ""
+
+#: templates/parts/course.php:479
+msgid "Enrol now"
+msgstr ""
+
+#: templates/parts/course.php:488
+msgid "You earned the certificate for this course."
+msgstr ""
+
+#. translators: %s: code
+#: templates/parts/course.php:490
+msgid "Code %s"
+msgstr ""
+
+#: templates/parts/course.php:492
+#: templates/parts/my-courses.php:362
+msgid "You have met the requirements."
+msgstr ""
+
+#: templates/parts/course.php:503
+msgid "You can open every lesson because you can edit this course."
+msgstr ""
+
+#. translators: %d: number of items in the course
+#: templates/parts/lesson.php:47
+msgid "of %d"
+msgstr ""
+
+#. translators: 1: item number, 2: number of items
+#: templates/parts/lesson.php:52
+msgid "Lesson %1$d of %2$d:"
+msgstr ""
+
+#. translators: %s: teacher name
+#: templates/parts/lesson.php:57
+msgid "by %s"
+msgstr ""
+
+#. translators: %d: minutes
+#: templates/parts/lesson.php:63
+msgid "%d min read"
+msgid_plural "%d min read"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: part number, 2: number of parts
+#: templates/parts/lesson.php:72
+msgid "Part %1$d of %2$d"
+msgstr ""
+
+#: templates/parts/lesson.php:74
+msgid "Parts of this lesson"
+msgstr ""
+
+#: templates/parts/lesson.php:75
+msgid "← Previous"
+msgstr ""
+
+#: templates/parts/lesson.php:76
+msgid "Go to part"
+msgstr ""
+
+#. translators: %d: part number
+#: templates/parts/lesson.php:78
+msgid "Part %d"
+msgstr ""
+
+#: templates/parts/lesson.php:82
+msgid "Next →"
+msgstr ""
+
+#: templates/parts/lesson.php:93
+msgid "✓ Completed — mark as not done"
+msgstr ""
+
+#: templates/parts/lesson.php:93
+msgid "Mark as complete"
+msgstr ""
+
+#. translators: %s: course title
+#: templates/parts/locked.php:34
+msgid "Go to %s"
+msgstr ""
+
+#: templates/parts/my-courses.php:36
+msgid "Quizzes taken"
+msgstr ""
+
+#: templates/parts/my-courses.php:37
+msgid "Average score"
+msgstr ""
+
+#: templates/parts/my-courses.php:39
+msgid "Best score"
+msgstr ""
+
+#: templates/parts/my-courses.php:43
+msgid "My learning"
+msgstr ""
+
+#: templates/parts/my-courses.php:48
+msgid "Grades"
+msgstr ""
+
+#: templates/parts/my-courses.php:57
+#: templates/parts/study-drawer.php:28
+msgid "Notes"
+msgstr ""
+
+#: templates/parts/my-courses.php:64
+msgid "You have not enrolled in any course yet."
+msgstr ""
+
+#: templates/parts/my-courses.php:66
+msgid "Browse courses"
+msgstr ""
+
+#: templates/parts/my-courses.php:73
+msgid "Search your courses"
+msgstr ""
+
+#: templates/parts/my-courses.php:74
+msgid "Search your courses…"
+msgstr ""
+
+#: templates/parts/my-courses.php:79
+msgid "Any status"
+msgstr ""
+
+#: templates/parts/my-courses.php:88
+#: templates/parts/my-courses.php:103
+#: templates/parts/my-courses.php:123
+msgid "Progress"
+msgstr ""
+
+#: templates/parts/my-courses.php:90
+msgid "Any progress"
+msgstr ""
+
+#: templates/parts/my-courses.php:91
+msgid "Not started"
+msgstr ""
+
+#: templates/parts/my-courses.php:93
+msgid "Completed"
+msgstr ""
+
+#: templates/parts/my-courses.php:104
+#: templates/parts/my-courses.php:131
+#: templates/parts/my-courses.php:241
+msgid "Final grade"
+msgstr ""
+
+#: templates/parts/my-courses.php:105
+#: templates/parts/my-courses.php:149
+msgid "Amount"
+msgstr ""
+
+#. translators: %d: number of graded quizzes and assignments
+#: templates/parts/my-courses.php:139
+msgid "%d graded item"
+msgid_plural "%d graded items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/parts/my-courses.php:141
+#: templates/parts/my-courses.php:233
+msgid "weighted"
+msgstr ""
+
+#. translators: %d: assignments waiting
+#: templates/parts/my-courses.php:142
+msgid "%d awaiting grade"
+msgid_plural "%d awaiting grade"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/parts/my-courses.php:156
+msgid "Summary"
+msgstr ""
+
+#: templates/parts/my-courses.php:163
+msgid "No courses match."
+msgstr ""
+
+#: templates/parts/my-courses.php:165
+#: templates/parts/my-courses.php:343
+msgid "Course pages"
+msgstr ""
+
+#: templates/parts/my-courses.php:172
+msgid "Nothing graded yet. Your quiz and assignment results will appear here."
+msgstr ""
+
+#: templates/parts/my-courses.php:178
+msgid "Search courses, quizzes and assignments"
+msgstr ""
+
+#: templates/parts/my-courses.php:179
+msgid "Search courses, quizzes or assignments…"
+msgstr ""
+
+#: templates/parts/my-courses.php:182
+msgid "Result"
+msgstr ""
+
+#: templates/parts/my-courses.php:184
+msgid "Everything"
+msgstr ""
+
+#: templates/parts/my-courses.php:188
+msgid "Not done yet"
+msgstr ""
+
+#: templates/parts/my-courses.php:192
+msgid "Open all"
+msgstr ""
+
+#: templates/parts/my-courses.php:193
+msgid "Close all"
+msgstr ""
+
+#. translators: 1: items done, 2: quizzes and assignments in the course
+#: templates/parts/my-courses.php:224
+msgid "%1$d of %2$d done"
+msgstr ""
+
+#. translators: %d: items passed
+#: templates/parts/my-courses.php:230
+msgid "%d passed"
+msgid_plural "%d passed"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/parts/my-courses.php:244
+msgid "No grade yet"
+msgstr ""
+
+#: templates/parts/my-courses.php:253
+#: templates/parts/my-courses.php:268
+#: templates/parts/my-courses.php:298
+msgid "Item"
+msgstr ""
+
+#: templates/parts/my-courses.php:255
+#: templates/parts/my-courses.php:281
+#: templates/parts/my-courses.php:318
+msgid "Best"
+msgstr ""
+
+#: templates/parts/my-courses.php:287
+msgid "Not handed in"
+msgstr ""
+
+#: templates/parts/my-courses.php:324
+msgid "Not taken yet"
+msgstr ""
+
+#: templates/parts/my-courses.php:325
+msgid "Take quiz"
+msgstr ""
+
+#: templates/parts/my-courses.php:342
+msgid "Nothing matches."
+msgstr ""
+
+#. translators: 1: date, 2: code
+#: templates/parts/my-courses.php:356
+msgid "Issued %1$s · %2$s"
+msgstr ""
+
+#: templates/parts/my-courses.php:358
+msgid "Download PDF"
+msgstr ""
+
+#: templates/parts/my-courses.php:359
+msgid "Verification link"
+msgstr ""
+
+#. translators: %d: number of questions
+#: templates/parts/quiz-taken.php:32
+#: templates/parts/quiz.php:65
+msgid "%d question"
+msgid_plural "%d questions"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: percentage
+#: templates/parts/quiz-taken.php:38
+#: templates/parts/quiz.php:80
+msgid "Pass mark %d%%"
+msgstr ""
+
+#: templates/parts/quiz-taken.php:55
+msgid "No attempts left"
+msgstr ""
+
+#: templates/parts/quiz-taken.php:55
+msgid "Quiz already taken"
+msgstr ""
+
+#. translators: 1: correct answers, 2: questions
+#: templates/parts/quiz-taken.php:61
+msgid "%1$d / %2$d correct"
+msgstr ""
+
+#. translators: %d: attempt number
+#: templates/parts/quiz-taken.php:63
+msgid "Attempt %d"
+msgstr ""
+
+#: templates/parts/quiz-taken.php:72
+msgid "Your answers"
+msgstr ""
+
+#. translators: %d: minutes
+#: templates/parts/quiz.php:72
+msgid "%d minute"
+msgid_plural "%d minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: attempt number, 2: attempts allowed
+#: templates/parts/quiz.php:88
+msgid "Attempt %1$d of %2$d"
+msgstr ""
+
+#: templates/parts/quiz.php:106
+msgid "Time left"
+msgstr ""
+
+#. translators: %d: question number
+#: templates/parts/quiz.php:127
+msgid "Question %d"
+msgstr ""
+
+#: templates/parts/quiz.php:164
+msgid "Your email address"
+msgstr ""
+
+#: templates/parts/school-index.php:31
+msgid "No schools yet."
+msgstr ""
+
+#: templates/parts/school-index.php:36
+msgid "Search schools"
+msgstr ""
+
+#: templates/parts/school-index.php:37
+msgid "Search schools…"
+msgstr ""
+
+#: templates/parts/school-index.php:66
+msgid "No schools match your search."
+msgstr ""
+
+#: templates/parts/school.php:34
+msgid "Registration"
+msgstr ""
+
+#: templates/parts/school.php:61
+#: templates/parts/teacher.php:58
+msgid "About"
+msgstr ""
+
+#: templates/parts/school.php:78
+msgid "No courses listed yet."
+msgstr ""
+
+#: templates/parts/study-drawer.php:22
+#: templates/parts/study-drawer.php:24
+msgid "Study tools"
+msgstr ""
+
+#: templates/parts/study-drawer.php:27
+msgid "Checklist"
+msgstr ""
+
+#: templates/parts/study-drawer.php:30
+msgid "Close study tools"
+msgstr ""
+
+#: templates/parts/teacher-index.php:31
+msgid "No teachers yet."
+msgstr ""
+
+#: templates/parts/teacher-index.php:36
+msgid "Search teachers"
+msgstr ""
+
+#: templates/parts/teacher-index.php:37
+msgid "Search teachers…"
+msgstr ""
+
+#: templates/parts/teacher-index.php:63
+msgid "No teachers match your search."
+msgstr ""
