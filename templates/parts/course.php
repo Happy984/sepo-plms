@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template variables are local to the method that includes this file.
 /**
  * Sepo LMS — single course.
  *
@@ -128,6 +129,12 @@ $banners = [
                 <?php endif; ?>
                 <?php if ($classroom['forums'] !== []): ?>
                     <button type="button" class="slms-tab" role="tab" aria-selected="false" data-slms-tab="forums"><?php esc_html_e('Forums', 'sepo-lms'); ?></button>
+                <?php endif; ?>
+                <?php $resources = \SepoLms\Resources::forCourse((int)$c['id']); ?>
+                <?php if ($resources !== []): ?>
+                    <button type="button" class="slms-tab" role="tab" aria-selected="false" data-slms-tab="resources">
+                        <?php esc_html_e('Resources', 'sepo-lms'); ?> <span class="slms-count"><?php echo (int)count($resources); ?></span>
+                    </button>
                 <?php endif; ?>
                 <?php if ($classroom['chat']): ?>
                     <button type="button" class="slms-tab" role="tab" aria-selected="false" data-slms-tab="chat">
@@ -263,6 +270,42 @@ $banners = [
                          data-slms-forums="<?php echo esc_attr((string)wp_json_encode(array_map(static fn($f) => ['key' => $f['key'], 'title' => $f['title'], 'type' => $f['type'], 'description' => $f['description']], $classroom['forums']))); ?>"
                          data-course="<?php echo (int)$c['id']; ?>" data-staff="<?php echo $classroom['staff'] ? '1' : '0'; ?>"></section>
             <?php endif; ?>
+            <?php if ($resources !== []): ?>
+                <section class="slms-panel" data-slms-panel="resources" hidden>
+                    <?php if ($classroom['in'] || $classroom['staff']): ?>
+                        <?php \SepoLms\Frontend::enqueueTool('media'); ?>
+                        <ul class="slms-res-list" data-slms-preview-group>
+                            <?php foreach ($resources as $r):
+                                $pv = \SepoLms\Media::previewKind((string) $r['mime'], (string) $r['ext']);
+                                $meta = implode(' · ', array_filter([$r['length'], $r['size'], $r['date']])); ?>
+                                <li class="slms-res-item slms-res-item--<?php echo esc_attr($r['kind']); ?>">
+                                    <?php if ($r['kind'] === 'audio'): ?>
+                                        <?php echo \SepoLms\Media::player((string) $r['url'], (string) $r['title'], $meta, (string) $r['url']); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped inside the player. ?>
+                                    <?php else: ?>
+                                        <div class="slms-res-item__head">
+                                            <span class="slms-res-item__badge"><?php echo esc_html($r['kind'] === 'video' ? __('Watch', 'sepo-lms') : ($r['ext'] !== '' ? $r['ext'] : __('File', 'sepo-lms'))); ?></span>
+                                            <div><strong><?php echo esc_html($r['title']); ?></strong>
+                                                <small><?php echo esc_html($meta); ?></small></div>
+                                            <div class="slms-res-item__acts">
+                                                <?php if ($pv !== '' && $r['kind'] !== 'video'): ?>
+                                                    <button type="button" class="slms-btn slms-btn--sm" data-slms-preview="<?php echo esc_url($r['url']); ?>" data-kind="<?php echo esc_attr($pv); ?>" data-name="<?php echo esc_attr($r['title']); ?>" data-meta="<?php echo esc_attr($meta); ?>"><?php esc_html_e('Preview', 'sepo-lms'); ?></button>
+                                                <?php endif; ?>
+                                                <a class="slms-btn slms-btn--sm<?php echo $pv === '' ? ' slms-btn--primary' : ''; ?>" href="<?php echo esc_url($r['url']); ?>" download><?php esc_html_e('Download', 'sepo-lms'); ?></a>
+                                            </div>
+                                        </div>
+                                        <?php if ($r['kind'] === 'video'): ?>
+                                            <video controls preload="metadata" src="<?php echo esc_url($r['url']); ?>"></video>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php if ($r['note'] !== ''): ?><p class="slms-res-item__note"><?php echo nl2br(esc_html($r['note'])); ?></p><?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                    <?php else: ?>
+                        <p class="slms-note"><?php echo esc_html(sprintf(/* translators: %d: number of resources */ _n('This course has %d resource for its learners. Enrol to open it.', 'This course has %d resources for its learners. Enrol to open them.', count($resources), 'sepo-lms'), count($resources))); ?></p>
+                    <?php endif; ?>
+                </section>
+            <?php endif; ?>
             <?php if ($classroom['chat']): ?>
                 <section class="slms-panel" data-slms-panel="chat" hidden data-slms-chat data-course="<?php echo (int)$c['id']; ?>" data-poll="<?php echo (int)$classroom['poll']; ?>"></section>
             <?php endif; ?>
@@ -396,6 +439,39 @@ $banners = [
                         <?php endif; ?>
                     <?php endif; ?>
                     <p class="slms-small slms-muted"><?php esc_html_e('The lessons open once your payment is confirmed.', 'sepo-lms'); ?></p>
+                    <?php $proofs = \SepoLms\Proofs::publicList((int)$enrollment['id']); ?>
+                    <form class="slms-proofbox" data-slms-proof data-enrollment="<?php echo (int)$enrollment['id']; ?>" enctype="multipart/form-data">
+                        <strong class="slms-proofbox__title"><?php esc_html_e('Paid already? Send proof of payment', 'sepo-lms'); ?></strong>
+                        <ul class="slms-proofbox__list" data-slms-proof-list>
+                            <?php foreach ($proofs as $pf): ?>
+                                <li class="is-<?php echo esc_attr($pf['status']); ?>">
+                                    <span class="slms-proofbox__st"><?php echo esc_html(\SepoLms\Proofs::statusLabel($pf['status'])); ?></span>
+                                    <a href="<?php echo esc_url($pf['url']); ?>" target="_blank" rel="noopener"><?php echo esc_html($pf['name']); ?></a>
+                                    <?php if ($pf['reason'] !== ''): ?><small><?php echo esc_html($pf['reason']); ?></small><?php endif; ?>
+                                </li>
+                            <?php endforeach; ?>
+                        </ul>
+                        <div class="slms-proofbox__file">
+                            <span class="slms-proofbox__lbl" id="slms-proof-lbl-<?php echo (int)$enrollment['id']; ?>"><?php esc_html_e('Photo, screenshot or PDF of the payment', 'sepo-lms'); ?></span>
+                            <label class="slms-pick" data-slms-pick>
+                                <input class="slms-pick__input" type="file" name="proof" accept="image/jpeg,image/png,image/webp,image/heic,application/pdf" required aria-labelledby="slms-proof-lbl-<?php echo (int)$enrollment['id']; ?>">
+                                <span class="slms-pick__empty">
+                                    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 16V4"/><polyline points="7 9 12 4 17 9"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                                    <strong><?php esc_html_e('Choose a file', 'sepo-lms'); ?></strong>
+                                    <small><?php esc_html_e('or drop it here · JPEG, PNG, WebP, HEIC or PDF', 'sepo-lms'); ?></small>
+                                </span>
+                                <span class="slms-pick__chosen" hidden>
+                                    <span class="slms-pick__thumb" data-pick-thumb aria-hidden="true">PDF</span>
+                                    <span class="slms-pick__info"><strong data-pick-name></strong><small data-pick-size></small></span>
+                                    <span class="slms-pick__change"><?php esc_html_e('Change', 'sepo-lms'); ?></span>
+                                </span>
+                            </label>
+                        </div>
+                        <label class="slms-proofbox__note"><span><?php esc_html_e('Transaction ID or a note (optional)', 'sepo-lms'); ?></span>
+                            <input type="text" name="note" maxlength="255"></label>
+                        <button type="submit" class="slms-btn slms-btn--block" data-busy="<?php esc_attr_e('Sending…', 'sepo-lms'); ?>"><?php esc_html_e('Send proof', 'sepo-lms'); ?></button>
+                        <p class="slms-small" role="status" aria-live="polite" data-slms-proof-msg></p>
+                    </form>
                     <a class="slms-link-sm" href="<?php echo esc_url(Helpers::receiptUrl((string)$enrollment['reference'])); ?>"><?php echo Icons::get('receipt', 14); // phpcs:ignore WordPress.Security.EscapeOutput ?><?php esc_html_e('Enrolment summary', 'sepo-lms'); ?></a>
                 <?php elseif (!$c['free'] && $methods === []): ?>
                     <p class="slms-note"><?php esc_html_e('Enrolment is not open yet: no payment method is set up for this course.', 'sepo-lms'); ?></p>

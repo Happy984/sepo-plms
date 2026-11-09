@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template variables are local to the method that includes this file.
 /**
  * Sepo LMS — a quiz the viewer cannot take (sign-in, enrolment, no questions).
  *
