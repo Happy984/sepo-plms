@@ -90,7 +90,7 @@ final class Columns
                 $out['slms_course'] = __('Course', 'sepo-lms');
                 $out['slms_order'] = __('Order', 'sepo-lms');
                 $out['slms_opens'] = __('Opens', 'sepo-lms');
-                if (($_GET['post_type'] ?? '') === PostTypes::QUIZ) { // phpcs:ignore WordPress.Security.NonceVerification
+                if (sanitize_key(wp_unslash((string) ($_GET['post_type'] ?? ''))) === PostTypes::QUIZ) { // phpcs:ignore WordPress.Security.NonceVerification
                     $out['slms_questions'] = __('Questions', 'sepo-lms');
                 }
             }

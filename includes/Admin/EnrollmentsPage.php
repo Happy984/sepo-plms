@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SepoLms\Admin;
 
+defined('ABSPATH') || exit;
+
 use SepoLms\Activator;
 use SepoLms\Enrollments;
 use SepoLms\Helpers;
@@ -45,7 +47,7 @@ final class EnrollmentsPage
         // phpcs:disable WordPress.Security.NonceVerification
         $g = static fn(string $k): string => isset($_REQUEST[$k]) ? sanitize_text_field(wp_unslash((string)$_REQUEST[$k])) : '';
         $date = static fn(string $v): string => preg_match('/^\d{4}-\d{2}-\d{2}$/', $v) ? $v : '';
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
         return [
             'status'  => in_array($g('status'), Enrollments::STATUSES, true) ? $g('status') : '',
             'course'  => absint($g('course')),
@@ -85,6 +87,8 @@ final class EnrollmentsPage
                         'remove'   => __('Enrolment removed.', 'sepo-lms'),
                         'bulk'     => sprintf(/* translators: %d: number of enrolments */ _n('%d enrolment updated.', '%d enrolments updated.', $n, 'sepo-lms'), $n),
                         'error'    => __('That enrolment could not be changed.', 'sepo-lms'),
+                        'proof_ok' => __('Proof accepted. The enrolment is confirmed, and the learner was emailed the receipt and a note.', 'sepo-lms'),
+                        'proof_no' => __('Proof declined. The learner was emailed the reason.', 'sepo-lms'),
                     ];
                     echo esc_html($msgs[$notice] ?? '');
                     ?>
@@ -149,11 +153,11 @@ final class EnrollmentsPage
         nocache_headers();
         header('Content-Type: text/csv; charset=utf-8');
         header('Content-Disposition: attachment; filename="enrolments-' . gmdate('Y-m-d') . '.csv"');
-        $out = fopen('php://output', 'w');
+        echo "\xEF\xBB\xBF"; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Excel reads UTF-8 with a BOM.
+        $out = fopen('php://output', 'w'); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen -- CSV stream to the browser.
         if ($out === false) {
             exit;
         }
-        fwrite($out, "\xEF\xBB\xBF"); // Excel reads UTF-8 with a BOM
         $cols = ['reference', 'title', 'name', 'email', 'national_id', 'gender', 'location', 'dob', 'phone', 'level', 'status', 'method',
             'currency', 'base_price', 'discount_rate', 'discount_amount', 'unit_price', 'tax_type', 'tax_rate', 'tax_amount', 'amount',
             'gateway', 'gateway_ref', 'created', 'paid_at'];
@@ -170,7 +174,6 @@ final class EnrollmentsPage
             }
             fputcsv($out, $line);
         }
-        fclose($out); // phpcs:ignore WordPress.WP.AlternativeFunctions
         exit;
     }
 }
@@ -358,6 +361,10 @@ final class EnrollmentsTable extends \WP_List_Table
         $out = esc_html((string)$r['method']);
         if ((string)$r['gateway'] === 'woocommerce' && (string)$r['gateway_ref'] !== '' && function_exists('wc_get_order') && ($o = wc_get_order((int)$r['gateway_ref']))) {
             return $out . '<br><a href="' . esc_url($o->get_edit_order_url()) . '">' . esc_html(sprintf(/* translators: %s: order number */ __('Order #%s', 'sepo-lms'), $o->get_order_number())) . '</a> · ' . esc_html(wc_get_order_status_name($o->get_status()));
+        }
+        $proofs = \SepoLms\Proofs::adminHtml($r);
+        if ($proofs !== '') {
+            $out .= '<div class="slms-proofs"><strong>' . esc_html__('Proof of payment', 'sepo-lms') . '</strong>' . $proofs . '</div>';
         }
         if ((string)$r['gateway'] !== '') {
             $out .= '<br><span class="description">' . esc_html(['stripe' => 'Stripe', 'paypal' => 'PayPal', 'pawapay' => 'pawaPay', 'woocommerce' => 'WooCommerce'][(string)$r['gateway']] ?? (string)$r['gateway']) . ((string)$r['gateway_status'] !== '' ? ' · ' . esc_html((string)$r['gateway_status']) : '') . '</span>';

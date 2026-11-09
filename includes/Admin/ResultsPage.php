@@ -43,7 +43,7 @@ final class ResultsPage
         $orderby = isset($_GET['orderby']) ? sanitize_key(wp_unslash((string)$_GET['orderby'])) : 'submitted_at';
         $order = isset($_GET['order']) ? sanitize_key(wp_unslash((string)$_GET['order'])) : 'desc';
         $done = isset($_GET['slms_done']);
-        // phpcs:enable
+        // phpcs:enable WordPress.Security.NonceVerification
 
         echo '<div class="wrap slms-admin">';
         if ($view > 0) {

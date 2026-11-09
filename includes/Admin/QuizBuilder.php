@@ -53,6 +53,7 @@ final class QuizBuilder
             'required'      => __('Required', 'sepo-lms'),
             'options'       => __('Answers — tick the correct one', 'sepo-lms'),
             'optionsMulti'  => __('Answers — tick every correct one', 'sepo-lms'),
+            /* translators: %s: value. */
             'optionPh'      => __('Answer %s', 'sepo-lms'),
             'addOption'     => __('Add answer', 'sepo-lms'),
             'correct'       => __('Correct', 'sepo-lms'),
@@ -73,9 +74,11 @@ final class QuizBuilder
             'confirmDelete' => __('Delete this question?', 'sepo-lms'),
             'noCorrect'     => __('No correct answer ticked', 'sepo-lms'),
             'noAnswer'      => __('No expected answer', 'sepo-lms'),
+            /* translators: %1$s: value, %2$s: value. */
             'summary'       => __('%1$s questions · %2$s points', 'sepo-lms'),
             'empty'         => __('No questions yet. Add the first one below.', 'sepo-lms'),
             'untitled'      => __('(no question text)', 'sepo-lms'),
+            /* translators: %s: value. */
             'maxOptions'    => __('Up to %s answers per question.', 'sepo-lms'),
         ];
         ?>
